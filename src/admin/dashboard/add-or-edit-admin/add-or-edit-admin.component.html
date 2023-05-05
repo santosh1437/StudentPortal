@@ -1,0 +1,52 @@
+<div mat-dialog-title>
+    <h1 *ngIf="data">Edit Admin Form</h1>
+    <h1 *ngIf="!data">Add Admin Form</h1>
+</div>
+
+<form [formGroup]="addEditAdminForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>First name</mat-label>
+                <input matInput type="text" placeholder="Enter full name" formControlName="fullName">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone no.</mat-label>
+                <input matInput type="text" placeholder="Enter phone no." formControlName="phone">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Email ID</mat-label>
+                <input matInput type="text" placeholder="Enter username" formControlName="email">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="adminPassword"
+                    required>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="row">
+        <button mat-raised-button type="button" [mat-dialog-close]="false" class="col-4 d-flex">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" class="col-4 d-flex">{{data ? 'Update':
+            'Save'}}</button>
+    </div>
+</form>
+
+<ng-template #successMsg>
+    <div mat-dialog-title>
+        <p *ngIf="success" style="opacity: 0.85; color: green;" class="align-items-center justify-content-center fs-3">
+            {{appService.httpClientMsg}}</p>
+        <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3">
+            {{appService.httpClientMsg}}</p>
+    </div>
+</ng-template>

@@ -1,35 +1,96 @@
-<div>
-    <div>
-        <div class="bg-white d-flex align-items-center justify-content-center p-2 col-3">
-            <img src="assets/images/navigatebi-logo-blue.png" width="65%" class="my-1" alt="">
+<mat-sidenav-container class="vh-100">
+    <!-- side nav tabs -->
+    <mat-sidenav #sidebar mode="side" opened="opened" class="border border-0">
+        <div class="bg-white d-flex align-items-center justify-content-center p-2">
+            <img src="assets/images/Edutech-logo.svg" width="65%" class="my-1" alt="">
         </div>
-    </div>
-    <div class="sticky-top">
-        <div class="bg-white p-2 shadow-sm p-3 mb-3 bg-body">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <!-- <mat-icon (click)="sidebar.toggle()">menu</mat-icon> -->
-                    <!-- <span class="ps-3 pt-1 fs-3">{{this.currentUser?.adminType}}</span> -->
+        <!-- Tabs START -->
+        <ul class="nav nav-pills nav-pills-bg-soft pt-4 flex-column p-2" id="course-pills-tab" role="tablist">
+            <li class="nav-item mb-3">
+                <a href="javascript: void(0)" (click)="openSection('dashboard');"
+                    class="nav-link text-white d-flex align-items-center active" id="course-pills-tab-1"
+                    data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab"
+                    aria-controls="course-pills-tabs-1" aria-selected="true">
+                    <mat-icon class="fs-2">dashboard</mat-icon>
+                    <span class="ps-4 pb-1">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item mb-3">
+                <a href="javascript: void(0)" (click)="openSection('userManagement');adminService.userManagement = !adminService.userManagement;"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="true">
+                    <mat-icon class="fs-2"> library_add</mat-icon>
+                    <span class="ps-4 pb-1 col-10">User Management</span>
+                    <mat-icon class="fs-2">arrow_right</mat-icon>
+                </a>
+                <ul class="nav nav-pills nav-pills-bg-soft pt-4 flex-column p-2" *ngIf="adminService.userManagement">
+                    <li class="nav-item mb-3">
+                        <a href="javascript: void(0)" (click)="openSection('teachers');"
+                        class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                        data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                        aria-selected="true">
+                            <span class="ps-4 pb-1">Teachers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a href="javascript: void(0)" (click)="openSection('internalStudents');"
+                        class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                        data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                        aria-selected="true">
+                            <span class="ps-4 pb-1">Internal Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a href="javascript: void(0)" (click)="openSection('externalStudents');"
+                        class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                        data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                        aria-selected="true">
+                            <span class="ps-4 pb-1">External Students</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Tabs END -->
+    </mat-sidenav>
+    <mat-sidenav-content class="sticky-top">
+        <!-- nav header -->
+        <div class="content">
+            <div class="bg-white p-2 shadow-sm p-3 mb-3 bg-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <mat-icon (click)="sidebar.toggle()">menu</mat-icon>
+                        <span class="ps-3 pt-1 fs-3">{{this.adminService.currentUser?.adminType}}</span>
+                    </div>
+                    <span class="fw-bold">
+                        <a href="javascript: void(0)" (click)="signout();" type="button" role="tab"
+                            aria-controls="course-pills-tabs-1" aria-selected="false"
+                            class="text-decoration-none d-flex align-items-center" id="course-pills-tab-1"
+                            data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1">
+                            <mat-icon class="fs-1 px-1">power_settings_new</mat-icon>
+                            <span *ngIf="this.adminService.currentUser?.adminType">Sign Out</span>
+                            <span *ngIf="!this.adminService.currentUser?.adminType">Sign In</span>
+                        </a>
+                    </span>
                 </div>
-                <span class="fw-bold">
-                    <a href="javascript: void(0)" (click)="signout();" type="button" role="tab"
-                        aria-controls="course-pills-tabs-1" aria-selected="false"
-                        class="text-decoration-none d-flex align-items-center" id="course-pills-tab-1"
-                        data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1">
-                        <!-- <mat-icon class="fs-1 px-1">power_settings_new</mat-icon>
-                        <span *ngIf="this.currentUser?.adminType">Sign Out</span>
-                        <span *ngIf="!this.currentUser?.adminType">Sign In</span> -->
-                    </a>
-                </span>
             </div>
+            <div style="height: 83vh">
+                <div *ngIf="adminService.dashboard" class="mx-2 p-3 card bg-white rounded-0">
+                    <app-dashboard></app-dashboard>
+                </div>
+                <div *ngIf="adminService.externalStudents">
+                    <app-external-students></app-external-students>
+                </div>
+                <div *ngIf="adminService.internalStudents">
+                    <app-internal-students></app-internal-students>
+                </div>
+                <div *ngIf="adminService.teachers">
+                    <app-teachers></app-teachers>
+                </div>
+            </div>
+            <!-- nav content -->
         </div>
-        <div style="height: 83vh">
-            <!-- <div *ngIf="adminService.dashboard" class="mx-2 p-3 card bg-white rounded-0">
-            </div>
-            <div *ngIf="adminService.consultationForm">
-            </div>
-            <div *ngIf="adminService.contactUsForm">
-            </div> -->
-        </div>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

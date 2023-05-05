@@ -8,37 +8,46 @@
             <div class="w-100 vh-100 text-white px-5" style="background-color:#313d9c ;">
                 <!-- Logo -->
                 <img src="assets/images/login-logo.svg" alt="Navigate BI logo"
-                    class="col-5 img-fluid d-block m-auto pt-4 mt-4"/>
-                <form>
-                    <!-- *ngIf="appService.signOut" -->
-                    <div class="text-center p-1" style="font-size: large;" id="hideMe">Signed
+                    class="col-5 img-fluid d-block m-auto pt-4 mt-4">
+
+                <!-- Login From field-->
+                <form [formGroup]="loginForm" class="mt-5 pt-4 d-grid col-10 mx-auto">
+                    <div class="text-center p-1" *ngIf="appService.signOut" style="font-size: large;" id="hideMe">Signed
                         out Successfully</div>
 
                     <div class="mb-0">
-                        <label class="pt-4 mb-2 fs-4 row">Email Id</label>
-                            <input matInput formControlName="username" autocomplete="off" class=""
+                        <label class="pt-4 mb-2 fs-4">Email Id</label>
+                        <!-- Email / UserName input filed -->
+                        <mat-form-field>
+                            <!-- <span class="bg-dark"><i _ngcontent-rag-c166=""
+                                    class="d-flex bi bi-envelope-fill fs-6"></i></span> -->
+                            <input matInput formControlName="email" autocomplete="off" class=""
                                 placeholder="Email Id">
-                            <!-- <mat-error *ngFor="let validation of validationErrorMessages.email">
+                            <mat-error *ngFor="let validation of validationErrorMessages.email">
                                 <mat-error class=""
-                                    *ngIf="loginForm.get('username').hasError(validation.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">{{validation.message}}
+                                    *ngIf="loginForm.get('email').hasError(validation.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">{{validation.message}}
                                 </mat-error>
-                            </mat-error> -->
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                     <div class="mb-0">
-                        <label class="pt-4 mb-2 fs-4 row">Password</label>
+                        <label class="pt-4 mb-2 fs-4">Password</label>
                         <!-- Password input filed -->
-                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                        <mat-form-field>
+                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="adminPassword"
                                 autocomplete="off" class="" placeholder="Password">
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                                 [attr.aria-pressed]="hide" class="custom-icon">
-                                <!-- <mat-icon class="">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+                                <mat-icon class="">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            <!-- <mat-error *ngFor="let validation of validationErrorMessages.password">
+                            <mat-error *ngFor="let validation of validationErrorMessages.password">
                                 <mat-error class=""
-                                    *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">{{validation.message}}
+                                    *ngIf="loginForm.get('adminPassword').hasError(validation.type) && (loginForm.get('adminPassword').dirty || loginForm.get('adminPassword').touched)">{{validation.message}}
                                 </mat-error>
-                            </mat-error> -->
+                            </mat-error>
+                        </mat-form-field>
                     </div>
+
                     <div class="py-4">
                         <button type="submit" (click)="onLogin()"
                             class="btn cus-hover form-control fs-4 p-2">Login</button>

@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { account_validation_messages } from './validation-messages/validation-messages';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,32 +16,29 @@ import { account_validation_messages } from './validation-messages/validation-me
 })
 export class LoginPageComponent {
   public loginForm: any = FormGroup;
-  // currentUserData: any;
-  // public display: any;
   public validationErrorMessages: any;
-  // public signOutsuccess: boolean = false;
-  // public errorMessage = null;
-  // public currentUserLoginId: any;
+  public errorMessage = null;
   public hide: boolean = true;
   public invalid: boolean = false;
   public authenticating: boolean = false;
   constructor(
     public fb: FormBuilder,
     private router: Router,
+    public appService: AppService
   ) {}
 
   ngOnInit(): void {
     this.validationErrorMessages = this.getErrorMessages();
     // Admin loginform
     this.loginForm = this.fb.group({
-      username: [
+      email: [
         '',
         Validators.compose([
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
         ]),
       ],
-      password: [
+      adminPassword: [
         '',
         Validators.compose([Validators.minLength(6), Validators.required]),
       ],
@@ -56,28 +54,24 @@ export class LoginPageComponent {
   public onLogin() {
     this.authenticating = true;
     this.invalid = false;
-    // this.appService.getAuthentication(this.loginForm.value).subscribe({
-    //   next: (res) => {
-    //     this.appService.currentUser = {
-    //       id: res.id,
-    //       fullName:	res.fullName,
-    //       phoneNo:	res.phoneNo,
-    //       userName: res.userName,
-    //       password: res.password,
-    //       createdOn: res.createdOn,
-    //       updatedOn: res.updatedOn,
-    //       isDeleted: res.isDeleted,
-    //       adminType: res.adminType
-    //     };
-    //     localStorage.setItem('currentUser', JSON.stringify(res));
+    this.appService.getAuthentication(this.loginForm.value).subscribe({
+      next: (res) => {
+        this.appService.currentUser = {
+          id: res.id,
+          fullName:	res.fullName,
+          phone:	res.phone,
+          email: res.email,
+          adminPassword: res.adminpassword,
+          adminType: res.adminType
+        };
+        localStorage.setItem('currentUser', JSON.stringify(res));
         this.router.navigateByUrl('/dashboard');
-    //   },
-    //   error: (error) => {
-    //     console.log(error.error.message);
-    //     this.errorMessage = error.error.message;
-    //     this.invalid = true;
-    //   },
-    // });
-    // https://edutechex.com/StudentAdminPortal_Api/swagger/index.html
+      },
+      error: (error) => {
+        console.log(error.error.message);
+        this.errorMessage = error.error.message;
+        this.invalid = true;
+      },
+    });
   }
 }

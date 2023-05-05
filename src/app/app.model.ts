@@ -1,19 +1,15 @@
 export interface Admin{
     id: number
     fullName:	string
-    phoneNo:	string
-    userName:	string
-    password:	string
-    createdOn:	string
-    updatedOn:	string
-    isDeleted:	boolean,
+    phone:	string
+    email:	string
+    adminPassword:	string
     adminType: string
-  }
-  
-  export interface addAdmin{
+}
+
+export interface addAdmin{
   fullName:	string
-  phoneNo:	string
-  userName:	string
-  password:	string
-  adminType: string
-  }
+  phone:	string
+  email:	string
+  adminPassword:	string
+}

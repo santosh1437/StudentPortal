@@ -5,7 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class AdminService {
   public dashboard: boolean = false;
-  public userManagementExternal: boolean = false;
-  public userManagementInternal: boolean = false;
+  public internalStudents: boolean = false;
+  public externalStudents: boolean = false;
+  public teachers: boolean = false;
+  public userManagement: boolean = false;
+  public signOut: boolean = false;
+  public currentUser: any;
   constructor() { }
 }

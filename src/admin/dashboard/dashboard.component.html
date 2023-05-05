@@ -1,1 +1,113 @@
-<p>dashboard works!</p>
+<div class="ms-2 d-flex justify-content-between align-items-center">
+    <h2 *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'" class="ps-3">Admin Details List</h2>
+</div>
+<div class="d-flex align-items-center justify-content-between my-5 mx-2" *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'">
+    <button class="adminBtn col-2 btn btn-primary p-2 fs-4" (click)="openAddAdminModal();"> Add Admin </button>
+    <div class="d-flex align-items-center justify-content-end">
+        <span class="h4 m-2">Search </span>
+        <input type="text" (keyup)="applyFilter($event)" class="border p-1 border-2" style="outline: none;">
+    </div>
+</div>
+<mat-table #table [dataSource]="adminDataSource" matSort>
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index;">
+            <span ></span> {{i + 1}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="fullName" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+    </ng-container>
+    <!-- startDate Column -->
+    <ng-container matColumnDef="phoneNo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+    </ng-container>
+    <!-- validTill Column -->
+    <ng-container matColumnDef="userName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="password">
+        <mat-header-cell *matHeaderCellDef> Password 
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide" class="custom-icon">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <div *ngIf="hide"> <Sub>*********</Sub></div>
+            <div *ngIf="!hide">{{element.adminPassword}} </div>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="edit/delete" *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'">
+        <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <ul class="list-unstyled p-2 px-3 mb-0">
+                <li>
+                    <a class="d-flex text-decoration-none"
+                        [ngClass]="{'pt-3' : ((element.userName == 'navigatebi.ex@gmail.com') || (element.userName == this.appService.currentUser.userName))}"
+                        (click)="openEditModal(element);" style="cursor: pointer;">
+                        <mat-icon class="fs-2 px-1">edit</mat-icon> Edit
+                    </a>
+                </li>
+                <li *ngIf="element.userName != this.adminService.currentUser.userName">
+                    <a class="d-flex text-decoration-none" (click)="openDeleteAdminConfirm(element?.id)" style="cursor:pointer;">
+                        <mat-icon class="fs-2 px-1">delete_outline</mat-icon> Delete
+                    </a>
+                </li>
+            </ul>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+            Loading data...
+        </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+            No data available to show.
+        </mat-footer-cell>
+    </ng-container>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':adminDataSource!=null}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']"
+        [ngClass]="{'hide':!(adminDataSource!=null && adminDataSource.data.length==0)}">
+    </mat-footer-row>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<!-- Pagination -->
+<mat-paginator #adminPaginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+    aria-label="Admin details page"></mat-paginator>
+
+
+
+<ng-template #successMsg>
+    <div mat-dialog-title>
+        <p *ngIf="success" style="opacity: 0.85; color: green;"
+            class="align-items-center justify-content-center fs-3 ml-4">{{appService.httpClientMsg}}</p>
+        <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3 ml-4">
+            {{appService.httpClientMsg}}</p>
+    </div>
+</ng-template>
+
+<ng-template #deleteAdminConfirm>
+    <div mat-dialog-title>
+        <span>Delete Admin?</span>
+    </div>
+    <hr/>
+    <div mat-dialog-content>
+        <p>
+            Do you really want to delete the Admin?</p>
+    </div>
+    <hr/>
+    <div mat-dialog-actions class="justify-content-between m-2">
+        <button mat-button (click)="closeModal()">Cancel</button>
+        <button style="color: black;" mat-button (click)="deleteAdmin()" cdkFocusInitial>Ok</button>
+    </div>
+</ng-template>

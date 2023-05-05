@@ -7,9 +7,20 @@ import { Admin, addAdmin } from './app.model';
   providedIn: 'root'
 })
 export class AppService {
-  public baseUrlAPI = "https://edutechex.com/StudentAdminPortal_Api";
+  public signOut: boolean = false;
+  private baseUrlAPI = "https://edutechex.com/StudentAdminPortal_Api/api";
+  public currentUser: any;
+  public httpClientMsg: string ="";
+
   constructor(private httpClient: HttpClient) { }
 
+  getAuthentication(credentials: any): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.baseUrlAPI}/Admin/authenticate`,
+      credentials
+    );
+  }
+  
   getAdminDetails(): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Admin`);
   }

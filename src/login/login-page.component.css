@@ -1,116 +1,116 @@
 To change mat form field border color:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: white;
+  color: white;
+}
+
+/* Set top-lef and bottom-left corner radius */
+:host ::ng-deep .mat-form-field-outline-start {
+  border-radius: 0 0 0 0 !important;
+  /* min-width: 15px !important; */
+}
+
+/* Set top-right and bottom-right corner radius */
+:host ::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 0 0 0 !important;
+}
+
+::placeholder {
+  color: white;
+  opacity: 0.3;
+}
+
+mat-form-field {
+  width: 100% !important;
+  letter-spacing: 1px;
+}
+
+.cus-hover {
+  background-color: white;
+  color: #2AB2A6;
+  height: 50px;
+}
+
+.cus-hover:hover {
+  background-color: #2AB2A6;
+  color: white;
+  border: 0;
+}
+
+.box-fit {
+  height: 100%;
+}
+
+::ng-deep .error-message {
+  background-color: rgba(255, 0, 0, 0.6);
+  color: white;
+}
+
+::ng-deep .sucess-message {
+  background-color: #313d9c;
+  color: white;
+}
+
+.custom-icon {
+  background: transparent;
+  border: none;
+  color: black;
+}
+
+mat-error {
+  display: inline !important;
+}
+
+.invalidCredentials {
+  border: 1px solid #f44336;
+}
+
+#hideMe {
+  -webkit-animation: cssAnimation 7s forwards;
+  animation: cssAnimation 7s forwards;
+}
+
+@keyframes cssAnimation {
+  0% {
+    opacity: 1;
   }
-  
-  /* Set top-lef and bottom-left corner radius */
-  :host ::ng-deep .mat-form-field-outline-start {
-    border-radius: 0 0 0 0 !important;
-    /* min-width: 15px !important; */
+
+  70% {
+    opacity: 0.5;
   }
-  
-  /* Set top-right and bottom-right corner radius */
-  :host ::ng-deep .mat-form-field-outline-end {
-    border-radius: 0 0 0 0 !important;
-  }
-  
-  ::placeholder {
-    color: white;
+
+  80% {
     opacity: 0.3;
   }
-  
-  mat-form-field {
-    width: 100% !important;
-    letter-spacing: 1px;
+
+  90% {
+    opacity: 0.1;
   }
-  
-  .cus-hover {
-    background-color: white;
-    color: #2AB2A6;
-    height: 50px;
+
+  100% {
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: none;
   }
-  
-  .cus-hover:hover {
-    background-color: #2AB2A6;
-    color: white;
-    border: 0;
+}
+
+@-webkit-keyframes cssAnimation {
+  0% {
+    opacity: 1;
   }
-  
-  .box-fit {
-    height: 100%;
+
+  70% {
+    opacity: 0.5;
   }
-  
-  ::ng-deep .error-message {
-    background-color: rgba(255, 0, 0, 0.6);
-    color: white;
+
+  80% {
+    opacity: 0.3;
   }
-  
-  ::ng-deep .sucess-message {
-    background-color: #313d9c;
-    color: white;
+
+  100% {
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    display: none;
+    height: 0%;
   }
-  
-  .custom-icon {
-    background: transparent;
-    border: none;
-    color: black;
-  }
-  
-  mat-error {
-    display: inline !important;
-  }
-  
-  .invalidCredentials {
-    border: 1px solid #f44336;
-  }
-  
-  #hideMe {
-    -webkit-animation: cssAnimation 7s forwards;
-    animation: cssAnimation 7s forwards;
-  }
-  
-  @keyframes cssAnimation {
-    0% {
-      opacity: 1;
-    }
-  
-    70% {
-      opacity: 0.5;
-    }
-  
-    80% {
-      opacity: 0.3;
-    }
-  
-    90% {
-      opacity: 0.1;
-    }
-  
-    100% {
-      opacity: 0;
-      overflow: hidden;
-      visibility: hidden;
-      display: none;
-    }
-  }
-  
-  @-webkit-keyframes cssAnimation {
-    0% {
-      opacity: 1;
-    }
-  
-    70% {
-      opacity: 0.5;
-    }
-  
-    80% {
-      opacity: 0.3;
-    }
-  
-    100% {
-      opacity: 0;
-      overflow: hidden;
-      visibility: hidden;
-      display: none;
-      height: 0%;
-    }
-  }
+}
