@@ -23,7 +23,8 @@
                     aria-selected="true">
                     <mat-icon class="fs-2"> library_add</mat-icon>
                     <span class="ps-4 pb-1 col-10">User Management</span>
-                    <mat-icon class="fs-2">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="!adminService.userManagement">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="adminService.userManagement">arrow_drop_down</mat-icon>
                 </a>
                 <ul class="nav nav-pills nav-pills-bg-soft pt-4 flex-column p-2" *ngIf="adminService.userManagement">
                     <li class="nav-item mb-3">

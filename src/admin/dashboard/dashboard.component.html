@@ -48,12 +48,12 @@
             <ul class="list-unstyled p-2 px-3 mb-0">
                 <li>
                     <a class="d-flex text-decoration-none"
-                        [ngClass]="{'pt-3' : ((element.userName == 'navigatebi.ex@gmail.com') || (element.userName == this.appService.currentUser.userName))}"
+                        [ngClass]="{'pt-3' : ((element.email == 'navigatebi.ex@gmail.com') || (element.email == this.adminService.currentUser.email))}"
                         (click)="openEditModal(element);" style="cursor: pointer;">
                         <mat-icon class="fs-2 px-1">edit</mat-icon> Edit
                     </a>
                 </li>
-                <li *ngIf="element.userName != this.adminService.currentUser.userName">
+                <li *ngIf="element.email != this.adminService.currentUser.email">
                     <a class="d-flex text-decoration-none" (click)="openDeleteAdminConfirm(element?.id)" style="cursor:pointer;">
                         <mat-icon class="fs-2 px-1">delete_outline</mat-icon> Delete
                     </a>

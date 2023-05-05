@@ -8,7 +8,7 @@ import { Admin, addAdmin } from './app.model';
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://edutechex.com/StudentAdminPortal_Api/api";
+  private baseUrlAPI = "https://edutechex.com/StudentAdminPortal_Api/api/Admin";
   public currentUser: any;
   public httpClientMsg: string ="";
 
@@ -16,24 +16,24 @@ export class AppService {
 
   getAuthentication(credentials: any): Observable<any> {
     return this.httpClient.post<any>(
-      `${this.baseUrlAPI}/Admin/authenticate`,
+      `${this.baseUrlAPI}/authenticate`,
       credentials
     );
   }
   
   getAdminDetails(): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrlAPI}/Admin`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}`);
   }
 
   addAdminDetails(admin: addAdmin): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrlAPI}/Admin`, admin);
+    return this.httpClient.post<any>(`${this.baseUrlAPI}`, admin);
   }
 
   editAdminDetails(admin: Admin): Observable<any> {
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Admin`, admin);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}`, admin);
   }
 
   deleteAdminDetails(id: number): Observable<any> {
-    return this.httpClient.delete(`https://api.navigatebi.com/${id}`);
+    return this.httpClient.delete(`${this.baseUrlAPI}/${id}`);
   }
 }

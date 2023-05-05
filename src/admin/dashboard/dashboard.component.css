@@ -1,0 +1,29 @@
+.adminBtn {
+  background-color: #313d9c;
+}
+
+.adminBtn:hover {
+  background-color: #131B60;
+}
+
+.mat-column-id {
+  flex: none;
+  width: 10rem;
+}
+
+a {
+  color: black;
+  opacity: 0.7;
+}
+
+.mat-header-cell {
+  background: #f8f9fa;
+  font-size: medium;
+}
+
+.custom-icon {
+  background: transparent;
+  border: none;
+  color: black;
+}
+  
