@@ -13,3 +13,30 @@ export interface addAdmin{
   email:	string
   adminPassword:	string
 }
+
+export interface Teachers{
+  id : number
+  name : string
+  mailID : string
+  phoneNo : string
+  currentCity : string,
+  createdOn: Date
+}
+
+// export interface ExternalStudents{
+//   id : number
+//   name : string
+//   mailID : string
+//   phoneNo : string
+//   currentCity : string,
+//   createdOn: Date
+// }
+
+export interface Students{
+  id : number
+  name : string
+  mailID : string
+  phoneNo : string
+  studentType: string
+  createdOn: Date
+}

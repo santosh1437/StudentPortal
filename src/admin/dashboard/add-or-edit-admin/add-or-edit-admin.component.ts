@@ -33,7 +33,7 @@ export class AddOrEditAdminComponent {
   ) {
     this.addEditAdminForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
-      phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
+      phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
       email: new FormControl('', [Validators.required, Validators.email]),
       adminPassword: new FormControl('', [
         Validators.required,
@@ -52,7 +52,7 @@ export class AddOrEditAdminComponent {
         const editAdminData: Admin = {
           id: this.data.id,
           fullName: this.addEditAdminForm.controls['fullName'].value,
-          phone: this.addEditAdminForm.controls['phoneNo'].value,
+          phone: this.addEditAdminForm.controls['phone'].value,
           email: this.addEditAdminForm.controls['email'].value,
           adminPassword: this.addEditAdminForm.controls['adminPassword'].value,
           adminType: this.data.adminType 
@@ -61,7 +61,7 @@ export class AddOrEditAdminComponent {
       } else {
         const addAdminData: addAdmin = {
           fullName: this.addEditAdminForm.controls['fullName'].value,
-          phone: this.addEditAdminForm.controls['phoneNo'].value,
+          phone: this.addEditAdminForm.controls['phone'].value,
           email: this.addEditAdminForm.controls['email'].value,
           adminPassword: this.addEditAdminForm.controls['adminPassword'].value,
         };

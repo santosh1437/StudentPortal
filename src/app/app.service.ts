@@ -8,7 +8,7 @@ import { Admin, addAdmin } from './app.model';
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://edutechex.com/StudentAdminPortal_Api/api/Admin";
+  private baseUrlAPI = "https://edutechex.com/profile/api/api/Admin";
   public currentUser: any;
   public httpClientMsg: string ="";
 

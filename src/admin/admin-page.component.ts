@@ -23,8 +23,7 @@ export class AdminPageComponent {
   public openSection(sectionName: string) {
     this.adminService.dashboard = false;
     this.adminService.teachers = false;
-    this.adminService.internalStudents = false;
-    this.adminService.externalStudents = false;
+    this.adminService.students = false;
     // this.adminService.userManagement = false;
 
     switch (sectionName) {
@@ -35,11 +34,8 @@ export class AdminPageComponent {
         // this.adminService.userManagement = true;
         this.adminService.teachers = true;
         break;
-      case 'internalStudents':
-        this.adminService.internalStudents = true;
-        break;
-      case 'externalStudents':
-        this.adminService.externalStudents = true;
+      case 'students':
+        this.adminService.students = true;
         break;
       case 'teachers':
         this.adminService.teachers = true;

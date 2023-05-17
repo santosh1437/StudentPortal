@@ -17,19 +17,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-import { InternalStudentsComponent } from './user-management/internal-students/internal-students.component';
-import { ExternalStudentsComponent } from './user-management/external-students/external-students.component';
+import { StudentsComponent } from './user-management/students/students.component';
 import { TeachersComponent } from './user-management/teachers/teachers.component';
 import { AddOrEditAdminComponent } from './dashboard/add-or-edit-admin/add-or-edit-admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     AdminPageComponent,
     DashboardComponent,
     UserManagementComponent,
-    InternalStudentsComponent,
-    ExternalStudentsComponent,
+    StudentsComponent,
     TeachersComponent,
     AddOrEditAdminComponent
   ],
@@ -54,6 +53,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     MatTableModule,
     MatSidenavModule,
+    MatNativeDateModule,
     ReactiveFormsModule
   ],
   exports: [AdminPageComponent,

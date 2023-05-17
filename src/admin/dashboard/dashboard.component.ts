@@ -26,8 +26,8 @@ export class DashboardComponent {
   public deleteId: number = 0;
   public success: boolean = false;
   public err: boolean = false;
-  adminData: any;
-  displayedColumns: any;
+  public adminData: any;
+  public displayedColumns: any;
   public hide: boolean = true;
 
   constructor(
