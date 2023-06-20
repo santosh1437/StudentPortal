@@ -24,6 +24,7 @@ export class AdminPageComponent {
     this.adminService.dashboard = false;
     this.adminService.teachers = false;
     this.adminService.students = false;
+    this.adminService.counsellors = false;
     // this.adminService.userManagement = false;
 
     switch (sectionName) {
@@ -32,13 +33,16 @@ export class AdminPageComponent {
         break;
       case 'userManagement':
         // this.adminService.userManagement = true;
-        this.adminService.teachers = true;
+        this.adminService.students = true;
         break;
       case 'students':
         this.adminService.students = true;
         break;
       case 'teachers':
         this.adminService.teachers = true;
+        break;
+      case 'counsellors':
+        this.adminService.counsellors = true;
         break;
     }
   }

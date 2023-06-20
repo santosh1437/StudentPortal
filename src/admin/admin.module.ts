@@ -22,6 +22,7 @@ import { TeachersComponent } from './user-management/teachers/teachers.component
 import { AddOrEditAdminComponent } from './dashboard/add-or-edit-admin/add-or-edit-admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CounsellorsComponent } from './user-management/counsellors/counsellors.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     UserManagementComponent,
     StudentsComponent,
     TeachersComponent,
-    AddOrEditAdminComponent
+    AddOrEditAdminComponent,
+    CounsellorsComponent
   ],
   imports: [
     CommonModule,

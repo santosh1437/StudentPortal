@@ -40,3 +40,12 @@ export interface Students{
   studentType: string
   createdOn: Date
 }
+
+export interface Counsellors{
+  id : number
+  name : string
+  mailID : string
+  phoneNo : string
+  currentCity: string
+  createdOn: Date
+}
