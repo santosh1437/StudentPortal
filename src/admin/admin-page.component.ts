@@ -32,17 +32,23 @@ export class AdminPageComponent {
         this.adminService.dashboard = true;
         break;
       case 'userManagement':
-        // this.adminService.userManagement = true;
+        case 'students':
         this.adminService.students = true;
         break;
-      case 'students':
-        this.adminService.students = true;
+      case 'addStudents':
+        this.adminService.addStudents = true;
         break;
       case 'teachers':
         this.adminService.teachers = true;
         break;
+      case 'addTeachers':
+        this.adminService.addTeachers = true;
+        break;
       case 'counsellors':
         this.adminService.counsellors = true;
+        break;
+      case 'addCounsellors':
+        this.adminService.addCounsellors = true;
         break;
     }
   }

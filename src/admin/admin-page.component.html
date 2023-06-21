@@ -34,6 +34,7 @@
                 class="nav-link text-white d-flex align-items-center" type="button" role="tab" data-bs-toggle="pill"
                 id="admin-pills-tabs-1" aria-selected="true" data-bs-target="#course-pills-tabs-1">
                     <span class="ps-4 pb-1">Students</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon>
                 </a>
             </li>
 
@@ -43,6 +44,7 @@
                         data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
                         aria-selected="true">
                     <span class="ps-4 pb-1">Teachers</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
                 </a>
             </li>
 
@@ -51,6 +53,7 @@
                 class="nav-link text-white d-flex align-items-center" type="button" role="tab" data-bs-toggle="pill"
                 id="admin-pills-tabs-1" aria-selected="true" data-bs-target="#course-pills-tabs-1">
                     <span class="ps-4 pb-1">Counsellors</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
                 </a>
             </li>
         </ul>
