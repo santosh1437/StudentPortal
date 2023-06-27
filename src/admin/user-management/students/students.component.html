@@ -34,7 +34,7 @@
         </button>
     </div>
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4"> Add Student </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addStudents');"> Add Student </button>
     </div>
     <!-- <div class="d-flex align-items-center justify-content-between my-5 mx-2" *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'"> -->
     

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AdminService {
   public dashboard: boolean = false;
+  public settings: boolean = false;
   public students: boolean = false;
   public addStudents: boolean = false;
   public teachers: boolean = false;
@@ -15,4 +16,43 @@ export class AdminService {
   public signOut: boolean = false;
   public currentUser: any;
   constructor() { }
+
+  public openSection(sectionName: string) {
+    this.dashboard = false;
+    this.teachers = false;
+    this.students = false;
+    this.counsellors = false;
+    this.addTeachers = false;
+    this.addStudents = false;
+    this.addCounsellors = false;
+    this.settings = false;
+    // this.adminService.userManagement = false;
+
+    switch (sectionName) {
+      case 'dashboard':
+        this.dashboard = true;
+        break;
+      case 'userManagement':
+        case 'students':
+        this.students = true;
+        break;
+      case 'addStudents':
+        this.addStudents = true;
+        break;
+      case 'teachers':
+        this.teachers = true;
+        break;
+      case 'addTeachers':
+        this.addTeachers = true;
+        break;
+      case 'counsellors':
+        this.counsellors = true;
+        break;
+      case 'addCounsellors':
+        this.addCounsellors = true;
+        break;
+      case 'settings':
+        this.settings = true;
+    }
+  }
 }

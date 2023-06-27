@@ -15,43 +15,12 @@ export class AdminPageComponent {
   ){ }
 
   ngOnInit(){
-    this.openSection('dashboard');
+    this.adminService.openSection('dashboard');
     this.currentUserData = localStorage.getItem('currentUser');
     this.adminService.currentUser = this.getCurrentUser();
   }
 
-  public openSection(sectionName: string) {
-    this.adminService.dashboard = false;
-    this.adminService.teachers = false;
-    this.adminService.students = false;
-    this.adminService.counsellors = false;
-    // this.adminService.userManagement = false;
-
-    switch (sectionName) {
-      case 'dashboard':
-        this.adminService.dashboard = true;
-        break;
-      case 'userManagement':
-        case 'students':
-        this.adminService.students = true;
-        break;
-      case 'addStudents':
-        this.adminService.addStudents = true;
-        break;
-      case 'teachers':
-        this.adminService.teachers = true;
-        break;
-      case 'addTeachers':
-        this.adminService.addTeachers = true;
-        break;
-      case 'counsellors':
-        this.adminService.counsellors = true;
-        break;
-      case 'addCounsellors':
-        this.adminService.addCounsellors = true;
-        break;
-    }
-  }
+  
 
   // Get Current user from localstorage
   getCurrentUser() {

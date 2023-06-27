@@ -23,6 +23,10 @@ import { AddOrEditAdminComponent } from './dashboard/add-or-edit-admin/add-or-ed
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CounsellorsComponent } from './user-management/counsellors/counsellors.component';
+import { AddOrEditStudentComponent } from './user-management/students/add-or-edit-student/add-or-edit-student.component';
+import { AddOrEditCounsellorComponent } from './user-management/counsellors/add-or-edit-counsellor/add-or-edit-counsellor.component';
+import { AddOrEditTeacherComponent } from './user-management/teachers/add-or-edit-teacher/add-or-edit-teacher.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { CounsellorsComponent } from './user-management/counsellors/counsellors.
     StudentsComponent,
     TeachersComponent,
     AddOrEditAdminComponent,
-    CounsellorsComponent
+    CounsellorsComponent,
+    AddOrEditStudentComponent,
+    AddOrEditCounsellorComponent,
+    AddOrEditTeacherComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

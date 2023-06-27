@@ -3,7 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Counsellors } from 'src/app/app.model';
+import { AdminService } from 'src/admin/admin.service';
+import { Counsellor } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class CounsellorsComponent {
     'password',
     'createdOn'
   ];
-  public CounsellorsDataSource: MatTableDataSource<Counsellors>;
+  public CounsellorsDataSource: MatTableDataSource<Counsellor>;
   public CounsellorsData: any;
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator = new MatPaginator(
@@ -34,7 +35,10 @@ export class CounsellorsComponent {
     ChangeDetectorRef.prototype
   );
 
-  constructor(public appService: AppService) {
+  constructor(
+    public appService: AppService,
+    public adminService: AdminService
+    ) {
     // this.getCounsellorsDetails();
     this.CounsellorsDataSource = new MatTableDataSource(this.CounsellorsData);
   }
@@ -53,9 +57,9 @@ export class CounsellorsComponent {
     const fromDate = this.CounsellorsSearchDateRange.controls['start'].value;
     const toDate = this.CounsellorsSearchDateRange.controls['end'].value;
     this.tempData = this.CounsellorsData;
-    let selectedItems: Counsellors[] = [];
+    let selectedItems: Counsellor[] = [];
     if (fromDate && toDate) {
-      this.tempData.forEach((item: Counsellors) => {
+      this.tempData.forEach((item: Counsellor) => {
         if (
           new Date(item.createdOn) >= new Date(fromDate) &&
           new Date(item.createdOn) <= new Date(toDate)

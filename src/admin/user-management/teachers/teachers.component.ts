@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AdminService } from 'src/admin/admin.service';
 import { Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
@@ -34,7 +35,10 @@ export class TeachersComponent {
     ChangeDetectorRef.prototype
   );
 
-  constructor(public appService: AppService) {
+  constructor(
+    public appService: AppService,
+    public adminService: AdminService
+    ) {
     this.getTeachersDetails();
     this.TeachersDataSource = new MatTableDataSource(this.TeachersData);
   }

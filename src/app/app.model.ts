@@ -41,11 +41,18 @@ export interface Students{
   createdOn: Date
 }
 
-export interface Counsellors{
+export interface Counsellor{
   id : number
   name : string
   mailID : string
   phoneNo : string
   currentCity: string
   createdOn: Date
+}
+
+export interface addCounsellor{
+  name : string
+  mailID : string
+  phoneNo : string
+  currentCity: string
 }

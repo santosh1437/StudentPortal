@@ -35,7 +35,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4"> Add Counsellor </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addCounsellors');"> Add Counsellor </button>
     </div> 
 
     <mat-table [dataSource]="CounsellorsDataSource" matSort>
