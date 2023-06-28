@@ -42,7 +42,7 @@
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="fullName">
@@ -60,17 +60,25 @@
             <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
         </ng-container>
         <!-- City Column -->
-        <ng-container matColumnDef="city">
+        <!-- <ng-container matColumnDef="city">
             <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="password">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Password </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="subject">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="course">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="createdOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.createdOn | date:'dd/MM/yyyy'}} {{element.createdOn | date:'h:mm a'}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="loading">
             <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">

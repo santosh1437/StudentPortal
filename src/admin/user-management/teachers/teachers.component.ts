@@ -23,8 +23,9 @@ export class TeachersComponent {
     'fullName',
     'email',
     'phoneNo',
-    'city',
     'password',
+    'course',
+    'subject',
     'createdOn'
   ];
   public TeachersDataSource: MatTableDataSource<Teachers>;
@@ -86,19 +87,19 @@ export class TeachersComponent {
   //get Teachers form details
   private getTeachersDetails() {
     if(localStorage.getItem('currentUser')){
-      // this.appService.getTeachersForm().subscribe({
-      //   next: (res) => {  
-      //     this.TeachersData = res;
-      //     this.TeachersDataSource = new MatTableDataSource(
-      //       this.TeachersData
-      //     );
-      //     this.TeachersDataSource.paginator = this.paginator;
-      //     this.TeachersDataSource.sort = this.sort;
-      //   },
-      //   error: (err) => {
-      //     console.log(err.message);
-      //   },
-      // });
+      this.appService.getTeacher().subscribe({
+        next: (res) => {  
+          this.TeachersData = res;
+          this.TeachersDataSource = new MatTableDataSource(
+            this.TeachersData
+          );
+          this.TeachersDataSource.paginator = this.paginator;
+          this.TeachersDataSource.sort = this.sort;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
     }
   }
 
