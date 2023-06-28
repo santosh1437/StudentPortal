@@ -7,18 +7,18 @@
         <!-- (ngSubmit)="onFormSubmit()" -->
         <div class="row justify-content-center my-4">
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">First name :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Full name :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter first name" formControlName="firstName">
+                    <input matInput type="text" placeholder="Enter full name" formControlName="fullName">
                 </mat-form-field>
             </div>
 
-            <div class="col-lg-6 row">
+            <!-- <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Last name :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput type="text" placeholder="Enter last name" formControlName="lastName">
                 </mat-form-field>
-            </div>
+            </div> -->
     
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Phone No :</mat-label>
@@ -30,7 +30,7 @@
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Email ID :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter username" formControlName="mailID">
+                    <input matInput type="text" placeholder="Enter username" formControlName="email">
                 </mat-form-field>
             </div>
     
@@ -44,27 +44,27 @@
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Current City :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Current city" formControlName="currentCity"
+                    <input matInput placeholder="Enter course name" formControlName="course"
                         required>
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter Address" formControlName="address"
+                    <input type="text" matInput placeholder="Enter subject" formControlName="subject"
                         required>
                 </mat-form-field>
             </div>
         </div>
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button type="button" class="">Cancel</button>
+                <button mat-raised-button type="reset" class="">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button color="primary" type="submit" class="float-lg-end">
+                <button mat-raised-button color="primary" type="submit" class="float-lg-end" (click)="addeditTeacher()">
                     <!-- {{data ? 'Update':'Save'}} --> Add Teacher </button>    
             </div>
         </div>

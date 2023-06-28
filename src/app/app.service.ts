@@ -8,7 +8,7 @@ import { Admin, addAdmin } from './app.model';
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://edutechex.com/profile/api/api/Admin";
+  private baseUrlAPI = "https://edutechex.com/profile/api/api";
   public currentUser: any;
   public httpClientMsg: string ="";
 
@@ -22,18 +22,27 @@ export class AppService {
   }
   
   getAdminDetails(): Observable<any> {
-    return this.httpClient.get<any>(`${this.baseUrlAPI}`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Admin`);
   }
 
   addAdminDetails(admin: addAdmin): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrlAPI}`, admin);
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Admin`, admin);
   }
 
   editAdminDetails(admin: Admin): Observable<any> {
-    return this.httpClient.put<any>(`${this.baseUrlAPI}`, admin);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Admin`, admin);
   }
 
   deleteAdminDetails(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/${id}`);
+    return this.httpClient.delete(`${this.baseUrlAPI}/Admin/${id}`);
   }
+// Add Teacher
+adTeacher(teacher:any): Observable<any> {
+  return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
+}
+
+//Get Teacher
+getTeacher(){
+  return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
+}
 }

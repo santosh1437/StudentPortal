@@ -25,28 +25,36 @@ export class AddOrEditTeacherComponent {
     private dialog: MatDialog
   ){
     this.addEditTeacherForm = this.fb.group({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      fullName: new FormControl('', [Validators.required]),
+      // lastName: new FormControl('', [Validators.required]),
       doj: new FormControl('', [Validators.required]),
       phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
-      mailID: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]
-      ),
-      currentCity: new FormControl('', [Validators.required]),
-      courses: new FormControl('', [Validators.required]),
-      address: new FormControl('', Validators.required)
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)] ),
+      subject: new FormControl('', [Validators.required]),
+      course: new FormControl('', [Validators.required]),
+      // isActive: new FormControl('', Validators.required)
     });
+  }
+
+  addeditTeacher(){
+    this.appService.adTeacher(this.addEditTeacherForm.value).subscribe((res:any)=>{
+      this.success = true;
+      this.successMsgDialog('Teacher added successfully'); 
+    })
+    
   }
 
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
-    const timeout = 750;
+    const timeout = 2000;
     const dialogRef = this.dialog.open(this.successDialog, {
       width: 'auto',
     });
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
+        this.adminService.openSection('teachers');
       }, timeout);
     });
   }
