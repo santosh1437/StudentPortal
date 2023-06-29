@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,13 +6,20 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
 import { Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
+import { AddOrEditTeacherComponent } from './add-or-edit-teacher/add-or-edit-teacher.component';
+import { MatDialog } from '@angular/material/dialog';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
-  styleUrls: ['./teachers.component.css']
+  styleUrls: ['./teachers.component.css'],
 })
 export class TeachersComponent {
+  public deleteId: number = 0;
+  public success: boolean = false;
+  public err: boolean = false;
+  clicked = false;
   TeachersSearchDateRange = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -26,7 +33,9 @@ export class TeachersComponent {
     'password',
     'course',
     'subject',
-    'createdOn'
+    'status',
+    'createdOn',
+    'edit/delete',
   ];
   public TeachersDataSource: MatTableDataSource<Teachers>;
   public TeachersData: any;
@@ -35,10 +44,14 @@ export class TeachersComponent {
     new MatPaginatorIntl(),
     ChangeDetectorRef.prototype
   );
+  @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
+  @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
+  dialogRef: any;
 
   constructor(
     public appService: AppService,
-    public adminService: AdminService
+    public adminService: AdminService,
+    public dialog: MatDialog
     ) {
     this.getTeachersDetails();
     this.TeachersDataSource = new MatTableDataSource(this.TeachersData);
@@ -51,6 +64,67 @@ export class TeachersComponent {
   ngAfterViewInit() {
     this.TeachersDataSource.paginator = this.paginator;
     this.TeachersDataSource.sort = this.sort;
+  }
+
+  // On click of Add Admin button -- open Add Admin modal
+public openAddTeacherModal() {
+  const dialogRef = this.dialog.open(AddOrEditTeacherComponent);
+  dialogRef.afterClosed().subscribe((res) => {
+    this.getTeachersDetails();
+  });
+}
+
+  // On click of Edit Teacher button -- open Edit Teacher modal
+public openEditModal(data: any) {
+  const dialogRef = this.dialog.open(AddOrEditTeacherComponent, {
+    data,
+  });
+  dialogRef.afterClosed().subscribe((res) => {
+    this.getTeachersDetails();
+  });
+}
+
+public deleteTeacher() {
+  this.appService.deleteTeacher(this.deleteId).subscribe({
+    next: (res) => {
+      this.closeModal();
+      this.success = true;
+      this.err = false;
+      this.successMsgDialog('Teacher deleted Successfully');
+      this.getTeachersDetails();
+    },
+    error: (err) => {
+      this.success = false;
+      this.err = true;
+      this.successMsgDialog('Something went wrong, Please try after some time!');
+    },
+  });
+  this.deleteId = 0;
+}
+
+  openDeleteTeacherConfirm(ID:any){
+    this.deleteId = ID;
+  this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
+    width: 'auto',
+  });
+  }
+
+  onItemChange(element:any){
+    this.appService.editTeachers( element.id).pipe(
+      catchError((e) => {
+        element.isActive = !element.isActive;
+        return e;
+      }),
+      finalize(() => {
+        this.clicked = false;
+      })
+    )
+    .subscribe(data => {
+    });
+  }
+
+  public closeModal(){
+    this.dialogRef.close();
   }
 
   // On filtering with dates
@@ -116,13 +190,27 @@ export class TeachersComponent {
     const exportData = this.TeachersDataSource.data.map((data) => {
       return {
         id : data.id,
-        fullName : data.name,
-        email : data.mailID,
+        fullName : data.fullName,
+        email : data.email,
         phoneNo : data.phoneNo,
-        city : data.currentCity,
+        subject : data.subject,
         createdOn: data.createdOn
       }
     });
     // new ngxCsv(exportData, 'TeachersDetailsReport', options);
   }
+
+  //Success or error msg dialog after form submissions or performing some actions
+public successMsgDialog(msg: string) {
+  this.appService.httpClientMsg = msg;
+  const timeout = 3000;
+  const dialogRef = this.dialog.open(this.successDialog, {
+    width: 'auto',
+  });
+  dialogRef.afterOpened().subscribe((_) => {
+    setTimeout(() => {
+      dialogRef.close();
+    }, timeout);
+  });
+}
 }

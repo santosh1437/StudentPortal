@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, addAdmin } from './app.model';
+import { Admin, Teachers, addAdmin } from './app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class AppService {
 
   getAuthentication(credentials: any): Observable<any> {
     return this.httpClient.post<any>(
-      `${this.baseUrlAPI}/authenticate`,
+      `${this.baseUrlAPI}/Admin/authenticate`,
       credentials
     );
   }
@@ -44,5 +44,14 @@ adTeacher(teacher:any): Observable<any> {
 //Get Teacher
 getTeacher(){
   return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
+}
+
+//Update Teachers
+editTeachers(teacher: Teachers): Observable<any>{
+  return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.id}`, teacher);
+}
+//Delete Teacher
+deleteTeacher(id: number): Observable<any> {
+  return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
 }
 }

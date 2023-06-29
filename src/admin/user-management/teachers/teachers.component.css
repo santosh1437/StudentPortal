@@ -24,4 +24,9 @@
     background: #f8f9fa;
     font-size: medium;
   }
+  .custom-icon {
+    background: transparent;
+    border: none;
+    color: black;
+  }
   

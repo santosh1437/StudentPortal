@@ -16,10 +16,24 @@ export interface addAdmin{
 
 export interface Teachers{
   id : number
-  name : string
-  mailID : string
+  fullName : string
+  email : string
   phoneNo : string
-  currentCity : string,
+  password : string
+  isActive : boolean
+  subject : string
+  course : string
+  createdOn: Date
+}
+
+export interface addTeachers{
+  fullName : string
+  email : string
+  phoneNo : string
+  password : string
+  isActive : boolean
+  subject : string
+  course : string
   createdOn: Date
 }
 
