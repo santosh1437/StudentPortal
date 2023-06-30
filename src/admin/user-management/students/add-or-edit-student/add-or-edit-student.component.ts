@@ -1,6 +1,7 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminService } from 'src/admin/admin.service';
 import { addStudent, Student } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
@@ -16,13 +17,14 @@ export class AddOrEditStudentComponent {
   public success: boolean = false;
   public err: boolean = false;
   public personalDetails: boolean = true;
-  public courseDetails: boolean = true;
+  public courseDetails: boolean = false;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
     public appService: AppService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public adminService: AdminService
   ) {
     this.addEditStudentForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
@@ -35,15 +37,26 @@ export class AddOrEditStudentComponent {
       studentType: new FormControl('', [Validators.required]),
       currentCity: new FormControl('', [Validators.required]),
       address: new FormControl('', Validators.required),
-      parentPhoneNo: new FormControl('', Validators.required)
+      parentPhoneNo: new FormControl('', Validators.required),
+      course: new FormControl('', Validators.required),
+      subject: new FormControl('', Validators.required),
+      batch: new FormControl('', Validators.required),
+      timings: new FormControl('', Validators.required),
+      assignedTeacher: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit(): void {
     this.data  = {
-      id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "buddi", studentType: "External Student"
+      id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "buddi", studentType: "External Student", 
+      batch: "1", course: "SAT", subject: "maths", timings:"10 to 11"
     }
     this.addEditStudentForm.patchValue(this.data);
+  }
+
+  public fillNext(){
+    this.personalDetails = false;
+    this.courseDetails = true;
   }
 
   onFormSubmit() {
