@@ -1,6 +1,6 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Counsellor, addCounsellor } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
@@ -20,19 +20,20 @@ export class AddOrEditCounsellorComponent {
     private fb: FormBuilder,
     // private dialogRef: any,
     // public data: any,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<AddOrEditCounsellorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.addEditCounsellorForm = this.fb.group({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
-      mailID: new FormControl('', [Validators.required, Validators.email]),
+      fullName: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
-      currentCity: new FormControl('', [Validators.required]),
-      address: new FormControl('', Validators.required)
+      counsellorType: new FormControl('', [Validators.required]),
+      // address: new FormControl('', Validators.required)
     });
   }
 
@@ -40,68 +41,86 @@ export class AddOrEditCounsellorComponent {
     // this.data = {
     //   id:1, name:"", mailID:"", phoneNo:"", currentCity:"", createdOn: new Date()
     // }
-    // this.addEditCounsellorForm.patchValue(this.data);
+    this.addEditCounsellorForm.patchValue(this.data);
   }
 
-  onFormSubmit() {
+  addEditCousellingDetails() {
     if (this.addEditCounsellorForm.valid) {
-      // if (this.data) {
-      //   const editCounsellorData: Counsellor = {
-      //     id: this.data.id,
-      //     name: this.addEditCounsellorForm.controls['fullName'].value,
-      //     phoneNo: this.addEditCounsellorForm.controls['phone'].value,
-      //     mailID: this.addEditCounsellorForm.controls['email'].value,
-      //     currentCity: this.addEditCounsellorForm.controls['adminPassword'].value,
-      //     createdOn: new Date()
-      //   };
-      //   this.editAdmin(editCounsellorData);
-      // } else {
-        const addCounsellorData: addCounsellor = {
-          name: this.addEditCounsellorForm.controls['fullName'].value,
-          phoneNo: this.addEditCounsellorForm.controls['phone'].value,
-          mailID: this.addEditCounsellorForm.controls['email'].value,
-          currentCity: this.addEditCounsellorForm.controls['adminPassword'].value,
+      if (this.data) {
+        const editCounsellorData: Counsellor = {
+          id: this.data.id,
+          fullName: this.addEditCounsellorForm.controls['fullName'].value,
+          phone: this.addEditCounsellorForm.controls['phone'].value,
+          email: this.addEditCounsellorForm.controls['email'].value,
+          currentCity: '',
+          password: this.addEditCounsellorForm.controls['password'].value,
+          isActive: true,
+          counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
+          address: '',
+          empId: '',
+          empEmail: '',
+          createdOn: new Date()
         };
-        this.addAdmin(addCounsellorData);
-      // }
+        this.editAdmin(editCounsellorData);
+      } else {
+        const addCounsellorData: addCounsellor = {
+          fullName: this.addEditCounsellorForm.controls['fullName'].value,
+          phone: this.addEditCounsellorForm.controls['phone'].value,
+          email: this.addEditCounsellorForm.controls['email'].value,
+          currentCity: '',
+          password: this.addEditCounsellorForm.controls['password'].value,
+          isActive: true,
+          counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
+          address: '',
+          empId: '',
+          empEmail: '',
+          createdOn: new Date(),
+        };
+        this.addCounseller(addCounsellorData);
+      }
     }
   }
 
-  public addAdmin(counsellor: addCounsellor) {
-  //   this.appService.addAdminDetails(counsellor).subscribe({
-  //     next: (res) => {
-  //       this.dialogRef.close(true);
-  //       this.success = true;
-  //       this.err = false;
-  //       this.successMsgDialog('Admin added successfully');
-  //     },
-  //     error: (err) => {
-  //       this.err = true;
-  //       this.success = false;
-  //       this.successMsgDialog(err.message);
-  //     },
-  //   });
+  public addCounseller(counsellor: addCounsellor) {
+    this.appService.addCounselling(counsellor).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.dialogRef.close(true);
+        this.success = true;
+        this.err = false;
+        this.successMsgDialog('Counseller added successfully');
+      },
+      error: (err) => {
+        this.err = true;
+        this.success = false;
+        this.successMsgDialog(err.message);
+      },
+    });
   }
 
   public editAdmin(counsellor: Counsellor) {
-  //   this.appService.editCounsellorDetails(counsellor).subscribe({
-  //     next: (res) => {
-  //       this.dialogRef.close(true);
-  //       this.success = true;
-  //       this.err = false;
-  //       this.successMsgDialog('Admin updated successfully');
-  //     },
-  //     error: (err) => {
-  //       this.err = true;
-  //       this.success = false;
-  //       this.successMsgDialog(err.message);
-  //     },
-  //   });
+    this.appService.editCounselling(counsellor).subscribe({
+      next: (res) => {
+        this.dialogRef.close(true);
+        this.success = true;
+        this.err = false;
+        this.successMsgDialog('Counseller updated successfully');
+      },
+      error: (err) => {
+        this.err = true;
+        this.success = false;
+        this.successMsgDialog(err.message);
+      },
+    });
+  }
+
+  public closeModal(){
+    this.dialogRef.close();
   }
 
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
-    const timeout = 750;
+    const timeout = 3000;
     const dialogRef = this.dialog.open(this.successDialog, {
       width: 'auto',
     });

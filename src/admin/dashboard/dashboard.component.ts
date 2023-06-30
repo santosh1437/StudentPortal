@@ -44,7 +44,7 @@ export class DashboardComponent {
     this.appService.getAdminDetails().subscribe({
       next: (res) => {
         // Setting up table columns and data based on type of user
-        if(this.adminService.currentUser.adminType == "Super Admin"){
+        if (this.adminService.currentUser.adminType == "Super Admin") {
           this.displayedColumns = ['id', 'fullName', 'phoneNo', 'userName', 'password', 'edit/delete'];
           this.adminData = res;
           this.adminDataSource = new MatTableDataSource(this.adminData);
@@ -60,74 +60,82 @@ export class DashboardComponent {
         console.log(error.error.message);
       },
     });
-}
+  }
 
-public deleteAdmin() {
-  this.appService.deleteAdminDetails(this.deleteId).subscribe({
-    next: (res) => {
-      this.closeModal();
-      this.success = true;
-      this.err = false;
-      this.successMsgDialog('Admin deleted Successfully');
+  public deleteAdmin() {
+    this.appService.deleteAdminDetails(this.deleteId).subscribe({
+      next: (res) => {
+        this.closeModal();
+        this.success = true;
+        this.err = false;
+        this.successMsgDialog('Admin deleted Successfully');
+        this.getAdminDetails();
+      },
+      error: (err) => {
+        this.success = false;
+        this.err = true;
+        this.successMsgDialog('Something went wrong, Please try after some time!');
+      },
+    });
+    this.deleteId = 0;
+  }
+  /*End of get and delete operations Admin*/
+
+  // Search Admin table
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.adminDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // On click of Add Admin button -- open Add Admin modal
+  public openAddAdminModal() {
+    const dialogRef = this.dialog.open(AddOrEditAdminComponent ,{
+      width:'30%',
+      exitAnimationDuration:'1000ms',
+      enterAnimationDuration:'1000ms',
+    });
+    dialogRef.afterClosed().subscribe((res) => {
       this.getAdminDetails();
-    },
-    error: (err) => {
-      this.success = false;
-      this.err = true;
-      this.successMsgDialog('Something went wrong, Please try after some time!');
-    },
-  });
-  this.deleteId = 0;
-}
-/*End of get and delete operations Admin*/
+      
+    });
+  }
 
-// Search Admin table
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.adminDataSource.filter = filterValue.trim().toLowerCase();
-}
+  // On click of Edit Admin button -- open Edit Admin modal
+  public openEditModal(data: any) {
+    const dialogRef = this.dialog.open(AddOrEditAdminComponent, {
+      width: '30%',
+      exitAnimationDuration: '1000ms',
+      enterAnimationDuration: '1000ms',
+      data,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.getAdminDetails();
+    });
+  }
 
-// On click of Add Admin button -- open Add Admin modal
-public openAddAdminModal() {
-  const dialogRef = this.dialog.open(AddOrEditAdminComponent);
-  dialogRef.afterClosed().subscribe((res) => {
-    this.getAdminDetails();
-  });
-}
+  //Open Delete Confirmation Modal
+  public openDeleteAdminConfirm(id: any) {
+    this.deleteId = id;
+    this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog, {
+      width: 'auto',
+    });
+  }
 
-// On click of Edit Admin button -- open Edit Admin modal
-public openEditModal(data: any) {
-  const dialogRef = this.dialog.open(AddOrEditAdminComponent, {
-    data,
-  });
-  dialogRef.afterClosed().subscribe((res) => {
-    this.getAdminDetails();
-  });
-}
+  public closeModal() {
+    this.dialogRef.close();
+  }
 
-//Open Delete Confirmation Modal
-public openDeleteAdminConfirm(id: any){
-  this.deleteId = id;
-  this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
-    width: 'auto',
-  });
-}
-
-public closeModal(){
-  this.dialogRef.close();
-}
-
-//Success or error msg dialog after form submissions or performing some actions
-public successMsgDialog(msg: string) {
-  this.appService.httpClientMsg = msg;
-  const timeout = 1000;
-  const dialogRef = this.dialog.open(this.successDialog, {
-    width: 'auto',
-  });
-  dialogRef.afterOpened().subscribe((_) => {
-    setTimeout(() => {
-      dialogRef.close();
-    }, timeout);
-  });
-}
+  //Success or error msg dialog after form submissions or performing some actions
+  public successMsgDialog(msg: string) {
+    this.appService.httpClientMsg = msg;
+    const timeout = 1000;
+    const dialogRef = this.dialog.open(this.successDialog, {
+      width: 'auto',
+    });
+    dialogRef.afterOpened().subscribe((_) => {
+      setTimeout(() => {
+        dialogRef.close();
+      }, timeout);
+    });
+  }
 }

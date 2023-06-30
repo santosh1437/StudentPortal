@@ -35,14 +35,14 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addCounsellors');"> Add Counsellor </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddCounsellerModal()"> Add Counsellor </button>
     </div> 
 
     <mat-table [dataSource]="CounsellorsDataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            <mat-cell *matCellDef="let i = index "> {{i+1}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="fullName">
@@ -57,12 +57,12 @@
         <!-- Phone no. Column -->
         <ng-container matColumnDef="phoneNo">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
         </ng-container>
         <!-- City Column -->
-        <ng-container matColumnDef="city">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+        <ng-container matColumnDef="ctype">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Conseller Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.counsellorType}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="password">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Password </mat-header-cell>
@@ -70,7 +70,26 @@
         </ng-container>
         <ng-container matColumnDef="createdOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.createdOn | date:'dd/MM/yyyy'}} {{element.createdOn | date:'h:mm a'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="edit/delete" >
+            <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <ul class="list-unstyled p-2 px-3 mb-0">
+                    <li>
+                        <a class="d-flex text-decoration-none custom-icon"
+                            [ngClass]="{'pt-3' : ((element.email == 'navigatebi.ex@gmail.com') || (element.email == this.adminService.currentUser.email))}"
+                            (click)="openEditCounsellerModal(element);" style="cursor: pointer;">
+                            <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
+                        </a>
+                    </li>
+                    <li *ngIf="element.email != this.adminService.currentUser.email">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteCounsellerConfirm(element?.id)" style="cursor:pointer;">
+                            <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
+                        </a>
+                    </li>
+                </ul>
+            </mat-cell>
         </ng-container>
         <ng-container matColumnDef="loading">
             <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
@@ -94,3 +113,27 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
         aria-label="Counsellors details page"></mat-paginator>
 </section>
+
+<ng-template #successMsg>
+    <div mat-dialog-title>
+        <p *ngIf="success" style="opacity: 0.85; color: green;"
+            class="align-items-center justify-content-center fs-3 ml-4">{{appService.httpClientMsg}}</p>
+        <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3 ml-4">
+            {{appService.httpClientMsg}}</p>
+    </div>
+</ng-template>
+<ng-template #deleteTeacherConfirm>
+    <div mat-dialog-title>
+        <span>Delete Counseller?</span>
+    </div>
+    <hr/>
+    <div mat-dialog-content>
+        <p>
+            Do you really want to delete the counseller?</p>
+    </div>
+    <hr/>
+    <div mat-dialog-actions class="justify-content-between m-2">
+        <button mat-button (click)="closeModal()">Cancel</button>
+        <button style="color: black;" mat-button (click)="deleteCounseller()" cdkFocusInitial>Ok</button>
+    </div>
+</ng-template>

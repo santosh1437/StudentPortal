@@ -1,38 +1,31 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-3 d-flex justify-content-between align-items-center">
-        <!-- <h2 class="ps-3" *ngIf="data">Edit Counsellor</h2> -->
+        <h2 class="ps-3" *ngIf="data">Edit Counsellor</h2>
         <h2 class="ps-3">Add Counsellor</h2>
         <!-- *ngIf="!data" -->
     </div>
 
-    <form [formGroup]="addEditCounsellorForm">
+    <form [formGroup]="addEditCounsellorForm" (ngSubmit)="addEditCousellingDetails()">
         <!-- (ngSubmit)="onFormSubmit()" -->
         <div class="row justify-content-center my-5">
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">First name :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Full name :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter first name" formControlName="firstName">
-                </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Last name :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter last name" formControlName="lastName">
+                    <input matInput type="text" placeholder="Enter first name" formControlName="fullName">
                 </mat-form-field>
             </div>
     
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Phone No :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="tel" placeholder="Enter phone no." formControlName="phoneNo">
+                    <input matInput type="tel" placeholder="Enter phone no." formControlName="phone">
                 </mat-form-field>
             </div>
     
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Email ID :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter username" formControlName="mailID">
+                    <input matInput type="text" placeholder="Enter username" formControlName="email">
                 </mat-form-field>
             </div>
     
@@ -42,6 +35,18 @@
                     <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
                         required>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Counseller Type :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput type="text" placeholder="Enter Counseller Type" formControlName="counsellorType">
+                </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Counseller Type :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput type="text" placeholder="Enter Counseller Type" formControlName="counsellorType">
                 </mat-form-field>
             </div>
 
@@ -59,15 +64,15 @@
                     <input type="text" matInput placeholder="Enter Address" formControlName="address"
                         required>
                 </mat-form-field>
-            </div>
+            </div> -->
         </div>
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button type="button" class="">Cancel</button>
+                <button mat-raised-button type="button" class="" (click)="closeModal()">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    <!-- {{data ? 'Update':'Save'}} --> Add Counsellor </button>    
+                    {{data ? 'Update':'Save'}} </button>    
             </div>
         </div>
     </form>
