@@ -201,16 +201,16 @@ public deleteTeacher() {
   }
 
   //Success or error msg dialog after form submissions or performing some actions
-public successMsgDialog(msg: string) {
-  this.appService.httpClientMsg = msg;
-  const timeout = 3000;
-  const dialogRef = this.dialog.open(this.successDialog, {
-    width: 'auto',
-  });
-  dialogRef.afterOpened().subscribe((_) => {
-    setTimeout(() => {
-      dialogRef.close();
-    }, timeout);
-  });
-}
+  public successMsgDialog(msg: string) {
+    this.appService.httpClientMsg = msg;
+    const timeout = 3000;
+    const dialogRef = this.dialog.open(this.successDialog, {
+      width: 'auto',
+    });
+    dialogRef.afterOpened().subscribe((_) => {
+      setTimeout(() => {
+        dialogRef.close();
+      }, timeout);
+    });
+  }
 }

@@ -74,7 +74,7 @@ export class AddOrEditTeacherComponent {
   }
 
   public addTeachers(teacher: addTeachers){
-    this.appService.adTeacher(this.addEditTeacherForm.value).subscribe({
+    this.appService.addTeacher(this.addEditTeacherForm.value).subscribe({
       next:(res) => {
         this.success = true;
       this.successMsgDialog('Teacher added successfully'); 

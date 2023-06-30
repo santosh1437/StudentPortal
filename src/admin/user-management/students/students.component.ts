@@ -4,7 +4,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { Students } from 'src/app/app.model';
+import { Student } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -20,13 +20,13 @@ export class StudentsComponent {
   public tempData: any;
   public displayedColumns = [
     'id',
-    'name',
-    'mailID',
+    'fullName',
+    'email',
     'phoneNo',
     'studentType',
     'createdOn'
   ];
-  public StudentsDataSource: MatTableDataSource<Students>;
+  public StudentsDataSource: MatTableDataSource<Student>;
   public StudentsData: any;
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator = new MatPaginator(
@@ -56,9 +56,9 @@ export class StudentsComponent {
     const fromDate = this.StudentsSearchDateRange.controls['start'].value;
     const toDate = this.StudentsSearchDateRange.controls['end'].value;
     this.tempData = this.StudentsData;
-    let selectedItems: Students[] = [];
+    let selectedItems: Student[] = [];
     if (fromDate && toDate) {
-      this.tempData.forEach((item: Students) => {
+      this.tempData.forEach((item: Student) => {
         if (
           new Date(item.createdOn) >= new Date(fromDate) &&
           new Date(item.createdOn) <= new Date(toDate)
@@ -85,19 +85,19 @@ export class StudentsComponent {
   //get Students form details
   private getStudentsDetails() {
     if(localStorage.getItem('currentUser')){
-      // this.appService.getStudentsForm().subscribe({
-      //   next: (res) => {  
-      //     this.StudentsData = res;
-      //     this.StudentsDataSource = new MatTableDataSource(
-      //       this.StudentsData
-      //     );
-      //     this.StudentsDataSource.paginator = this.paginator;
-      //     this.StudentsDataSource.sort = this.sort;
-      //   },
-      //   error: (err) => {
-      //     console.log(err.message);
-      //   },
-      // });
+      this.appService.getStudents().subscribe({
+        next: (res) => {  
+          this.StudentsData = res;
+          this.StudentsDataSource = new MatTableDataSource(
+            this.StudentsData
+          );
+          this.StudentsDataSource.paginator = this.paginator;
+          this.StudentsDataSource.sort = this.sort;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
     }
   }
 
@@ -114,8 +114,8 @@ export class StudentsComponent {
     const exportData = this.StudentsDataSource.data.map((data) => {
       return {
         id : data.id,
-        name : data.name,
-        mailID : data.mailID,
+        fullName : data.fullName,
+        email : data.email,
         phoneNo : data.phoneNo,
         studentType: data.studentType,
         createdOn: data.createdOn

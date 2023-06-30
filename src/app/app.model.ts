@@ -37,21 +37,28 @@ export interface addTeachers{
   createdOn: Date
 }
 
-// export interface ExternalStudents{
-//   id : number
-//   name : string
-//   mailID : string
-//   phoneNo : string
-//   currentCity : string,
-//   createdOn: Date
-// }
-
-export interface Students{
+export interface Student{
   id : number
-  name : string
-  mailID : string
+  fullName : string
+  email : string
+  password: string
   phoneNo : string
   studentType: string
+  currentCity: string
+  address: string
+  createdOn: Date
+  updatedOn: Date
+}
+
+export interface addStudent{
+  fullName : string
+  email : string
+  password: string
+  phoneNo : string
+  studentType: string
+  currentCity: string
+  address: string
+  updatedOn: Date
   createdOn: Date
 }
 

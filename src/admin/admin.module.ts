@@ -27,8 +27,8 @@ import { AddOrEditStudentComponent } from './user-management/students/add-or-edi
 import { AddOrEditCounsellorComponent } from './user-management/counsellors/add-or-edit-counsellor/add-or-edit-counsellor.component';
 import { AddOrEditTeacherComponent } from './user-management/teachers/add-or-edit-teacher/add-or-edit-teacher.component';
 import { SettingsComponent } from './settings/settings.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AdminPageComponent,
@@ -66,7 +66,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatSidenavModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   exports: [AdminPageComponent,
     DashboardComponent,
