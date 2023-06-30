@@ -15,6 +15,9 @@ export class AddOrEditStudentComponent {
   public addEditStudentForm: FormGroup;
   public success: boolean = false;
   public err: boolean = false;
+  public personalDetails: boolean = true;
+  public courseDetails: boolean = true;
+
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
     public appService: AppService,
@@ -31,7 +34,8 @@ export class AddOrEditStudentComponent {
       ]),
       studentType: new FormControl('', [Validators.required]),
       currentCity: new FormControl('', [Validators.required]),
-      address: new FormControl('', Validators.required)
+      address: new FormControl('', Validators.required),
+      parentPhoneNo: new FormControl('', Validators.required)
     });
   }
 
@@ -54,8 +58,9 @@ export class AddOrEditStudentComponent {
           studentType: this.addEditStudentForm.controls['studentType'].value,
           updatedOn: new Date(),
           password: this.addEditStudentForm.controls['password'].value,
-          currentCity: '',
-          address: ''
+          currentCity: this.addEditStudentForm.controls['currentCity'].value,
+          address: this.addEditStudentForm.controls['address'].value,
+          parentPhoneNo: ''
         };
         this.editStudent(editStudentData);
       } else {
@@ -67,8 +72,9 @@ export class AddOrEditStudentComponent {
           password: this.addEditStudentForm.controls['password'].value,
           updatedOn: new Date(),
           createdOn: new Date(),
-          currentCity: '',
-          address: ''
+          currentCity: this.addEditStudentForm.controls['currentCity'].value,
+          address: this.addEditStudentForm.controls['address'].value,
+          parentPhoneNo: ''
         };
         this.addStudent(addStudentData);
       }
