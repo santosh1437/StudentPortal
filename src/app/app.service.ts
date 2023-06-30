@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Teachers, addAdmin } from './app.model';
+import { Admin, Counsellor, Teachers, addAdmin, addTeachers } from './app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +30,14 @@ export class AppService {
   }
 
   editAdminDetails(admin: Admin): Observable<any> {
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Admin`, admin);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Admin/${admin.id}`, admin);
   }
 
   deleteAdminDetails(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Admin/${id}`);
   }
 // Add Teacher
-adTeacher(teacher:any): Observable<any> {
+adTeacher(teacher:addTeachers): Observable<any> {
   return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
 }
 
@@ -53,5 +53,23 @@ editTeachers(teacher: Teachers): Observable<any>{
 //Delete Teacher
 deleteTeacher(id: number): Observable<any> {
   return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
+}
+//Add counselling
+addCounselling(counselling:any): Observable<any> {
+  return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
+}
+//Get Counselling
+getCounselling(){
+  return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
+}
+
+//Edit Counseeling
+editCounselling(counseller: Counsellor): Observable<any>{
+  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
+}
+
+//Delete Counselling
+deleteCounselling(id: number): Observable<any> {
+  return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
 }
 }

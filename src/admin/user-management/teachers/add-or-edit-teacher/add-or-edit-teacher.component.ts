@@ -52,6 +52,10 @@ export class AddOrEditTeacherComponent {
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
+          currentCity: '',
+          address:'',
+          empId:'',
+          empEmail:'',
           createdOn: new Date(),
           isActive: true
         };
@@ -64,6 +68,10 @@ export class AddOrEditTeacherComponent {
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
+          currentCity: '',
+          address:'',
+          empId:'',
+          empEmail:'',
           createdOn: new Date(),
           isActive: true
         };
@@ -74,8 +82,9 @@ export class AddOrEditTeacherComponent {
   }
 
   public addTeachers(teacher: addTeachers){
-    this.appService.adTeacher(this.addEditTeacherForm.value).subscribe({
+    this.appService.adTeacher(teacher).subscribe({
       next:(res) => {
+        this.dialogRef.close(true);
         this.success = true;
       this.successMsgDialog('Teacher added successfully'); 
       },

@@ -23,6 +23,10 @@ export interface Teachers{
   isActive : boolean
   subject : string
   course : string
+  currentCity : string
+  address : string
+  empId : string
+  empEmail : string
   createdOn: Date
 }
 
@@ -34,6 +38,10 @@ export interface addTeachers{
   isActive : boolean
   subject : string
   course : string
+  currentCity : string
+  address : string
+  empId : string
+  empEmail : string
   createdOn: Date
 }
 
@@ -57,16 +65,29 @@ export interface Students{
 
 export interface Counsellor{
   id : number
-  name : string
-  mailID : string
-  phoneNo : string
-  currentCity: string
+  fullName : string
+  password : string
+  email : string
+  phone : string
+  isActive : boolean
+  currentCity : string
+  counsellorType : string
+  address : string
+  empId : string
+  empEmail : string
   createdOn: Date
 }
 
 export interface addCounsellor{
-  name : string
-  mailID : string
-  phoneNo : string
-  currentCity: string
+  fullName : string
+  password : string
+  email : string
+  phone : string
+  isActive : boolean
+  currentCity : string
+  counsellorType : string
+  address : string
+  empId : string
+  empEmail : string
+  createdOn: Date
 }
