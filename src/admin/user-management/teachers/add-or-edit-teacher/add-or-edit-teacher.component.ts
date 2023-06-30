@@ -82,7 +82,7 @@ export class AddOrEditTeacherComponent {
   }
 
   public addTeachers(teacher: addTeachers){
-    this.appService.adTeacher(teacher).subscribe({
+    this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
         this.dialogRef.close(true);
         this.success = true;

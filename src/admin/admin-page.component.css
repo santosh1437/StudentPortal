@@ -9,7 +9,6 @@ mat-sidenav {
   border-radius: 3px;
 }
 
-
 .nav-link:hover {
   background-color: #131B60;
 }
@@ -30,11 +29,27 @@ mat-table {
   max-height: 500px;
 }
 
-.mat-icon {
-  width: auto !important;
+.mat-header-cell {
+  background: #f8f9fa;
+  font-size: medium;
 }
 
 a {
   color: black;
   opacity: 0.7;
+}
+
+.mat-column-id {
+  flex: none;
+  width: 10rem;
+}
+
+.custom-icon {
+  background: transparent;
+  border: none;
+  color: black;
+}
+
+.mat-icon {
+  width: auto !important;
 }

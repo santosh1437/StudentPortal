@@ -6,64 +6,55 @@
         </div>
         <!-- Tabs START -->
         <ul class="nav nav-pills nav-pills-bg-soft pt-4 flex-column p-2" id="course-pills-tab" role="tablist">
-            <li class="nav-item mb-3">
-                <a href="javascript: void(0)" (click)="adminService.openSection('dashboard');"
+            <li class="nav-item mb-3"><a href="javascript: void(0)" (click)="adminService.openSection('dashboard');"
                     class="nav-link text-white d-flex align-items-center active" id="course-pills-tab-1"
                     data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab"
                     aria-controls="course-pills-tabs-1" aria-selected="true">
-                    <mat-icon class="fs-2">dashboard</mat-icon>
-                    <span class="ps-4 pb-1">Dashboard</span>
-                </a>
-            </li>
+                    <mat-icon class="fs-2">dashboard</mat-icon><span class="ps-4 pb-1">Dashboard</span></a></li>
 
-            <li class="nav-item mb-3">
+            <li class="nav-item">
                 <a href="javascript: void(0)" (click)="adminService.openSection('userManagement');adminService.userManagement = !adminService.userManagement;"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false" >
-                    <mat-icon class="fs-2"> person_add</mat-icon>
-                    <span class="ps-4 pb-1 col-10">User Management</span>
+                    aria-selected="false">
+                    <mat-icon class="fs-2"> person_add</mat-icon><span class="ps-4 pb-1 col-9">User Management</span>
                     <mat-icon class="fs-2" *ngIf="!adminService.userManagement">arrow_right</mat-icon>
                     <mat-icon class="fs-2" *ngIf="adminService.userManagement">arrow_drop_down</mat-icon>
-                </a>
-            </li>
+                </a></li>
 
             <li class="nav-item mb-3" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('students');"
-                class="nav-link text-white d-flex align-items-center" type="button" role="tab" data-bs-toggle="pill"
-                id="admin-pills-tabs-1" aria-selected="false" data-bs-target="#course-pills-tabs-1">
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
                     <span class="ps-4 pb-1">Students</span>
                     <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon>
-                </a>
-            </li>
+                </a></li>
 
             <li class="nav-item mb-3" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('teachers');"
-                        class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                        data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                        aria-selected="true">
-                    <span class="ps-4 pb-1">Teachers</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
-                </a>
-            </li>
+                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                aria-selected="false">
+                <span class="ps-4 pb-1">Teachers</span>
+                <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
+            </a></li>
 
             <li class="nav-item mb-3" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');"
-                class="nav-link text-white d-flex align-items-center" type="button" role="tab" data-bs-toggle="pill"
-                id="admin-pills-tabs-1" aria-selected="true" data-bs-target="#course-pills-tabs-1">
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
                     <span class="ps-4 pb-1">Counsellors</span>
                     <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
-                </a>
-            </li>
+                </a></li>
 
             <li class="nav-item mb-3">
                 <a href="javascript: void(0)" (click)="adminService.openSection('settings');"
-                class="nav-link text-white d-flex align-items-center" type="button" role="tab" data-bs-toggle="pill"
-                id="admin-pills-tabs-1" aria-selected="true" data-bs-target="#course-pills-tabs-1">
-                    <mat-icon class="fs-2"> settings </mat-icon>
-                    <span class="ps-4 pb-1">Settings</span>
-                </a>
-            </li>
+                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                aria-selected="false">
+                <mat-icon class="fs-2"> settings</mat-icon><span class="ps-4 pb-1">Settings</span></a></li>
         </ul>
         <!-- Tabs END -->
     </mat-sidenav>
