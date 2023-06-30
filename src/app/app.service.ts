@@ -37,7 +37,7 @@ export class AppService {
     return this.httpClient.delete(`${this.baseUrlAPI}/Admin/${id}`);
   }
 // Add Teacher
-adTeacher(teacher:addTeachers): Observable<any> {
+addTeacher(teacher:addTeachers): Observable<any> {
   return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
 }
 
