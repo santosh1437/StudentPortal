@@ -15,6 +15,10 @@ export class AdminService {
   public userManagement: boolean = false;
   public signOut: boolean = false;
   public currentUser: any;
+  public counsellorsCount: number = 0;
+  public teachersCount: number = 0;
+  public studentsCount: number = 0;
+
   constructor() { }
 
   public openSection(sectionName: string) {

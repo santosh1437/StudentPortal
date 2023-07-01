@@ -48,8 +48,8 @@ export class AddOrEditStudentComponent {
 
   ngOnInit(): void {
     this.data  = {
-      id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "buddi", studentType: "External Student", 
-      batch: "1", course: "SAT", subject: "maths", timings:"10 to 11"
+      id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "", studentType: "External Student", 
+      batch: "1", course: "SAT", subject: "maths", timings:"10 to 11", parentPhoneNo: "6566154", currentCity: "Hyderabad", address: "test"
     }
     this.addEditStudentForm.patchValue(this.data);
   }
