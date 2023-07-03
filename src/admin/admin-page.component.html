@@ -12,6 +12,7 @@
                     aria-controls="course-pills-tabs-1" aria-selected="true">
                     <mat-icon class="fs-2">dashboard</mat-icon><span class="ps-4 pb-1">Dashboard</span></a></li>
 
+            <!-- User Management -->
             <li class="nav-item">
                 <a href="javascript: void(0)" (click)="adminService.openSection('userManagement');adminService.userManagement = !adminService.userManagement;"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
@@ -47,14 +48,40 @@
                     aria-selected="false">
                     <span class="ps-4 pb-1">Counsellors</span>
                     <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
-                </a></li>
+                </a>
+            </li>
 
+            <!-- Settings -->
             <li class="nav-item mb-3">
-                <a href="javascript: void(0)" (click)="adminService.openSection('settings');"
-                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                aria-selected="false">
-                <mat-icon class="fs-2"> settings</mat-icon><span class="ps-4 pb-1">Settings</span></a></li>
+                <a href="javascript: void(0)" (click)="adminService.openSection('settings');adminService.settings = !adminService.settings;"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <mat-icon class="fs-2"> settings </mat-icon><span class="ps-4 col-9">Settings</span>
+                    <mat-icon class="fs-2" *ngIf="!adminService.settings">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="adminService.settings">arrow_drop_down</mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-3" *ngIf="adminService.settings">
+                <a href="javascript: void(0)" (click)="adminService.openSection('manageCourses');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Manage Courses</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.manageCourses"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-3" *ngIf="adminService.settings">
+                <a href="javascript: void(0)" (click)="adminService.openSection('manageBatches');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Manage Batches</span>
+                    <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.manageBatches"> chevron_right </mat-icon>
+                </a>
+            </li>
         </ul>
         <!-- Tabs END -->
     </mat-sidenav>
@@ -101,8 +128,14 @@
                 <div *ngIf="adminService.addCounsellors">
                     <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
-                <div *ngIf="adminService.settings">
+                <!-- <div *ngIf="adminService.settings">
                     <app-settings></app-settings>
+                </div> -->
+                <div *ngIf="adminService.manageBatches">
+                    <app-manage-batches></app-manage-batches>
+                </div>
+                <div *ngIf="adminService.manageCourses">
+                    <app-manage-courses></app-manage-courses>
                 </div>
             </div>
         </div>

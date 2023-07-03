@@ -100,3 +100,28 @@ export interface addCounsellor{
   empEmail : string
   createdOn: Date
 }
+
+export interface Course{
+  cId : string
+  courseTitle : string
+  courseName: string
+  duration : string
+  description: string
+  currentPrice: number
+  discountPerc: number
+  discountPrice: number
+  batches: string
+  createdOn: Date
+  updatedOn: Date
+}
+
+export interface Batch{
+  bId : string
+  courseName: string
+  duration : string
+  timings: string
+  noOfStudents: number
+  startedOn: Date
+  createdOn: Date
+  updatedOn: Date
+}

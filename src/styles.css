@@ -4,5 +4,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ml-50p { margin-left: 50% !important; }
+.ml-30p { margin-left: 30% !important; }
 .customBtn { background-color: #313d9c !important; }
 .customBtn:hover { background-color: #131B60 !important; }

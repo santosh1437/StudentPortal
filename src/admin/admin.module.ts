@@ -29,6 +29,8 @@ import { AddOrEditTeacherComponent } from './user-management/teachers/add-or-edi
 import { SettingsComponent } from './settings/settings.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { ManageBatchesComponent } from './settings/manage-batches/manage-batches.component';
+import { ManageCoursesComponent } from './settings/manage-courses/manage-courses.component';
 @NgModule({
   declarations: [
     AdminPageComponent,
@@ -41,7 +43,9 @@ import { MatSelectModule } from '@angular/material/select';
     AddOrEditStudentComponent,
     AddOrEditCounsellorComponent,
     AddOrEditTeacherComponent,
-    SettingsComponent
+    SettingsComponent,
+    ManageBatchesComponent,
+    ManageCoursesComponent
   ],
   imports: [
     CommonModule,
