@@ -72,6 +72,7 @@ export interface addStudent{
 
 export interface Counsellor{
   id : number
+  cID: string
   fullName : string
   password : string
   email : string
@@ -98,3 +99,4 @@ export interface addCounsellor{
   empEmail : string
   createdOn: Date
 }
+

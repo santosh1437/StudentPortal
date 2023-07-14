@@ -83,7 +83,7 @@ getCounselling(){
 
 //Edit Counseeling
 editCounselling(counseller: Counsellor): Observable<any>{
-  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
+  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.cID}`, counseller);
 }
 
 //Delete Counselling

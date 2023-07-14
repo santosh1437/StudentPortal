@@ -49,6 +49,7 @@ export class AddOrEditCounsellorComponent {
       if (this.data) {
         const editCounsellorData: Counsellor = {
           id: this.data.id,
+          cID: '',
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
