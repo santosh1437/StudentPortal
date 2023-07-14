@@ -13,8 +13,16 @@ export class AdminService {
   public counsellors: boolean = false;
   public addCounsellors: boolean = false;
   public userManagement: boolean = false;
+  public manageCourses: boolean = false;
+  public manageBatches :boolean = false;
   public signOut: boolean = false;
   public currentUser: any;
+  public counsellorsCount: number = 0;
+  public teachersCount: number = 0;
+  public studentsCount: number = 0;
+  public grade: any = ['K12','ug','pg'];
+  public course: any = ['','',''];
+  public subCourse: any = [];
   constructor() { }
 
   public openSection(sectionName: string) {
@@ -25,8 +33,8 @@ export class AdminService {
     this.addTeachers = false;
     this.addStudents = false;
     this.addCounsellors = false;
-    this.settings = false;
-    // this.adminService.userManagement = false;
+    this.manageBatches = false;
+    this.manageCourses = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -52,7 +60,11 @@ export class AdminService {
         this.addCounsellors = true;
         break;
       case 'settings':
-        this.settings = true;
+        case 'manageCourses':
+        this.manageCourses = true;
+        break;
+      case 'manageBatches':
+        this.manageBatches = true;
     }
   }
 }

@@ -72,22 +72,31 @@ addTeacher(teacher:addTeachers): Observable<any> {
   deleteStudent(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
   }
-//Add counselling
-addCounselling(counselling:any): Observable<any> {
-  return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
-}
-//Get Counselling
-getCounselling(){
-  return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
-}
+
+  //Add counselling
+  addCounselling(counselling:any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
+  }
+  //Get Counselling
+  getCounselling(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
+  }
 
 //Edit Counseeling
 editCounselling(counseller: Counsellor): Observable<any>{
-  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.cID}`, counseller);
+  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
 }
 
-//Delete Counselling
-deleteCounselling(id: number): Observable<any> {
-  return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
-}
+  //Delete Counselling
+  deleteCounselling(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
+  }
+
+  getCourses() {
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Courses`);
+  }
+
+  getBatches() {
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Batches`);
+  }
 }

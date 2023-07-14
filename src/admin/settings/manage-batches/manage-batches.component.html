@@ -1,0 +1,105 @@
+<section class="mx-2 p-3 card bg-white rounded-0">
+    <div class="ms-2 d-flex justify-content-between align-items-center">
+        <h2 class="ps-3">Manage Batches</h2>
+    </div>
+    <!-- <div class="d-flex align-items-center justify-content-center my-4 mx-2 row">
+        <div class="d-flex col-8">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="BatchesSearchDateRange" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="BatchesSearchDateRange.controls.start.hasError('matStartDateInvalid')">Invalid
+                    start date</mat-error>
+                <mat-error *ngIf="BatchesSearchDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end
+                    date</mat-error>
+            </mat-form-field>
+            <div class="m-3">
+                <button type="submit" (click)="getDateRangeFilteredData()" mat-raised-button class="mx-2"
+                    style="background-color: #313d9c; color: white;">Filter</button>
+                <button type="submit" (click)="showAll()" mat-raised-button class="mx-2"
+                    style="background-color: #313d9c; color: white;">Show All</button>
+            </div>
+        </div>
+        <div class="mx-2 mb-4 d-flex">
+            <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addBatches');"> Add Batch </button>
+        </div>
+        <div class="d-flex align-items-center justify-content-end col-10">
+            <span class="h4 m-2">Search </span>
+            <input type="text" (keyup)="applySearchFilter($event)" class="border p-1 border-2" style="outline: none;">
+        </div>
+        <button mat-raised-button color="primary" class="col-1" (click)="ExportTOExcel()">
+            <mat-icon class="fs-5">save_alt</mat-icon> Export
+        </button>
+    </div> -->
+
+    <div class="d-flex my-4 mb-5 mx-2">
+        <div class=" d-flex col-2">
+            <button class="customBtn btn btn-primary p-2 px-5 fs-4"> Add Batch </button>
+        </div>
+        <div class="d-flex align-items-center justify-content-end col-10">
+            <span class="h4 m-2">Search </span>
+            <input _ngcontent-ciy-c61="" type="text" class="border p-1 border-2" style="outline: none;">
+        </div>
+    </div>
+    
+    <!-- <div class="d-flex align-items-center justify-content-between my-5 mx-2" *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'"> -->
+    
+
+    <mat-table [dataSource]="BatchesDataSource" matSort>
+        <!-- bId Column -->
+        <ng-container matColumnDef="cId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.bId}} </mat-cell>
+        </ng-container>
+        <!-- course Name Column -->
+        <ng-container matColumnDef="courseName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.courseName}} </mat-cell>
+        </ng-container>
+        <!-- No.of Students Name Column -->
+        <ng-container matColumnDef="noOfStudents">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> No.of Students </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.noOfStudents}} </mat-cell>
+        </ng-container>
+        <!-- duration Price Column -->
+        <ng-container matColumnDef="duration">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
+        </ng-container>
+        <!-- startedOn Name Column -->
+        <ng-container matColumnDef="startedOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Started On </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.startedOn | date:'medium'}} </mat-cell>
+        </ng-container>
+        <!-- Timings Column -->
+        <ng-container matColumnDef="timings">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Timings </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.timings}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                No data available to show.
+            </mat-footer-cell>
+        </ng-container>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':BatchesDataSource!=null}">
+        </mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']"
+            [ngClass]="{'hide':!(BatchesDataSource!=null && BatchesDataSource.data.length==0)}">
+        </mat-footer-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <!-- Pagination -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+        aria-label="Batches details page"></mat-paginator>
+</section>

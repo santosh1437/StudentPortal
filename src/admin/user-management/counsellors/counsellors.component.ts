@@ -149,6 +149,7 @@ public closeModal(){
           this.CounsellorsDataSource = new MatTableDataSource(
             this.CounsellorsData
           );
+          this.adminService.counsellorsCount = res.length;
           this.CounsellorsDataSource.paginator = this.paginator;
           this.CounsellorsDataSource.sort = this.sort;
         },

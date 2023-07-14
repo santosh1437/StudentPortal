@@ -91,6 +91,7 @@ export class StudentsComponent {
           this.StudentsDataSource = new MatTableDataSource(
             this.StudentsData
           );
+          this.adminService.studentsCount = res.length;
           this.StudentsDataSource.paginator = this.paginator;
           this.StudentsDataSource.sort = this.sort;
         },

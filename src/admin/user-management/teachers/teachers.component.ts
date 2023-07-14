@@ -167,6 +167,7 @@ public deleteTeacher() {
           this.TeachersDataSource = new MatTableDataSource(
             this.TeachersData
           );
+          this.adminService.teachersCount = res.length;
           this.TeachersDataSource.paginator = this.paginator;
           this.TeachersDataSource.sort = this.sort;
         },

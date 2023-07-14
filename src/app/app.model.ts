@@ -54,6 +54,7 @@ export interface Student{
   studentType: string
   currentCity: string
   address: string
+  parentPhoneNo: string
   createdOn: Date
   updatedOn: Date
 }
@@ -66,6 +67,7 @@ export interface addStudent{
   studentType: string
   currentCity: string
   address: string
+  parentPhoneNo: string
   updatedOn: Date
   createdOn: Date
 }
@@ -99,4 +101,3 @@ export interface addCounsellor{
   empEmail : string
   createdOn: Date
 }
-

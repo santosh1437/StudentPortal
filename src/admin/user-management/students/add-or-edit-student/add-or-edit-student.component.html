@@ -8,10 +8,10 @@
     <form [formGroup]="addEditStudentForm">
         <!-- (ngSubmit)="onFormSubmit()" -->
         <!-- PERSONAL DETAILS -->
-        <div class="ms-2 d-flex justify-content-between align-items-center">
+        <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="personalDetails">
             <h2 class="ps-3">Personal Details</h2>
         </div>
-        <div class="row justify-content-center my-5">
+        <div class="row justify-content-center my-5" *ngIf="personalDetails">
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Full name :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
@@ -20,19 +20,26 @@
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Phone No :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="tel" placeholder="Enter phone no." formControlName="phoneNo">
-                </mat-form-field>
-            </div>
-    
-            <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Email ID :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput type="text" placeholder="Enter email" formControlName="email">
                 </mat-form-field>
             </div>
-    
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Mobile No :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput type="tel" placeholder="Enter phone no." formControlName="phoneNo">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Parent Mobile No :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput type="tel" placeholder="Enter phone no." formControlName="parentPhoneNo">
+                </mat-form-field>
+            </div>
+
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Password :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
@@ -56,64 +63,60 @@
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Current City :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Current city" formControlName="currentCity"
-                        required>
+                    <input matInput placeholder="Enter Current city" formControlName="currentCity">
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter Address" formControlName="address"
-                        required>
+                    <input type="text" matInput placeholder="Enter Address" formControlName="address">
                 </mat-form-field>
             </div>
+        </div>
 
-            <!-- COURSE DETAILS -->
-            <!-- <div class="ms-2 d-flex justify-content-between align-items-center">
-                <h2 class="ps-3">Course Details</h2>
-            </div>
-            <div class="row justify-content-center my-5">
-                <div class="col-lg-6 row">
+        <!-- COURSE DETAILS -->
+        <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="courseDetails">
+            <h2 class="ps-3">Course Details</h2>
+        </div>
+        <div class="row justify-content-center my-5" *ngIf="courseDetails">
+            <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
                         <input matInput type="text" placeholder="Enter course" formControlName="course">
                     </mat-form-field>
-                </div>
-    
-                <div class="col-lg-6 row">
+            </div>
+
+            <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Subject</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
                         <input matInput type="tel" placeholder="Enter subject" formControlName="subject">
                     </mat-form-field>
-                </div>
-        
-                <div class="col-lg-6 row">
+            </div>
+    
+            <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Batch</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input matInput type="text" placeholder="Enter email" formControlName="email">
+                        <input matInput type="text" placeholder="Enter email" formControlName="batch">
                     </mat-form-field>
-                </div>
-        
-                <div class="col-lg-6 row">
+            </div>
+    
+            <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Timings</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
+                        <input matInput placeholder="Timings of Batch" formControlName="timings"
                             required>
-                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
+            </div>
+            <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Assigned Teacher</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
+                        <input matInput placeholder="Assign a Teacher" formControlName="assignedTeacher"
                             required>
-                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
-                </div>
-    
-                <div class="col-lg-6 row">
+            </div>
+
+            <!-- <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Student Type</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
                         <mat-label>Select Student Type</mat-label>
@@ -126,11 +129,13 @@
         </div>
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button type="button" class="">Cancel</button>
+                <button mat-raised-button type="button" class="" (click)="adminService.openSection('students')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    <!-- {{data ? 'Update':'Save'}} --> Next </button>    
+                <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails" (click)="fillNext()">
+                    Next </button>
+                <button mat-raised-button color="primary" type="submit" class="float-lg-end" *ngIf="courseDetails">
+                    {{data ? 'Update Student':'Save Student'}} </button>
             </div>
         </div>
     </form>
