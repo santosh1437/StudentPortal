@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers } from './app.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +13,7 @@ export class AppService {
 
   constructor(private httpClient: HttpClient) { }
 
+  // Admin APIs
   getAuthentication(credentials: any): Observable<any> {
     return this.httpClient.post<any>(
       `${this.baseUrlAPI}/Admin/authenticate`,
@@ -36,17 +36,18 @@ export class AppService {
   deleteAdminDetails(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Admin/${id}`);
   }
-// Add Teacher
-addTeacher(teacher:addTeachers): Observable<any> {
-  return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
-}
+
+  // Add Teacher
+  addTeacher(teacher:addTeachers): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
+  }
 
   //Get Teacher
   getTeacher(){
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
   }
 
-  //Update Teachers
+  //Update Teacher
   editTeachers(teacher: Teachers): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.id}`, teacher);
   }
@@ -73,21 +74,22 @@ addTeacher(teacher:addTeachers): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
   }
 
-  //Add counselling
+  //Add counsellor
   addCounselling(counselling:any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
   }
-  //Get Counselling
+  
+  //Get Counsellor
   getCounselling(){
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-  //Edit Counseeling
+  //Edit Counsellor
   editCounselling(counseller: Counsellor): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
   }
 
-  //Delete Counselling
+  //Delete Counsellor
   deleteCounselling(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
   }

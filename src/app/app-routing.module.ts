@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AdminPageComponent } from 'src/admin/admin-page.component';
+import { ScheduleSessionComponent } from 'src/admin/schedule-session/schedule-session.component';
 import { LoginPageComponent } from 'src/login/login-page.component';
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminPageComponent
+  },
+  {
+    path: 'zoom',
+    component: ScheduleSessionComponent
   }
 ];
 
