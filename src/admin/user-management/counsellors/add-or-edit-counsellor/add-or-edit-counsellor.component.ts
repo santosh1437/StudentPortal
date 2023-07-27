@@ -1,6 +1,7 @@
 import { Component, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AdminService } from 'src/admin/admin.service';
 import { Counsellor, addCounsellor } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
@@ -10,6 +11,7 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./add-or-edit-counsellor.component.css']
 })
 export class AddOrEditCounsellorComponent {
+  public data: any;
   public hide: boolean = true;
   public addEditCounsellorForm: FormGroup;
   public success: boolean = false;
@@ -18,11 +20,8 @@ export class AddOrEditCounsellorComponent {
   constructor(
     public appService: AppService,
     private fb: FormBuilder,
-    // private dialogRef: any,
-    // public data: any,
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<AddOrEditCounsellorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public adminService: AdminService
   ) {
     this.addEditCounsellorForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
@@ -33,7 +32,9 @@ export class AddOrEditCounsellorComponent {
         Validators.minLength(6),
       ]),
       counsellorType: new FormControl('', [Validators.required]),
-      // address: new FormControl('', Validators.required)
+      address: new FormControl('', Validators.required),
+      empEmail: new FormControl('', []),
+      empId: new FormControl('',[])
     });
   }
 
@@ -52,7 +53,7 @@ export class AddOrEditCounsellorComponent {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          currentCity: '',
+          // currentCity: '',
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
@@ -67,7 +68,7 @@ export class AddOrEditCounsellorComponent {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          currentCity: '',
+          // currentCity: '',
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
@@ -76,19 +77,18 @@ export class AddOrEditCounsellorComponent {
           empEmail: '',
           createdOn: new Date(),
         };
-        this.addCounseller(addCounsellorData);
+        this.addCounsellor(addCounsellorData);
       }
     }
   }
 
-  public addCounseller(counsellor: addCounsellor) {
-    this.appService.addCounselling(counsellor).subscribe({
+  public addCounsellor(counsellor: addCounsellor) {
+    this.appService.addCounselor(counsellor).subscribe({
       next: (res) => {
         console.log(res);
-        this.dialogRef.close(true);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Counseller added successfully');
+        this.successMsgDialog('Counselor added successfully');
       },
       error: (err) => {
         this.err = true;
@@ -99,12 +99,11 @@ export class AddOrEditCounsellorComponent {
   }
 
   public editAdmin(counsellor: Counsellor) {
-    this.appService.editCounselling(counsellor).subscribe({
+    this.appService.editCounselor(counsellor).subscribe({
       next: (res) => {
-        this.dialogRef.close(true);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Counseller updated successfully');
+        this.successMsgDialog('Counselor updated successfully');
       },
       error: (err) => {
         this.err = true;
@@ -112,10 +111,6 @@ export class AddOrEditCounsellorComponent {
         this.successMsgDialog(err.message);
       },
     });
-  }
-
-  public closeModal(){
-    this.dialogRef.close();
   }
 
   public successMsgDialog(msg: string) {

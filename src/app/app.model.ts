@@ -79,7 +79,7 @@ export interface Counsellor{
   email : string
   phone : string
   isActive : boolean
-  currentCity : string
+  // currentCity : string
   counsellorType : string
   address : string
   empId : string
@@ -93,7 +93,7 @@ export interface addCounsellor{
   email : string
   phone : string
   isActive : boolean
-  currentCity : string
+  // currentCity : string
   counsellorType : string
   address : string
   empId : string

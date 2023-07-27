@@ -31,7 +31,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { ManageBatchesComponent } from './settings/manage-batches/manage-batches.component';
 import { ManageCoursesComponent } from './settings/manage-courses/manage-courses.component';
-import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
+// import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
     AdminPageComponent,
@@ -47,7 +47,7 @@ import { ScheduleSessionComponent } from './schedule-session/schedule-session.co
     SettingsComponent,
     ManageBatchesComponent,
     ManageCoursesComponent,
-    ScheduleSessionComponent
+    // ScheduleSessionComponent
   ],
   imports: [
     CommonModule,

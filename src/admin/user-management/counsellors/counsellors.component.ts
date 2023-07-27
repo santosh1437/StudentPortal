@@ -30,7 +30,10 @@ export class CounsellorsComponent {
     'phoneNo',
     'ctype',
     'password',
-    'createdOn',
+    'empId',
+    'empEmail',
+    'address',
+    // 'createdOn',
     'edit/delete'
   ];
   public CounsellorsDataSource: MatTableDataSource<Counsellor>;
@@ -42,7 +45,7 @@ export class CounsellorsComponent {
   );
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
-  @ViewChild('deleteTeacherConfirm') deleteCounsellerConfirmDialog = {} as TemplateRef<any>;
+  @ViewChild('deleteTeacherConfirm') deleteCounsellorConfirmDialog = {} as TemplateRef<any>;
   dialogRef: any;
 
 
@@ -81,15 +84,15 @@ public openEditCounsellerModal(data: any){
   });
 }
 
-public openDeleteCounsellerConfirm(ID: any){
+public openDeleteCounsellorConfirm(ID: any){
   this.deleteId = ID;
-  this.dialogRef = this.dialog.open(this.deleteCounsellerConfirmDialog , {
+  this.dialogRef = this.dialog.open(this.deleteCounsellorConfirmDialog , {
     width: 'auto',
   });
 }
 
-public deleteCounseller() {
-  this.appService.deleteCounselling(this.deleteId).subscribe({
+public deleteCounsellor() {
+  this.appService.deleteCounselor(this.deleteId).subscribe({
     next: (res) => {
       this.closeModal();
       this.success = true;
@@ -143,7 +146,7 @@ public closeModal(){
   //get Teachers form details
   private getCounsellorsDetails() {
     if(localStorage.getItem('currentUser')){
-      this.appService.getCounselling().subscribe({
+      this.appService.getCounselor().subscribe({
         next: (res) => {  
           this.CounsellorsData = res;
           this.CounsellorsDataSource = new MatTableDataSource(
@@ -168,7 +171,7 @@ public closeModal(){
       decimalseparator: '.',
       showLabels: true,
       useBom: true,
-      headers: ['Id', 'Name', 'MailID', 'Phone No', 'Current City', 'Created On']
+      headers: ['Id', 'Name', 'MailID', 'Phone No', 'Created On']
     };
     const exportData = this.CounsellorsDataSource.data.map((data) => {
       return {
@@ -176,7 +179,6 @@ public closeModal(){
         fullName : data.fullName,
         email : data.email,
         phoneNo : data.phone,
-        city : data.currentCity,
         createdOn: data.createdOn
       }
     });

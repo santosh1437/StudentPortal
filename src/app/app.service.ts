@@ -8,6 +8,7 @@ import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers
 export class AppService {
   public signOut: boolean = false;
   private baseUrlAPI = "https://edutechex.com/profile/api/api";
+  private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
 
@@ -75,22 +76,22 @@ export class AppService {
   }
 
   //Add counsellor
-  addCounselling(counselling:any): Observable<any> {
+  addCounselor(counselling:any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
   }
   
   //Get Counsellor
-  getCounselling(){
+  getCounselor(){
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
   //Edit Counsellor
-  editCounselling(counseller: Counsellor): Observable<any>{
+  editCounselor(counseller: Counsellor): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
   }
 
   //Delete Counsellor
-  deleteCounselling(id: number): Observable<any> {
+  deleteCounselor(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
   }
 
@@ -100,5 +101,14 @@ export class AppService {
 
   getBatches() {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Batches`);
+  }
+
+  //Zoom API
+  createMeeting(createMeeting: any, userId: any){
+    return this.httpClient.post<any>(`${this.zoomBaseUrlApi}//users/${userId}/meetings`,createMeeting);
+  }
+
+  getMeeting(meetingId:any) {
+    return this.httpClient.get<any>(`${this.zoomBaseUrlApi}/meetings/{meetingId}`);
   }
 }

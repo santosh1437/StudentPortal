@@ -35,7 +35,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddTeacherModal()"> Add Teacher </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addTeachers');"> Add Teacher </button>
     </div> 
 
     <mat-table [dataSource]="TeachersDataSource" matSort>
@@ -91,8 +91,7 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                            [ngClass]="{'pt-3' : ((element.email == 'navigatebi.ex@gmail.com') || (element.email == this.adminService.currentUser.email))}"
-                            (click)="openEditModal(element);" style="cursor: pointer;">
+                            (click)="adminService.openSection('addTeachers');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>

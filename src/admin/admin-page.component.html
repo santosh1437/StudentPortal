@@ -51,6 +51,58 @@
                 </a>
             </li>
 
+            <!-- Scheduler -->
+            <li class="nav-item mb-3">
+                <a href="javascript: void(0)" (click)="adminService.openSection('scheduler');adminService.scheduler = !adminService.scheduler;"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <mat-icon class="fs-2"> settings </mat-icon><span class="ps-4 col-9"> Scheduler </span>
+                    <mat-icon class="fs-2" *ngIf="!adminService.scheduler">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="adminService.scheduler">arrow_drop_down</mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-1" *ngIf="adminService.scheduler">
+                <a href="javascript: void(0)" (click)="adminService.openSection('manageBatches');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Manage Batches</span>
+                    <mat-icon class="fs-2 pt-1 ml-20p" *ngIf="adminService.manageBatches"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-1" *ngIf="adminService.scheduler">
+                <a href="javascript: void(0)" (click)="adminService.openSection('manageSubBatches');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Manage Sub Batches</span>
+                    <mat-icon class="fs-2 pt-1 ml-20p" *ngIf="adminService.manageSubBatches"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-1" *ngIf="adminService.scheduler">
+                <a href="javascript: void(0)" (click)="adminService.openSection('classSchedule');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Class Schedule</span>
+                    <mat-icon class="fs-2 pt-1 ml-20p" *ngIf="adminService.classSchedule"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-1" *ngIf="adminService.scheduler">
+                <a href="javascript: void(0)" (click)="adminService.openSection('sessionSchedule');"
+                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Session Schedule</span>
+                    <mat-icon class="fs-2 pt-1 ml-20p" *ngIf="adminService.sessionSchedule"> chevron_right </mat-icon>
+                </a>
+            </li>
+
             <!-- Settings -->
             <li class="nav-item mb-3">
                 <a href="javascript: void(0)" (click)="adminService.openSection('settings');adminService.settings = !adminService.settings;"
@@ -70,16 +122,6 @@
                     aria-selected="false">
                     <span class="ps-4 pb-1">Manage Courses</span>
                     <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.manageCourses"> chevron_right </mat-icon>
-                </a>
-            </li>
-
-            <li class="nav-item mb-3" *ngIf="adminService.settings">
-                <a href="javascript: void(0)" (click)="adminService.openSection('manageBatches');"
-                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Manage Batches</span>
-                    <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.manageBatches"> chevron_right </mat-icon>
                 </a>
             </li>
         </ul>
@@ -128,7 +170,7 @@
                 <div *ngIf="adminService.addCounsellors">
                     <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
-                <!-- <div *ngIf="adminService.settings">
+                <!-- <div *ngIf="adminService.scheduleSession">
                     <app-settings></app-settings>
                 </div> -->
                 <div *ngIf="adminService.manageBatches">

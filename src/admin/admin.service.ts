@@ -15,6 +15,10 @@ export class AdminService {
   public userManagement: boolean = false;
   public manageCourses: boolean = false;
   public manageBatches :boolean = false;
+  public manageSubBatches: boolean = false;
+  public classSchedule: boolean = false;
+  public sessionSchedule: boolean = false;
+  public scheduler: boolean = false;
   public signOut: boolean = false;
   public currentUser: any;
   public counsellorsCount: number = 0;
@@ -34,8 +38,10 @@ export class AdminService {
     this.addStudents = false;
     this.addCounsellors = false;
     this.manageBatches = false;
+    this.manageSubBatches = false;
+    this.classSchedule = false;
+    this.sessionSchedule = false;
     this.manageCourses = false;
-
     switch (sectionName) {
       case 'dashboard':
         this.dashboard = true;
@@ -63,8 +69,19 @@ export class AdminService {
         case 'manageCourses':
         this.manageCourses = true;
         break;
+      case 'scheduler':
       case 'manageBatches':
         this.manageBatches = true;
+        break;
+      case 'manageBatches':
+        this.manageSubBatches = true;
+        break;
+      case 'classSchedule':
+        this.classSchedule = true;
+        break;
+      case 'sessionSchedule':
+        this.sessionSchedule = true;
+        break;
     }
   }
 }

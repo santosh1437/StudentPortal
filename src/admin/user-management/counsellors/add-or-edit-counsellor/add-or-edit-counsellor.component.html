@@ -1,7 +1,7 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-3 d-flex justify-content-between align-items-center">
         <h2 class="ps-3" *ngIf="data">Edit Counsellor</h2>
-        <h2 class="ps-3">Add Counsellor</h2>
+        <h2 class="ps-3" *ngIf="!data">Add Counsellor</h2>
         <!-- *ngIf="!data" -->
     </div>
 
@@ -38,41 +38,51 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Counseller Type :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Counselor Type :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter Counseller Type" formControlName="counsellorType">
-                </mat-form-field>
-            </div>
-            <!-- <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Counseller Type :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter Counseller Type" formControlName="counsellorType">
-                </mat-form-field>
+                    <mat-label>Select Counselor Type</mat-label>
+                    <mat-select>
+                      <mat-option value="Internal">Counselor</mat-option>
+                      <mat-option value="External">Senior Counselor</mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
 
-            <div class="col-lg-6 row">
+            <!-- <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Current City :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Current city" formControlName="currentCity"
-                        required>
+                    <input type="text" matInput placeholder="Enter Current City" formControlName="currentCity">
                 </mat-form-field>
-            </div>
+            </div> -->
 
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter Address" formControlName="address"
-                        required>
+                    <input type="text" matInput placeholder="Enter Address" formControlName="address">
                 </mat-form-field>
-            </div> -->
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Employee Id :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input type="text" matInput placeholder="Enter Employee Id" formControlName="empId">
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Employee Email :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input type="text" matInput placeholder="Enter email" formControlName="empEmail">
+                </mat-form-field>
+            </div>
         </div>
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button type="button" class="" (click)="closeModal()">Cancel</button>
+                <button mat-raised-button type="button" class="" (click)="adminService.openSection('counsellors')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    {{data ? 'Update':'Save'}} </button>    
+                    {{data ? 'Update Counselor':'Save Counselor'}} </button>    
             </div>
         </div>
     </form>
