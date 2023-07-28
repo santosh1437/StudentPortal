@@ -34,7 +34,8 @@ export class AddOrEditCounsellorComponent {
       counsellorType: new FormControl('', [Validators.required]),
       address: new FormControl('', Validators.required),
       empEmail: new FormControl('', []),
-      empId: new FormControl('',[])
+      empId: new FormControl('',[]),
+      joinedOn: new FormControl('',[])
     });
   }
 
@@ -53,13 +54,13 @@ export class AddOrEditCounsellorComponent {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          // currentCity: '',
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
           address: '',
           empId: '',
           empEmail: '',
+          joinedOn: new Date(),
           createdOn: new Date()
         };
         this.editAdmin(editCounsellorData);
@@ -75,6 +76,7 @@ export class AddOrEditCounsellorComponent {
           address: '',
           empId: '',
           empEmail: '',
+          joinedOn: new Date(),
           createdOn: new Date(),
         };
         this.addCounsellor(addCounsellorData);

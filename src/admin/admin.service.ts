@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Batch, Counsellor, Student, Teachers } from 'src/app/app.model';
+import { AppService } from 'src/app/app.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
+  // To open particular sections boolean values
   public dashboard: boolean = false;
   public settings: boolean = false;
   public students: boolean = false;
@@ -14,21 +17,30 @@ export class AdminService {
   public addCounsellors: boolean = false;
   public userManagement: boolean = false;
   public manageCourses: boolean = false;
-  public manageBatches :boolean = false;
+  public batches :boolean = false;
+  public addOrEditBatches: boolean = false;
   public manageSubBatches: boolean = false;
   public classSchedule: boolean = false;
   public sessionSchedule: boolean = false;
   public scheduler: boolean = false;
+  public zoomMeetings: boolean = false;
+
+  //Lists
+  public teachersList: Teachers[] = [];
+  public counselorsList: Counsellor[] = [];
+  public studentsList: Student[] = [];
+  public batchesList: Batch[] = [];
+  public subBatchesList: any = [];
+
+  //Other required fields
   public signOut: boolean = false;
   public currentUser: any;
   public counsellorsCount: number = 0;
   public teachersCount: number = 0;
   public studentsCount: number = 0;
-  public grade: any = ['K12','ug','pg'];
-  public course: any = ['','',''];
-  public subCourse: any = [];
-  constructor() { }
+  constructor(private appService: AppService) { }
 
+  // To open section selected (Ex: To open dashboard, zoom meetings etc... on sidenav)
   public openSection(sectionName: string) {
     this.dashboard = false;
     this.teachers = false;
@@ -37,11 +49,14 @@ export class AdminService {
     this.addTeachers = false;
     this.addStudents = false;
     this.addCounsellors = false;
-    this.manageBatches = false;
+    this.batches = false;
+    this.addOrEditBatches = false;
     this.manageSubBatches = false;
     this.classSchedule = false;
     this.sessionSchedule = false;
     this.manageCourses = false;
+    this.zoomMeetings = false;
+
     switch (sectionName) {
       case 'dashboard':
         this.dashboard = true;
@@ -70,10 +85,13 @@ export class AdminService {
         this.manageCourses = true;
         break;
       case 'scheduler':
-      case 'manageBatches':
-        this.manageBatches = true;
+        case 'batches':
+        this.batches = true;
         break;
-      case 'manageBatches':
+      case 'addOrEditBatches':
+        this.addOrEditBatches = true;
+        break;
+      case 'manageSubBatches':
         this.manageSubBatches = true;
         break;
       case 'classSchedule':
@@ -82,6 +100,64 @@ export class AdminService {
       case 'sessionSchedule':
         this.sessionSchedule = true;
         break;
+      case 'zoomMeetings':
+        this.zoomMeetings = true;
+        break;
     }
+  }
+
+  public getTeacherDetails() {
+    if(localStorage.getItem('currentUser')){
+      this.appService.getTeacher().subscribe({
+        next: (res) => {  
+          this.teachersList = res;
+          this.teachersCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getCounsellorDetails() {
+    if (localStorage.getItem('currentUser')) {
+      this.appService.getCounselor().subscribe({
+        next: (res) => {
+          this.counselorsList = res;
+          this.counsellorsCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getStudentDetails() {
+    if(localStorage.getItem('currentUser')){
+      this.appService.getStudents().subscribe({
+        next: (res) => {  
+          this.studentsList = res;
+          this.studentsCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getBatchDetails(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getBatches().subscribe({
+        next: (res) => {  
+          this.batchesList = res;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    } 
   }
 }

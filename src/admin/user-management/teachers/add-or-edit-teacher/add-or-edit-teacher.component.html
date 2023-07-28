@@ -4,10 +4,13 @@
         <h2 class="ps-3" *ngIf="!data">Add Teacher</h2>
     </div>
     <form [formGroup]="addEditTeacherForm" (ngSubmit)="addEditTeacher()">
-        <!-- (ngSubmit)="onFormSubmit()" -->
-        <div class="row justify-content-center my-4">
+        <!-- PERSONAL DETAILS -->
+        <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="personalDetails">
+            <h2 class="ps-3">Personal Details</h2>
+        </div>
+        <div class="row justify-content-center my-5" *ngIf="personalDetails">
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Full name :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Full Name :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput type="text" placeholder="Enter full name" formControlName="fullName">
                 </mat-form-field>
@@ -37,55 +40,51 @@
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Joined On :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter course name" formControlName="course"
-                        required>
-                </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter subject" formControlName="subject"
-                        required>
-                </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Current City :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter subject" formControlName="currentCity">
+                    <input matInput [matDatepicker]="picker" placeholder="Enter joined on Date" formControlName="joinedOn">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter subject" formControlName="address">
+                    <input type="text" matInput placeholder="Enter address" formControlName="address">
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Employee Id :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter subject" formControlName="empId">
+                    <input type="text" matInput placeholder="Enter Employee Id" formControlName="empId">
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Employee Email :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter subject" formControlName="empEmail">
+                    <input type="text" matInput placeholder="Enter Employee Email" formControlName="empEmail">
                 </mat-form-field>
             </div>
         </div>
+
+        <!-- COURSE DETAILS -->
+        <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="courseDetails">
+            <h2 class="ps-3">Course Details</h2>
+        </div>
+        <div class="row justify-content-center my-5" *ngIf="courseDetails">
+        </div>
+
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button type="button" class="" (click)="adminService.openSection('teachers')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button color="primary" type="submit" class="float-lg-end">
+                <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails" (click)="fillNext()">
+                    Next </button>
+                <button mat-raised-button color="primary" type="submit" class="float-lg-end" *ngIf="courseDetails">
                     {{data ? 'Update Teacher':'Save Teacher'}} </button>
             </div>
         </div>

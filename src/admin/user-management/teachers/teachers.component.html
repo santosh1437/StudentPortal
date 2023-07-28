@@ -59,11 +59,6 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
         </ng-container>
-        <!-- City Column -->
-        <!-- <ng-container matColumnDef="city">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
-        </ng-container> -->
         <ng-container matColumnDef="password">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Password </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
@@ -78,20 +73,24 @@
         </ng-container>
         <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-            
             <mat-cell *matCellDef="let element"> <mat-slide-toggle color="primary" [disabled]="clicked" [checked]="element.isActive" (change)="onItemChange(element); clicked = true" ></mat-slide-toggle> </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="joinedOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Joined On </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.joinedOn | date:'dd/MM/yyyy'}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="createdOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.createdOn | date:'dd/MM/yyyy'}} {{element.createdOn | date:'h:mm a'}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="edit/delete" *ngIf="this.adminService.currentUser?.adminType == 'Super Admin'">
+
+        <ng-container matColumnDef="edit/delete" >
             <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                            (click)="adminService.openSection('addTeachers');" style="cursor: pointer;">
+                        (click)="adminService.openSection('addTeachers');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>

@@ -39,6 +39,12 @@ export class DashboardComponent {
     this.adminDataSource = new MatTableDataSource(this.adminData);
   }
 
+  ngOnInit(){
+    this.adminService.getTeacherDetails();
+    this.adminService.getCounsellorDetails();
+    this.adminService.getStudentDetails();
+  }
+
   /*Get and delete operations Admin*/
   private getAdminDetails() {
     this.appService.getAdminDetails().subscribe({

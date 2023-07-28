@@ -16,6 +16,8 @@ export class AddOrEditTeacherComponent {
   public hide: boolean = true;
   public success: boolean = false;
   public err: boolean = false;
+  public personalDetails: boolean = true;
+  public courseDetails: boolean = false;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
 
@@ -32,10 +34,10 @@ export class AddOrEditTeacherComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(6)] ),
       subject: new FormControl('', [Validators.required]),
       course: new FormControl('', [Validators.required]),
-      currentCity: new FormControl(''),
       address: new FormControl(''),
       empEmail: new FormControl('', [Validators.email]),
-      empId: new FormControl()
+      empId: new FormControl(),
+      joinedOn: new FormControl()
     });
   }
   ngOnInit(): void {
@@ -53,12 +55,12 @@ export class AddOrEditTeacherComponent {
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
-          currentCity: '',
-          address:'',
-          empId:'',
-          empEmail:'',
+          address: '',
+          empId: '',
+          empEmail: '',
+          joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           createdOn: new Date(),
-          isActive: true
+          isActive: true,
         };
         this.editTeachers(editTeachersData)
       }else{
@@ -69,17 +71,21 @@ export class AddOrEditTeacherComponent {
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
-          currentCity: '',
           address:'',
           empId:'',
           empEmail:'',
+          joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           createdOn: new Date(),
           isActive: true
         };
         this.addTeachers(addTeachersData);
       }
-    }
-    
+    } 
+  }
+
+  public fillNext(){
+    this.personalDetails = false;
+    this.courseDetails = true;
   }
 
   public addTeachers(teacher: addTeachers){
@@ -100,7 +106,7 @@ export class AddOrEditTeacherComponent {
   }
 
   public editTeachers(teacher: Teachers){
-    this.appService.editTeachers(teacher).subscribe({
+    this.appService.editTeacher(teacher).subscribe({
       next: (res) => {
         console.log(res);
         this.success = true;
