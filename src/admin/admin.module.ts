@@ -29,8 +29,13 @@ import { AddOrEditTeacherComponent } from './user-management/teachers/add-or-edi
 import { SettingsComponent } from './settings/settings.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import { ManageBatchesComponent } from './settings/manage-batches/manage-batches.component';
 import { ManageCoursesComponent } from './settings/manage-courses/manage-courses.component';
+import { SchedulerComponent } from './scheduler/scheduler.component';
+import { BatchesComponent } from './scheduler/batches/batches.component';
+import { SubBatchesComponent } from './scheduler/sub-batches/sub-batches.component';
+import { AddOrEditBatchComponent } from './scheduler/batches/add-or-edit-batch/add-or-edit-batch.component';
+import { AddOrEditSubBatchesComponent } from './scheduler/sub-batches/add-or-edit-sub-batches/add-or-edit-sub-batches.component';
+// import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
     AdminPageComponent,
@@ -44,8 +49,13 @@ import { ManageCoursesComponent } from './settings/manage-courses/manage-courses
     AddOrEditCounsellorComponent,
     AddOrEditTeacherComponent,
     SettingsComponent,
-    ManageBatchesComponent,
-    ManageCoursesComponent
+    ManageCoursesComponent,
+    SchedulerComponent,
+    BatchesComponent,
+    SubBatchesComponent,
+    AddOrEditBatchComponent,
+    AddOrEditSubBatchesComponent,
+    // ScheduleSessionComponent
   ],
   imports: [
     CommonModule,

@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers } from './app.model';
-
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   public signOut: boolean = false;
   private baseUrlAPI = "https://edutechex.com/profile/api/api";
+  private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
 
   constructor(private httpClient: HttpClient) { }
 
+  // Admin APIs
   getAuthentication(credentials: any): Observable<any> {
     return this.httpClient.post<any>(
       `${this.baseUrlAPI}/Admin/authenticate`,
@@ -36,22 +37,20 @@ export class AppService {
   deleteAdminDetails(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Admin/${id}`);
   }
-// Add Teacher
-addTeacher(teacher:addTeachers): Observable<any> {
-  return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
-}
 
-  //Get Teacher
+  // Add Teacher
+  addTeacher(teacher:addTeachers): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,teacher);
+  }
+
   getTeacher(){
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
   }
 
-  //Update Teachers
-  editTeachers(teacher: Teachers): Observable<any>{
+  editTeacher(teacher: Teachers): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.id}`, teacher);
   }
 
-  //Delete Teacher
   deleteTeacher(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
   }
@@ -73,30 +72,51 @@ addTeacher(teacher:addTeachers): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
   }
 
-  //Add counselling
-  addCounselling(counselling:any): Observable<any> {
+  // Counsellor APIs
+  addCounselor(counselling:any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Counsellor`,counselling);
   }
-  //Get Counselling
-  getCounselling(){
+  
+  getCounselor(){
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-  //Edit Counseeling
-  editCounselling(counseller: Counsellor): Observable<any>{
+  editCounselor(counseller: Counsellor): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
   }
 
-  //Delete Counselling
-  deleteCounselling(id: number): Observable<any> {
+  deleteCounselor(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
   }
 
+  // Batches APIs
+  getBatches() {
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Batch`);
+  }
+
+  addBatch(batch: addBatch): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Batch`, batch);
+  }
+
+  editBatch(batch: Batch){
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${batch.bId}`, batch);
+  }
+
+  deleteBatch(bId: string){
+    return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${bId}`);
+  }
+
+  // Courses APIs
   getCourses() {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Courses`);
   }
 
-  getBatches() {
-    return this.httpClient.get<any>(`${this.baseUrlAPI}/Batches`);
+  //Zoom APIs
+  createMeeting(createMeeting: any, userId: any){
+    return this.httpClient.post<any>(`${this.zoomBaseUrlApi}//users/${userId}/meetings`,createMeeting);
+  }
+
+  getMeeting(meetingId:any) {
+    return this.httpClient.get<any>(`${this.zoomBaseUrlApi}/meetings/{meetingId}`);
   }
 }

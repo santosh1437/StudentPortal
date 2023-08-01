@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
 import { Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
-import { AddOrEditTeacherComponent } from './add-or-edit-teacher/add-or-edit-teacher.component';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, finalize } from 'rxjs';
 
@@ -35,6 +34,7 @@ export class TeachersComponent {
     'subject',
     'status',
     'createdOn',
+    'joinedOn',
     'edit/delete',
   ];
   public TeachersDataSource: MatTableDataSource<Teachers>;
@@ -58,7 +58,7 @@ export class TeachersComponent {
   }
 
   ngOnInit() {
-    this.getTeachersDetails();
+    // this.getTeachersDetails();
   }
 
   ngAfterViewInit() {
@@ -67,22 +67,22 @@ export class TeachersComponent {
   }
 
   // On click of Add Admin button -- open Add Admin modal
-public openAddTeacherModal() {
-  const dialogRef = this.dialog.open(AddOrEditTeacherComponent);
-  dialogRef.afterClosed().subscribe((res) => {
-    this.getTeachersDetails();
-  });
-}
+// public openAddTeacherModal() {
+//   const dialogRef = this.dialog.open(AddOrEditTeacherComponent);
+//   dialogRef.afterClosed().subscribe((res) => {
+//     this.getTeachersDetails();
+//   });
+// }
 
   // On click of Edit Teacher button -- open Edit Teacher modal
-public openEditModal(data: any) {
-  const dialogRef = this.dialog.open(AddOrEditTeacherComponent, {
-    data,
-  });
-  dialogRef.afterClosed().subscribe((res) => {
-    this.getTeachersDetails();
-  });
-}
+// public openEditModal(data: any) {
+//   const dialogRef = this.dialog.open(AddOrEditTeacherComponent, {
+//     data,
+//   });
+//   dialogRef.afterClosed().subscribe((res) => {
+//     this.getTeachersDetails();
+//   });
+// }
 
 public deleteTeacher() {
   this.appService.deleteTeacher(this.deleteId).subscribe({
@@ -110,7 +110,7 @@ public deleteTeacher() {
   }
 
   onItemChange(element:any){
-    this.appService.editTeachers( element.id).pipe(
+    this.appService.editTeacher( element.id).pipe(
       catchError((e) => {
         element.isActive = !element.isActive;
         return e;
@@ -159,22 +159,15 @@ public deleteTeacher() {
   }
 
   //get Teachers form details
-  private getTeachersDetails() {
+  private async getTeachersDetails() {
     if(localStorage.getItem('currentUser')){
-      this.appService.getTeacher().subscribe({
-        next: (res) => {  
-          this.TeachersData = res;
-          this.TeachersDataSource = new MatTableDataSource(
-            this.TeachersData
-          );
-          this.adminService.teachersCount = res.length;
-          this.TeachersDataSource.paginator = this.paginator;
-          this.TeachersDataSource.sort = this.sort;
-        },
-        error: (err) => {
-          console.log(err.message);
-        },
-      });
+      await this.adminService.getTeacherDetails();
+      this.TeachersData = this.adminService.teachersList;
+      this.TeachersDataSource = new MatTableDataSource(
+        this.TeachersData
+      );
+      this.TeachersDataSource.paginator = this.paginator;
+      this.TeachersDataSource.sort = this.sort;
     }
   }
 

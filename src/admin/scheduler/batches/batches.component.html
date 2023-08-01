@@ -1,20 +1,20 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-2 d-flex justify-content-between align-items-center">
-        <h2 class="ps-3">Counsellors Details List</h2>
+        <h2 class="ps-3">Batches Details List</h2>
     </div>
     <div class="d-flex align-items-center justify-content-center my-4 mx-2 row">
         <div class="d-flex col-8">
             <mat-form-field appearance="fill">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [formGroup]="CounsellorsSearchDateRange" [rangePicker]="picker">
+                <mat-date-range-input [formGroup]="BatchesSearchDateRange" [rangePicker]="picker">
                     <input matStartDate formControlName="start" placeholder="Start date">
                     <input matEndDate formControlName="end" placeholder="End date">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
-                <mat-error *ngIf="CounsellorsSearchDateRange.controls.start.hasError('matStartDateInvalid')">Invalid
+                <mat-error *ngIf="BatchesSearchDateRange.controls.start.hasError('matStartDateInvalid')">Invalid
                     start date</mat-error>
-                <mat-error *ngIf="CounsellorsSearchDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end
+                <mat-error *ngIf="BatchesSearchDateRange.controls.end.hasError('matEndDateInvalid')">Invalid end
                     date</mat-error>
             </mat-form-field>
             <div class="m-3">
@@ -29,73 +29,73 @@
             <span class="h4 m-2">Search </span>
             <input type="text" (keyup)="applySearchFilter($event)" class="border p-1 border-2" style="outline: none;">
         </div>
-        <button mat-raised-button color="primary" class="col-1" (click)="ExportTOExcel()">
+        <!-- <button mat-raised-button color="primary" class="col-1" (click)="ExportTOExcel()">
             <mat-icon class="fs-5">save_alt</mat-icon> Export
-        </button>
+        </button> -->
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addCounsellors');"> Add Counsellor </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditBatches');"> Add Batch </button>
     </div> 
 
-    <mat-table [dataSource]="CounsellorsDataSource" matSort>
+    <mat-table [dataSource]="BatchesDataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let i = index "> {{i+1}} </mat-cell>
+            <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="fullName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+        <ng-container matColumnDef="bId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Batch ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.bId}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
-        <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="password">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Password </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
+        <ng-container matColumnDef="segment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
         </ng-container>
         <!-- Phone no. Column -->
-        <ng-container matColumnDef="phoneNo">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+        <ng-container matColumnDef="course">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
         </ng-container>
-        <!-- City Column -->
-        <ng-container matColumnDef="ctype">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Conseller Type </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.counsellorType}} </mat-cell>
+        <ng-container matColumnDef="subCourse">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="empEmail">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.empEmail}} </mat-cell>
+        <ng-container matColumnDef="counsellor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Counsellor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.counsellor}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="empId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.empId}} </mat-cell>
+        <ng-container matColumnDef="days">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Days </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.days}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="address">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+        <ng-container matColumnDef="timings">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Timings </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.timings}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="joinedOn">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Joined On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.joinedOn | date:'dd/MM/yyyy'}} {{element.joinedOn | date:'h:mm a'}} </mat-cell>
+        <ng-container matColumnDef="durationOfCourse">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Duration Of Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.durationOfCourse}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.startDate | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="edit/delete" >
             <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addCounsellors');" style="cursor: pointer;">
+                        (click)="adminService.openSection('addBatches');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteCounsellorConfirm(element?.id)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteBatchConfirm(element?.id)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
@@ -112,17 +112,17 @@
                 No data available to show.
             </mat-footer-cell>
         </ng-container>
-        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':CounsellorsDataSource!=null}">
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':BatchesDataSource!=null}">
         </mat-footer-row>
         <mat-footer-row *matFooterRowDef="['noData']"
-            [ngClass]="{'hide':!(CounsellorsDataSource!=null && CounsellorsDataSource.data.length==0)}">
+            [ngClass]="{'hide':!(BatchesDataSource!=null && BatchesDataSource.data.length==0)}">
         </mat-footer-row>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <!-- Pagination -->
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
-        aria-label="Counsellors details page"></mat-paginator>
+        aria-label="Batches details page"></mat-paginator>
 </section>
 
 <ng-template #successMsg>
@@ -133,18 +133,18 @@
             {{appService.httpClientMsg}}</p>
     </div>
 </ng-template>
-<ng-template #deleteTeacherConfirm>
+<ng-template #deleteBatchConfirm>
     <div mat-dialog-title>
-        <span>Delete Counseller?</span>
+        <span>Delete Batch?</span>
     </div>
     <hr/>
     <div mat-dialog-content>
         <p>
-            Do you really want to delete the counseller?</p>
+            Do you really want to delete the Batch?</p>
     </div>
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">
-        <button mat-button (click)="adminService.openSection('addCounsellors');">Cancel</button>
-        <button style="color: black;" mat-button (click)="deleteCounsellor()" cdkFocusInitial>Ok</button>
+        <button mat-button (click)="closeModal()">Cancel</button>
+        <button style="color: black;" mat-button (click)="deleteBatch()" cdkFocusInitial>Ok</button>
     </div>
 </ng-template>

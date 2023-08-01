@@ -23,10 +23,10 @@ export interface Teachers{
   isActive : boolean
   subject : string
   course : string
-  currentCity : string
   address : string
   empId : string
   empEmail : string
+  joinedOn: Date
   createdOn: Date
 }
 
@@ -38,10 +38,10 @@ export interface addTeachers{
   isActive : boolean
   subject : string
   course : string
-  currentCity : string
   address : string
   empId : string
   empEmail : string
+  joinedOn: Date
   createdOn: Date
 }
 
@@ -79,11 +79,12 @@ export interface Counsellor{
   email : string
   phone : string
   isActive : boolean
-  currentCity : string
+  // currentCity : string
   counsellorType : string
   address : string
   empId : string
   empEmail : string
+  joinedOn : Date
   createdOn: Date
 }
 
@@ -93,11 +94,12 @@ export interface addCounsellor{
   email : string
   phone : string
   isActive : boolean
-  currentCity : string
+  // currentCity : string
   counsellorType : string
   address : string
   empId : string
   empEmail : string
+  joinedOn : Date
   createdOn: Date
 }
 
@@ -117,11 +119,23 @@ export interface Course{
 
 export interface Batch{
   bId : string
-  courseName: string
-  duration : string
+  segment : string
+  course: string
+  subCourse: string
+  durationOfCourse : string
+  counselor: string
   timings: string
-  noOfStudents: number
-  startedOn: Date
-  createdOn: Date
-  updatedOn: Date
+  days: number
+  startDate: Date
+}
+
+export interface addBatch{
+  segment : string
+  course: string
+  subCourse: string
+  durationOfCourse : string
+  counselor: string
+  timings: string
+  days: number
+  startDate: Date
 }

@@ -83,22 +83,14 @@ export class StudentsComponent {
   }
 
   //get Students form details
-  private getStudentsDetails() {
+  private async getStudentsDetails() {
     if(localStorage.getItem('currentUser')){
-      this.appService.getStudents().subscribe({
-        next: (res) => {  
-          this.StudentsData = res;
-          this.StudentsDataSource = new MatTableDataSource(
-            this.StudentsData
-          );
-          this.adminService.studentsCount = res.length;
-          this.StudentsDataSource.paginator = this.paginator;
-          this.StudentsDataSource.sort = this.sort;
-        },
-        error: (err) => {
-          console.log(err.message);
-        },
-      });
+      await this.adminService.getStudentDetails();
+      this.StudentsDataSource = new MatTableDataSource(
+        this.StudentsData
+      );
+      this.StudentsDataSource.paginator = this.paginator;
+      this.StudentsDataSource.sort = this.sort;
     }
   }
 

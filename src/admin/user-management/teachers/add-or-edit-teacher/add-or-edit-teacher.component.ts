@@ -11,11 +11,13 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./add-or-edit-teacher.component.css']
 })
 export class AddOrEditTeacherComponent {
-  public data = false;
+  public data: any;
   public addEditTeacherForm: FormGroup;
   public hide: boolean = true;
   public success: boolean = false;
   public err: boolean = false;
+  public personalDetails: boolean = true;
+  public courseDetails: boolean = false;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
 
@@ -24,8 +26,6 @@ export class AddOrEditTeacherComponent {
     public adminService: AdminService,
     public fb: FormBuilder,
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<AddOrEditTeacherComponent>,
-    @Inject(MAT_DIALOG_DATA) public datas: any,
   ){
     this.addEditTeacherForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
@@ -34,30 +34,33 @@ export class AddOrEditTeacherComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(6)] ),
       subject: new FormControl('', [Validators.required]),
       course: new FormControl('', [Validators.required]),
+      address: new FormControl(''),
+      empEmail: new FormControl('', [Validators.email]),
+      empId: new FormControl(),
+      joinedOn: new FormControl()
     });
   }
   ngOnInit(): void {
-    this.addEditTeacherForm.patchValue(this.datas);
-    console.log(this.datas);
+    this.addEditTeacherForm.patchValue(this.data);
   }
 
-  addeditTeacher(){
+  addEditTeacher(){
     if(this.addEditTeacherForm.valid){
-      if(this.datas){
+      if(this.data){
         const editTeachersData : Teachers ={
-          id: this.datas.id,
+          id: this.data.id,
           fullName: this.addEditTeacherForm.controls['fullName'].value,
           email: this.addEditTeacherForm.controls['email'].value,
           phoneNo: this.addEditTeacherForm.controls['phoneNo'].value,
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
-          currentCity: '',
-          address:'',
-          empId:'',
-          empEmail:'',
+          address: '',
+          empId: '',
+          empEmail: '',
+          joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           createdOn: new Date(),
-          isActive: true
+          isActive: true,
         };
         this.editTeachers(editTeachersData)
       }else{
@@ -68,24 +71,28 @@ export class AddOrEditTeacherComponent {
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
-          currentCity: '',
           address:'',
           empId:'',
           empEmail:'',
+          joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           createdOn: new Date(),
           isActive: true
         };
         this.addTeachers(addTeachersData);
       }
-    }
-    
+    } 
+  }
+
+  public fillNext(){
+    this.personalDetails = false;
+    this.courseDetails = true;
   }
 
   public addTeachers(teacher: addTeachers){
     this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
-        this.dialogRef.close(true);
         this.success = true;
+        this.err = false;
       this.successMsgDialog('Teacher added successfully'); 
       },
       error: (err) => {
@@ -99,10 +106,9 @@ export class AddOrEditTeacherComponent {
   }
 
   public editTeachers(teacher: Teachers){
-    this.appService.editTeachers(teacher).subscribe({
+    this.appService.editTeacher(teacher).subscribe({
       next: (res) => {
         console.log(res);
-        this.dialogRef.close(true);
         this.success = true;
         this.err = false;
         this.successMsgDialog('Teacher updated successfully');
@@ -113,9 +119,6 @@ export class AddOrEditTeacherComponent {
         this.successMsgDialog(err.message);
       },
     });
-  }
-  public closeModal(){
-    this.dialogRef.close();
   }
 
   public successMsgDialog(msg: string) {
