@@ -63,7 +63,7 @@ export class AddOrEditStudentComponent {
     if (this.addEditStudentForm.valid) {
       if (this.data) {
         const editStudentData: Student = {
-          id: this.data.id,
+          sID: this.data.sID,
           fullName: this.addEditStudentForm.controls['fullName'].value,
           phoneNo: this.addEditStudentForm.controls['phone'].value,
           email: this.addEditStudentForm.controls['email'].value,

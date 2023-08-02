@@ -48,14 +48,14 @@ export class AddOrEditTeacherComponent {
     if(this.addEditTeacherForm.valid){
       if(this.data){
         const editTeachersData : Teachers ={
-          id: this.data.id,
+          tID: this.data.tID,
           fullName: this.addEditTeacherForm.controls['fullName'].value,
           email: this.addEditTeacherForm.controls['email'].value,
           phoneNo: this.addEditTeacherForm.controls['phoneNo'].value,
           password: this.addEditTeacherForm.controls['password'].value,
           subject: this.addEditTeacherForm.controls['subject'].value,
           course: this.addEditTeacherForm.controls['course'].value,
-          address: '',
+          address: this.addEditTeacherForm.controls['address'].value,
           empId: '',
           empEmail: '',
           joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,

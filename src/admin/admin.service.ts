@@ -14,7 +14,7 @@ export class AdminService {
   public teachers: boolean = false;
   public addTeachers: boolean = false;
   public counsellors: boolean = false;
-  public addCounsellors: boolean = false;
+  public addEditCounsellors: boolean = false;
   public userManagement: boolean = false;
   public manageCourses: boolean = false;
   public batches :boolean = false;
@@ -38,6 +38,8 @@ export class AdminService {
   public counsellorsCount: number = 0;
   public teachersCount: number = 0;
   public studentsCount: number = 0;
+  public editCounselorObj: any = [];
+
   constructor(private appService: AppService) { }
 
   // To open section selected (Ex: To open dashboard, zoom meetings etc... on sidenav)
@@ -48,7 +50,7 @@ export class AdminService {
     this.counsellors = false;
     this.addTeachers = false;
     this.addStudents = false;
-    this.addCounsellors = false;
+    this.addEditCounsellors = false;
     this.batches = false;
     this.addOrEditBatches = false;
     this.manageSubBatches = false;
@@ -77,8 +79,8 @@ export class AdminService {
       case 'counsellors':
         this.counsellors = true;
         break;
-      case 'addCounsellors':
-        this.addCounsellors = true;
+      case 'addEditCounsellors':
+        this.addEditCounsellors = true;
         break;
       case 'settings':
         case 'manageCourses':

@@ -20,7 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./counsellors.component.css'],
 })
 export class CounsellorsComponent {
-  public deleteId: number = 0;
+  public deleteId: string = '';
   public success: boolean = false;
   public err: boolean = false;
   CounsellorsSearchDateRange = new FormGroup({
@@ -29,7 +29,7 @@ export class CounsellorsComponent {
   });
   public tempData: any;
   public displayedColumns = [
-    'id',
+    'cID',
     'fullName',
     'email',
     'phoneNo',
@@ -37,6 +37,7 @@ export class CounsellorsComponent {
     'password',
     'empId',
     'empEmail',
+    'currentCity',
     'address',
     'joinedOn',
     'edit/delete',
@@ -60,7 +61,7 @@ export class CounsellorsComponent {
     public dialog: MatDialog
   ) {
     // this.getCounsellorsDetails();
-    this.CounsellorsDataSource = new MatTableDataSource(this.CounsellorsData);
+    this.CounsellorsDataSource = new MatTableDataSource(this.adminService.counselorsList);
   }
 
   ngOnInit() {
@@ -96,7 +97,7 @@ export class CounsellorsComponent {
         );
       },
     });
-    this.deleteId = 0;
+    this.deleteId = '';
   }
 
   public closeModal() {
@@ -138,7 +139,7 @@ export class CounsellorsComponent {
     if (localStorage.getItem('currentUser')) {
       await this.adminService.getCounsellorDetails();
       this.CounsellorsDataSource = new MatTableDataSource(
-        this.CounsellorsData
+        this.adminService.counselorsList
       );
       this.CounsellorsDataSource.paginator = this.paginator;
       this.CounsellorsDataSource.sort = this.sort;
@@ -157,7 +158,7 @@ export class CounsellorsComponent {
     };
     const exportData = this.CounsellorsDataSource.data.map((data) => {
       return {
-        id: data.id,
+        id: data.cID,
         fullName: data.fullName,
         email: data.email,
         phoneNo: data.phone,

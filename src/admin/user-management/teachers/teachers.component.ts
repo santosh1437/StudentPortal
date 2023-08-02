@@ -15,7 +15,7 @@ import { catchError, finalize } from 'rxjs';
   styleUrls: ['./teachers.component.css'],
 })
 export class TeachersComponent {
-  public deleteId: number = 0;
+  public deleteId: string = '';
   public success: boolean = false;
   public err: boolean = false;
   clicked = false;
@@ -30,11 +30,10 @@ export class TeachersComponent {
     'email',
     'phoneNo',
     'password',
-    'course',
-    'subject',
     'status',
-    'createdOn',
     'joinedOn',
+    'empEmail',
+    'empId',
     'edit/delete',
   ];
   public TeachersDataSource: MatTableDataSource<Teachers>;
@@ -54,7 +53,7 @@ export class TeachersComponent {
     public dialog: MatDialog
     ) {
     this.getTeachersDetails();
-    this.TeachersDataSource = new MatTableDataSource(this.TeachersData);
+    this.TeachersDataSource = new MatTableDataSource(this.adminService.teachersList);
   }
 
   ngOnInit() {
@@ -99,7 +98,7 @@ public deleteTeacher() {
       this.successMsgDialog('Something went wrong, Please try after some time!');
     },
   });
-  this.deleteId = 0;
+  this.deleteId = '';
 }
 
   openDeleteTeacherConfirm(ID:any){
@@ -164,7 +163,7 @@ public deleteTeacher() {
       await this.adminService.getTeacherDetails();
       this.TeachersData = this.adminService.teachersList;
       this.TeachersDataSource = new MatTableDataSource(
-        this.TeachersData
+        this.adminService.teachersList
       );
       this.TeachersDataSource.paginator = this.paginator;
       this.TeachersDataSource.sort = this.sort;
@@ -183,7 +182,7 @@ public deleteTeacher() {
     };
     const exportData = this.TeachersDataSource.data.map((data) => {
       return {
-        id : data.id,
+        id : data.tID,
         fullName : data.fullName,
         email : data.email,
         phoneNo : data.phoneNo,

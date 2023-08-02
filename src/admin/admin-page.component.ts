@@ -20,8 +20,6 @@ export class AdminPageComponent {
     this.adminService.currentUser = this.getCurrentUser();
   }
 
-  
-
   // Get Current user from localstorage
   getCurrentUser() {
     const user = JSON.parse(this.currentUserData);

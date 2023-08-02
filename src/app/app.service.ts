@@ -7,7 +7,7 @@ import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://edutechex.com/profile/api/api";
+  private baseUrlAPI = "https://www.edutechex.com/profile/api/api";
   private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
@@ -48,10 +48,10 @@ export class AppService {
   }
 
   editTeacher(teacher: Teachers): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.id}`, teacher);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.tID}`, teacher);
   }
 
-  deleteTeacher(id: number): Observable<any> {
+  deleteTeacher(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
   }
 
@@ -61,14 +61,14 @@ export class AppService {
   }
 
   editStudent(student: Student): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.id}`, student);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.sID}`, student);
   }
 
   addStudentDetails(student: addStudent): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
   }
 
-  deleteStudent(id: number): Observable<any> {
+  deleteStudent(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
   }
 
@@ -81,11 +81,11 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-  editCounselor(counseller: Counsellor): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
+  editCounselor(counselor: Counsellor): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counselor.cID}`, counselor);
   }
 
-  deleteCounselor(id: number): Observable<any> {
+  deleteCounselor(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
   }
 

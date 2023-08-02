@@ -35,14 +35,13 @@ export class AddOrEditCounsellorComponent {
       address: new FormControl('', Validators.required),
       empEmail: new FormControl('', []),
       empId: new FormControl('',[]),
-      joinedOn: new FormControl('',[])
+      joinedOn: new FormControl('',[]),
+      currentCity: new FormControl('')
     });
   }
 
   ngOnInit(): void {
-    // this.data = {
-    //   id:1, name:"", mailID:"", phoneNo:"", currentCity:"", createdOn: new Date()
-    // }
+    this.data = this.adminService.editCounselorObj;
     this.addEditCounsellorForm.patchValue(this.data);
   }
 
@@ -50,33 +49,34 @@ export class AddOrEditCounsellorComponent {
     if (this.addEditCounsellorForm.valid) {
       if (this.data) {
         const editCounsellorData: Counsellor = {
-          id: this.data.id,
+          cID: this.data.cID,
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
+          currentCity: '',
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
-          address: '',
-          empId: '',
-          empEmail: '',
-          joinedOn: new Date(),
+          address: this.addEditCounsellorForm.controls['address'].value,
+          empId: this.addEditCounsellorForm.controls['empId'].value,
+          empEmail: this.addEditCounsellorForm.controls['empEmail'].value,
+          joinedOn: this.addEditCounsellorForm.controls['joinedOn'].value,
           createdOn: new Date()
         };
-        this.editAdmin(editCounsellorData);
+        this.editCounsellor(editCounsellorData);
       } else {
         const addCounsellorData: addCounsellor = {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          // currentCity: '',
+          currentCity: '',
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
-          address: '',
-          empId: '',
-          empEmail: '',
-          joinedOn: new Date(),
+          address: this.addEditCounsellorForm.controls['address'].value,
+          empId: this.addEditCounsellorForm.controls['empId'].value,
+          empEmail: this.addEditCounsellorForm.controls['empEmail'].value,
+          joinedOn: this.addEditCounsellorForm.controls['joinedOn'].value,
           createdOn: new Date(),
         };
         this.addCounsellor(addCounsellorData);
@@ -100,7 +100,7 @@ export class AddOrEditCounsellorComponent {
     });
   }
 
-  public editAdmin(counsellor: Counsellor) {
+  public editCounsellor(counsellor: Counsellor) {
     this.appService.editCounselor(counsellor).subscribe({
       next: (res) => {
         this.success = true;
@@ -117,13 +117,14 @@ export class AddOrEditCounsellorComponent {
 
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
-    const timeout = 3000;
+    const timeout = 2500;
     const dialogRef = this.dialog.open(this.successDialog, {
       width: 'auto',
     });
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
+        this.adminService.openSection('counsellors');
       }, timeout);
     });
   }
