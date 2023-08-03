@@ -8,3 +8,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ml-20p { margin-left: 20% !important; }
 .customBtn { background-color: #313d9c !important; }
 .customBtn:hover { background-color: #131B60 !important; }
+.uploadBox { width: 20rem; height: 24rem; border: solid gray 0.2px; border-radius: 5px;}

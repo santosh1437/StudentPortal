@@ -106,7 +106,7 @@ export class StudentsComponent {
     };
     const exportData = this.StudentsDataSource.data.map((data) => {
       return {
-        id : data.id,
+        id : data.sID,
         fullName : data.fullName,
         email : data.email,
         phoneNo : data.phoneNo,

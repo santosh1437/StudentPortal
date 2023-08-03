@@ -35,6 +35,8 @@ import { BatchesComponent } from './scheduler/batches/batches.component';
 import { SubBatchesComponent } from './scheduler/sub-batches/sub-batches.component';
 import { AddOrEditBatchComponent } from './scheduler/batches/add-or-edit-batch/add-or-edit-batch.component';
 import { AddOrEditSubBatchesComponent } from './scheduler/sub-batches/add-or-edit-sub-batches/add-or-edit-sub-batches.component';
+import { AddEditTeacherCoursesComponent } from './user-management/teachers/teacher-courses/add-edit-teacher-courses/add-edit-teacher-courses.component';
+import { TeacherCoursesComponent } from './user-management/teachers/teacher-courses/teacher-courses.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { AddOrEditSubBatchesComponent } from './scheduler/sub-batches/add-or-edi
     UserManagementComponent,
     StudentsComponent,
     TeachersComponent,
+    TeacherCoursesComponent,
     AddOrEditAdminComponent,
     CounsellorsComponent,
     AddOrEditStudentComponent,
@@ -55,6 +58,7 @@ import { AddOrEditSubBatchesComponent } from './scheduler/sub-batches/add-or-edi
     SubBatchesComponent,
     AddOrEditBatchComponent,
     AddOrEditSubBatchesComponent,
+    AddEditTeacherCoursesComponent,
     // ScheduleSessionComponent
   ],
   imports: [

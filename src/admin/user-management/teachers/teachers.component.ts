@@ -1,10 +1,15 @@
-import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { Teachers } from 'src/app/app.model';
+import { AddCourseToTeacher, Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, finalize } from 'rxjs';
@@ -15,7 +20,7 @@ import { catchError, finalize } from 'rxjs';
   styleUrls: ['./teachers.component.css'],
 })
 export class TeachersComponent {
-  public deleteId: number = 0;
+  public deleteId: string = '';
   public success: boolean = false;
   public err: boolean = false;
   clicked = false;
@@ -25,16 +30,15 @@ export class TeachersComponent {
   });
   public tempData: any;
   public displayedColumns = [
-    'id',
+    'tID',
     'fullName',
     'email',
     'phoneNo',
     'password',
-    'course',
-    'subject',
     'status',
-    'createdOn',
     'joinedOn',
+    'empEmail',
+    'empId',
     'edit/delete',
   ];
   public TeachersDataSource: MatTableDataSource<Teachers>;
@@ -45,16 +49,19 @@ export class TeachersComponent {
     ChangeDetectorRef.prototype
   );
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
-  @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
+  @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog =
+    {} as TemplateRef<any>;
   dialogRef: any;
 
   constructor(
     public appService: AppService,
     public adminService: AdminService,
     public dialog: MatDialog
-    ) {
+  ) {
     this.getTeachersDetails();
-    this.TeachersDataSource = new MatTableDataSource(this.TeachersData);
+    this.TeachersDataSource = new MatTableDataSource(
+      this.adminService.teachersList
+    );
   }
 
   ngOnInit() {
@@ -66,64 +73,50 @@ export class TeachersComponent {
     this.TeachersDataSource.sort = this.sort;
   }
 
-  // On click of Add Admin button -- open Add Admin modal
-// public openAddTeacherModal() {
-//   const dialogRef = this.dialog.open(AddOrEditTeacherComponent);
-//   dialogRef.afterClosed().subscribe((res) => {
-//     this.getTeachersDetails();
-//   });
-// }
-
-  // On click of Edit Teacher button -- open Edit Teacher modal
-// public openEditModal(data: any) {
-//   const dialogRef = this.dialog.open(AddOrEditTeacherComponent, {
-//     data,
-//   });
-//   dialogRef.afterClosed().subscribe((res) => {
-//     this.getTeachersDetails();
-//   });
-// }
-
-public deleteTeacher() {
-  this.appService.deleteTeacher(this.deleteId).subscribe({
-    next: (res) => {
-      this.closeModal();
-      this.success = true;
-      this.err = false;
-      this.successMsgDialog('Teacher deleted Successfully');
-      this.getTeachersDetails();
-    },
-    error: (err) => {
-      this.success = false;
-      this.err = true;
-      this.successMsgDialog('Something went wrong, Please try after some time!');
-    },
-  });
-  this.deleteId = 0;
-}
-
-  openDeleteTeacherConfirm(ID:any){
-    this.deleteId = ID;
-  this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
-    width: 'auto',
-  });
+  public deleteTeacher() {
+    this.appService.deleteTeacher(this.deleteId).subscribe({
+      next: (res) => {
+        this.closeModal();
+        this.success = true;
+        this.err = false;
+        this.successMsgDialog('Teacher deleted Successfully');
+        this.getTeachersDetails();
+      },
+      error: (err) => {
+        this.closeModal();
+        this.success = false;
+        this.err = true;
+        this.successMsgDialog(
+          'Something went wrong, Please try after some time!'
+        );
+      },
+    });
+    this.deleteId = '';
   }
 
-  onItemChange(element:any){
-    this.appService.editTeacher( element.id).pipe(
-      catchError((e) => {
-        element.isActive = !element.isActive;
-        return e;
-      }),
-      finalize(() => {
-        this.clicked = false;
-      })
-    )
-    .subscribe(data => {
+  openDeleteTeacherConfirm(id: any) {
+    this.deleteId = id;
+    this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog, {
+      width: 'auto',
     });
   }
 
-  public closeModal(){
+  onItemChange(element: any) {
+    this.appService
+      .editTeacher(element.id)
+      .pipe(
+        catchError((e) => {
+          element.isActive = !element.isActive;
+          return e;
+        }),
+        finalize(() => {
+          this.clicked = false;
+        })
+      )
+      .subscribe((data) => {});
+  }
+
+  public closeModal() {
     this.dialogRef.close();
   }
 
@@ -164,7 +157,7 @@ public deleteTeacher() {
       await this.adminService.getTeacherDetails();
       this.TeachersData = this.adminService.teachersList;
       this.TeachersDataSource = new MatTableDataSource(
-        this.TeachersData
+        this.adminService.teachersList
       );
       this.TeachersDataSource.paginator = this.paginator;
       this.TeachersDataSource.sort = this.sort;
@@ -183,7 +176,7 @@ public deleteTeacher() {
     };
     const exportData = this.TeachersDataSource.data.map((data) => {
       return {
-        id : data.id,
+        id : data.tID,
         fullName : data.fullName,
         email : data.email,
         phoneNo : data.phoneNo,

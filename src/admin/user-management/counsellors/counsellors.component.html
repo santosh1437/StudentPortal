@@ -35,12 +35,12 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addCounsellors');"> Add Counsellor </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addEditCounsellors');"> Add Counsellor </button>
     </div> 
 
     <mat-table [dataSource]="CounsellorsDataSource" matSort>
-        <!-- ID Column -->
-        <ng-container matColumnDef="id">
+        <!-- cID Column -->
+        <ng-container matColumnDef="cID">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
             <mat-cell *matCellDef="let i = index "> {{i+1}} </mat-cell>
         </ng-container>
@@ -76,13 +76,17 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Id </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.empId}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="currentCity">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Current City </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.currentCity}} </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="address">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="joinedOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Joined On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.joinedOn | date:'dd/MM/yyyy'}} {{element.joinedOn | date:'h:mm a'}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.joinedOn | date:'dd/MM/yyyy'}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="edit/delete" >
             <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
@@ -90,12 +94,12 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addCounsellors');" style="cursor: pointer;">
+                        (click)="adminService.editCounselorObj = element;adminService.openSection('addEditCounsellors');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteCounsellorConfirm(element?.id)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteCounsellorConfirm(element?.cID)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
@@ -144,7 +148,7 @@
     </div>
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">
-        <button mat-button (click)="adminService.openSection('addCounsellors');">Cancel</button>
+        <button mat-button (click)="adminService.openSection('addEditCounsellors');">Cancel</button>
         <button style="color: black;" mat-button (click)="deleteCounsellor()" cdkFocusInitial>Ok</button>
     </div>
 </ng-template>

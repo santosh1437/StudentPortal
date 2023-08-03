@@ -15,7 +15,7 @@ export interface addAdmin{
 }
 
 export interface Teachers{
-  id : number
+  tID : string
   fullName : string
   email : string
   phoneNo : string
@@ -46,7 +46,7 @@ export interface addTeachers{
 }
 
 export interface Student{
-  id : number
+  sID : string
   fullName : string
   email : string
   password: string
@@ -73,13 +73,13 @@ export interface addStudent{
 }
 
 export interface Counsellor{
-  id : number
+  cID : string
   fullName : string
   password : string
   email : string
   phone : string
   isActive : boolean
-  // currentCity : string
+  currentCity : string
   counsellorType : string
   address : string
   empId : string
@@ -94,7 +94,7 @@ export interface addCounsellor{
   email : string
   phone : string
   isActive : boolean
-  // currentCity : string
+  currentCity : string
   counsellorType : string
   address : string
   empId : string
@@ -115,6 +115,14 @@ export interface Course{
   batches: string
   createdOn: Date
   updatedOn: Date
+}
+
+export interface AddCourseToTeacher{
+  tID: string
+  segment: string
+  course: string
+  subCourse: string
+  subject: string
 }
 
 export interface Batch{

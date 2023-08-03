@@ -1,9 +1,10 @@
+<!-- COURSE DETAILS -->
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-2 d-flex justify-content-between align-items-center">
-        <h2 class="ps-3">Teachers Details List</h2>
+        <h2 class="ps-3">Course Details</h2>
     </div>
     <div class="d-flex align-items-center justify-content-center my-4 mx-2 row">
-        <div class="d-flex col-8">
+        <!-- <div class="d-flex col-8">
             <mat-form-field appearance="fill">
                 <mat-label>Enter a date range</mat-label>
                 <mat-date-range-input [formGroup]="TeachersSearchDateRange" [rangePicker]="picker">
@@ -23,89 +24,63 @@
                 <button type="submit" (click)="showAll()" mat-raised-button class="mx-2"
                     style="background-color: #313d9c; color: white;">Show All</button>
             </div>
-        </div>
+        </div> -->
 
-        <div class="d-flex align-items-center justify-content-end col-3">
+        <div class="d-flex align-items-center justify-content-end col-12">
             <span class="h4 m-2">Search </span>
             <input type="text" (keyup)="applySearchFilter($event)" class="border p-1 border-2" style="outline: none;">
         </div>
-        <button mat-raised-button color="primary" class="col-1" (click)="ExportTOExcel()">
-            <mat-icon class="fs-5">save_alt</mat-icon> Export
-        </button>
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addTeachers');"> Add Teacher </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addEditTeacherCourses');"> Add Course </button>
     </div> 
-
-    <mat-table [dataSource]="TeachersDataSource" matSort>
+    <mat-table [dataSource]="TeacherCourseDataSource" matSort>
         <!-- ID Column -->
-        <ng-container matColumnDef="tID">
+        <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="fullName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
-        </ng-container>
-        <!-- Phone no. Column -->
-        <ng-container matColumnDef="phoneNo">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
+        <ng-container matColumnDef="segment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
-        <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="password">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Password </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.password}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="empId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.empId}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="empEmail">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.empEmail}} </mat-cell>
-        </ng-container>
-        <!-- <ng-container matColumnDef="subject">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
-        </ng-container>
         <ng-container matColumnDef="course">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
-        </ng-container> -->
-        <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-            <mat-cell *matCellDef="let element"> <mat-slide-toggle color="primary" [disabled]="clicked" [checked]="element.isActive" (change)="onItemChange(element); clicked = true" ></mat-slide-toggle> </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="joinedOn">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Joined On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.joinedOn | date:'dd/MM/yyyy'}} </mat-cell>
+        <!-- Phone no. Column -->
+        <ng-container matColumnDef="subCourse">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
         </ng-container>
-
+        <!-- Student Type Column -->
+        <ng-container matColumnDef="subject">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+        </ng-container>
+        <!-- edit/delete -->
         <ng-container matColumnDef="edit/delete" >
             <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addTeachers');" style="cursor: pointer;">
+                        (click)="adminService.editCounselorObj = element;adminService.openSection('addEditTeacherCourses');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteTeacherConfirm(element?.tID)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteTeacherCourseConfirm(element?.tID)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
                 </ul>
             </mat-cell>
         </ng-container>
+        
         <ng-container matColumnDef="loading">
             <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
                 Loading data...
@@ -116,17 +91,17 @@
                 No data available to show.
             </mat-footer-cell>
         </ng-container>
-        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':TeachersDataSource!=null}">
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':TeacherCourseDataSource!=null}">
         </mat-footer-row>
         <mat-footer-row *matFooterRowDef="['noData']"
-            [ngClass]="{'hide':!(TeachersDataSource!=null && TeachersDataSource.data.length==0)}">
+            [ngClass]="{'hide':!(TeacherCourseDataSource!=null && TeacherCourseDataSource.data.length==0)}">
         </mat-footer-row>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <!-- Pagination -->
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
-        aria-label="Teachers details page"></mat-paginator>
+        aria-label="Students details page"></mat-paginator>
 </section>
 
 <ng-template #successMsg>
@@ -137,7 +112,7 @@
             {{appService.httpClientMsg}}</p>
     </div>
 </ng-template>
-<ng-template #deleteTeacherConfirm>
+<ng-template #deleteTeacherCourseConfirm>
     <div mat-dialog-title>
         <span>Delete Teacher?</span>
     </div>
@@ -149,6 +124,6 @@
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">
         <button mat-button (click)="closeModal()">Cancel</button>
-        <button style="color: black;" mat-button (click)="deleteTeacher()" cdkFocusInitial>Ok</button>
+        <button style="color: black;" mat-button (click)="deleteTeacherCourse()" cdkFocusInitial>Ok</button>
     </div>
 </ng-template>

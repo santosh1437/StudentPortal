@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://edutechex.com/profile/api/api";
+  private baseUrlAPI = "/api";
+  //while deploying https://www.edutechex.com/profile/api in baseUrlAPI
   private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
@@ -48,11 +49,28 @@ export class AppService {
   }
 
   editTeacher(teacher: Teachers): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.id}`, teacher);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.tID}`, teacher);
   }
 
-  deleteTeacher(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
+  deleteTeacher(tID: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
+  }
+
+  // Add Courses to teacher
+  addTeacherCourse(course: AddCourseToTeacher): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,course);
+  }
+
+  getTeacherCourse(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
+  }
+
+  editTeacherCourse(course: AddCourseToTeacher): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${course.tID}`, course);
+  }
+
+  deleteTeacherCourse(tID: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
   }
 
   // Student APIs
@@ -61,14 +79,14 @@ export class AppService {
   }
 
   editStudent(student: Student): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.id}`, student);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.sID}`, student);
   }
 
   addStudentDetails(student: addStudent): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
   }
 
-  deleteStudent(id: number): Observable<any> {
+  deleteStudent(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
   }
 
@@ -81,11 +99,11 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-  editCounselor(counseller: Counsellor): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
+  editCounselor(counselor: Counsellor): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counselor.cID}`, counselor);
   }
 
-  deleteCounselor(id: number): Observable<any> {
+  deleteCounselor(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
   }
 
@@ -104,6 +122,23 @@ export class AppService {
 
   deleteBatch(bId: string){
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${bId}`);
+  }
+
+  // Image APIs
+  addImage(image:any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Image`,image);
+  }
+  
+  getImages(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Image`);
+  }
+
+  editImage(image: any, uniqueID: string): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Image/${uniqueID}`, image);
+  }
+
+  deleteImage(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Image/${id}`);
   }
 
   // Courses APIs

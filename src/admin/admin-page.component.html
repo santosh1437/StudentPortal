@@ -6,7 +6,8 @@
         </div>
         <!-- Tabs START -->
         <ul class="nav nav-pills nav-pills-bg-soft pt-4 flex-column p-2" id="course-pills-tab" role="tablist">
-            <li class="nav-item mb-3"><a href="javascript: void(0)" (click)="adminService.openSection('dashboard');"
+            <!-- Dashboard -->
+            <li class="nav-item mb-2"><a href="javascript: void(0)" (click)="adminService.openSection('dashboard');"
                     class="nav-link text-white d-flex align-items-center active" id="course-pills-tab-1"
                     data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab"
                     aria-controls="course-pills-tabs-1" aria-selected="true">
@@ -26,7 +27,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.userManagement">
+            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('students');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -36,7 +37,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.userManagement">
+            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('teachers');"
                 class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                 data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -46,7 +47,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.userManagement">
+            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -57,7 +58,7 @@
             </li>
 
             <!-- Scheduler -->
-            <li class="nav-item mb-3">
+            <li class="nav-item mb-2">
                 <a href="javascript: void(0)" (click)="adminService.openSection('scheduler');adminService.scheduler = !adminService.scheduler;"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -68,7 +69,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.scheduler">
+            <li class="nav-item mb-2" *ngIf="adminService.scheduler">
                 <a href="javascript: void(0)" (click)="adminService.openSection('batches');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -78,7 +79,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.scheduler">
+            <li class="nav-item mb-2" *ngIf="adminService.scheduler">
                 <a href="javascript: void(0)" (click)="adminService.openSection('manageSubBatches');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -88,7 +89,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.scheduler">
+            <li class="nav-item mb-2" *ngIf="adminService.scheduler">
                 <a href="javascript: void(0)" (click)="adminService.openSection('classSchedule');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -98,7 +99,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.scheduler">
+            <li class="nav-item mb-2" *ngIf="adminService.scheduler">
                 <a href="javascript: void(0)" (click)="adminService.openSection('sessionSchedule');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -109,16 +110,49 @@
             </li>
 
             <!-- Zoom Meetings -->
-            <li class="nav-item mb-3"><a href="javascript: void(0)" (click)="adminService.openSection('zoomMeetings');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1"
-                    data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab"
-                    aria-controls="course-pills-tabs-1" aria-selected="true">
-                    <mat-icon class="fs-2">video_call</mat-icon><span class="ps-4 pb-1">Zoom meetings</span>
+            <li class="nav-item mb-2">
+                <a href="javascript: void(0)" (click)="adminService.zoomMeetings = !adminService.zoomMeetings;"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <mat-icon class="fs-2">video_call</mat-icon><span class="ps-4 col-9">Zoom Meetings</span>
+                    <mat-icon class="fs-2" *ngIf="!adminService.zoomMeetings">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="adminService.zoomMeetings">arrow_drop_down</mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
+                <a href="javascript: void(0)" (click)="adminService.openSection('students');"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Students</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
+                <a href="javascript: void(0)" (click)="adminService.openSection('teachers');"
+                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                aria-selected="false">
+                <span class="ps-4 pb-1">Teachers</span>
+                <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
+                <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Counsellors</span>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
                 </a>
             </li>
 
             <!-- Settings -->
-            <li class="nav-item mb-3">
+            <!-- <li class="nav-item mb-2">
                 <a href="javascript: void(0)" (click)="adminService.openSection('settings');adminService.settings = !adminService.settings;"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -129,7 +163,7 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-3" *ngIf="adminService.settings">
+            <li class="nav-item mb-2" *ngIf="adminService.settings">
                 <a href="javascript: void(0)" (click)="adminService.openSection('manageCourses');"
                     class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
@@ -137,7 +171,7 @@
                     <span class="ps-4 pb-1">Manage Courses</span>
                     <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.manageCourses"> chevron_right </mat-icon>
                 </a>
-            </li>
+            </li> -->
         </ul>
         <!-- Tabs END -->
     </mat-sidenav>
@@ -181,7 +215,7 @@
                 <div *ngIf="adminService.addTeachers">
                     <app-add-or-edit-teacher></app-add-or-edit-teacher>
                 </div>
-                <div *ngIf="adminService.addCounsellors">
+                <div *ngIf="adminService.addEditCounsellors">
                     <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
                 <div *ngIf="adminService.batches">
