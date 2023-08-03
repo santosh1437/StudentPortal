@@ -6,91 +6,116 @@
     </div>
 
     <form [formGroup]="addEditCounsellorForm" (ngSubmit)="addEditCousellingDetails()">
-        <!-- (ngSubmit)="onFormSubmit()" -->
-        <div class="row justify-content-start my-5">
-            <div class="col-lg-5 row">
+        <div class="row">
+            <div class="col-8 justify-content-start my-5">
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Full name :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input matInput type="text" placeholder="Enter Full name" formControlName="fullName">
                 </mat-form-field>
-            </div>
-    
-            <div class="col-lg-5 row">
+                </div>
+            
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Phone No :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input matInput type="tel" placeholder="Enter phone no." formControlName="phone">
                 </mat-form-field>
-            </div>
-    
-            <div class="col-lg-5 row">
+                </div>
+            
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Email ID :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input matInput type="text" placeholder="Enter email Id" formControlName="email">
                 </mat-form-field>
-            </div>
-    
-            <div class="col-lg-5 row">
+                </div>
+            
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Password :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
                         required>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
-            </div>
-            <div class="col-lg-5 row">
+                </div>
+
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Counselor Type :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <mat-label>Select Counselor Type</mat-label>
                     <mat-select formControlName="counsellorType">
                       <mat-option value="Counselor">Counselor</mat-option>
                       <mat-option value="Senior Counselor">Senior Counselor</mat-option>
                     </mat-select>
                   </mat-form-field>
-            </div>
+                </div>
 
-            <div class="col-lg-5 row">
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Joined On :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input matInput [matDatepicker]="picker" placeholder="Enter joined on Date" formControlName="joinedOn">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-            </div>
+                </div>
 
-            <div class="col-lg-5 row">
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Employee Id :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput placeholder="Enter Employee Id" formControlName="empId">
                 </mat-form-field>
-            </div>
+                </div>
 
-            <div class="col-lg-5 row">
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Employee Email :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput placeholder="Enter Employee email" formControlName="empEmail">
                 </mat-form-field>
-            </div>
+                </div>
 
-            <div class="col-lg-5 row">
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Current City:</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput placeholder="Enter Current City" formControlName="currentCity">
                 </mat-form-field>
-            </div>
-    
-            <div class="col-lg-5 row">
+                </div>
+            
+                <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
+                <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput placeholder="Enter Address" formControlName="address">
                 </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Image add edit part -->
+            <div class="col-4 my-5 py-5">
+                <div class="uploadBox d-flex align-items-center justify-content-center">
+                    <div *ngIf="url" style="position:relative; overflow:none; display:inline-block;">
+                        <div class="" style="position: absolute;">
+                            <input type="file"  id="editImage" style="display: none;" (change)="onSelect($event)">
+                            <label for="editImage">
+                                <img src="assets/images/edit.svg" alt="edit image" height="50" width="350"/>
+                            </label>
+                        </div>
+                        <div style="display: block;">
+                            <img [src]="url" height="100%" width="100%" alt="profile image"/>
+                        </div>
+                    </div>
+                    <div *ngIf="!url">
+                        <input type="file"  id="image" style="display: none;" (change)="onSelect($event)">
+                        <label for="image">
+                            <img src="assets/images/plus.svg" alt="add image"/>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div mat-dialog-actions class="my-5">
-            <div class="col-lg-5 col-md-12">
+            <div class="col-lg-6 col-md-12">
                 <button mat-raised-button type="button" class="" (click)="adminService.openSection('counsellors')">Cancel</button>
             </div>
-            <div class="col-lg-5 col-md-12">
+            <div class="col-lg-6 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
                     {{data ? 'Update Counselor':'Save Counselor'}} </button>    
             </div>

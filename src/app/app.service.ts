@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://www.edutechex.com/profile/api/api";
+  private baseUrlAPI = "/api";
+  //while deploying https://www.edutechex.com/profile/api in baseUrlAPI
   private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
@@ -51,8 +52,25 @@ export class AppService {
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${teacher.tID}`, teacher);
   }
 
-  deleteTeacher(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${id}`);
+  deleteTeacher(tID: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
+  }
+
+  // Add Courses to teacher
+  addTeacherCourse(course: AddCourseToTeacher): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,course);
+  }
+
+  getTeacherCourse(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
+  }
+
+  editTeacherCourse(course: AddCourseToTeacher): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${course.tID}`, course);
+  }
+
+  deleteTeacherCourse(tID: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
   }
 
   // Student APIs
@@ -104,6 +122,23 @@ export class AppService {
 
   deleteBatch(bId: string){
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${bId}`);
+  }
+
+  // Image APIs
+  addImage(image:any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Image`,image);
+  }
+  
+  getImages(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Image`);
+  }
+
+  editImage(image: any, uniqueID: string): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Image/${uniqueID}`, image);
+  }
+
+  deleteImage(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Image/${id}`);
   }
 
   // Courses APIs

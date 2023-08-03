@@ -90,6 +90,7 @@ export class CounsellorsComponent {
         this.getCounsellorsDetails();
       },
       error: (err) => {
+        this.closeModal();
         this.success = false;
         this.err = true;
         this.successMsgDialog(

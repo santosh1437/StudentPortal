@@ -16,6 +16,8 @@ export class AddOrEditCounsellorComponent {
   public addEditCounsellorForm: FormGroup;
   public success: boolean = false;
   public err: boolean = false;
+  public url: string = "";
+
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
     public appService: AppService,
@@ -45,6 +47,21 @@ export class AddOrEditCounsellorComponent {
     this.addEditCounsellorForm.patchValue(this.data);
   }
 
+  onSelect(event:any){
+    if(event.target.files[0]){
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      }
+      event.files.push({ data: event.files[0], fileName: this.addEditCounsellorForm.controls['fullName'].value });
+
+      this.appService.addImage(event.files[0])
+        .subscribe((result: string) => {
+          this.url = result;
+      });
+    }
+  }
   addEditCousellingDetails() {
     if (this.addEditCounsellorForm.valid) {
       if (this.data) {

@@ -117,6 +117,14 @@ export interface Course{
   updatedOn: Date
 }
 
+export interface AddCourseToTeacher{
+  tID: string
+  segment: string
+  course: string
+  subCourse: string
+  subject: string
+}
+
 export interface Batch{
   bId : string
   segment : string

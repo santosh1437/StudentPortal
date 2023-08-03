@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Batch, Counsellor, Student, Teachers } from 'src/app/app.model';
+import { AddCourseToTeacher, Batch, Counsellor, Student, Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Injectable({
@@ -13,6 +13,8 @@ export class AdminService {
   public addStudents: boolean = false;
   public teachers: boolean = false;
   public addTeachers: boolean = false;
+  public teacherCourses: boolean = false;
+  public addEditTeacherCourses: boolean = false;
   public counsellors: boolean = false;
   public addEditCounsellors: boolean = false;
   public userManagement: boolean = false;
@@ -31,6 +33,7 @@ export class AdminService {
   public studentsList: Student[] = [];
   public batchesList: Batch[] = [];
   public subBatchesList: any = [];
+  public teacherCoursesList: AddCourseToTeacher[] = [];
 
   //Other required fields
   public signOut: boolean = false;
@@ -38,7 +41,7 @@ export class AdminService {
   public counsellorsCount: number = 0;
   public teachersCount: number = 0;
   public studentsCount: number = 0;
-  public editCounselorObj: any = [];
+  public editCounselorObj: any = null;
 
   constructor(private appService: AppService) { }
 
@@ -58,6 +61,8 @@ export class AdminService {
     this.sessionSchedule = false;
     this.manageCourses = false;
     this.zoomMeetings = false;
+    this.teacherCourses = false;
+    this.addEditTeacherCourses = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -104,6 +109,12 @@ export class AdminService {
         break;
       case 'zoomMeetings':
         this.zoomMeetings = true;
+        break;
+      case 'teacherCourses':
+        this.teacherCourses = true;
+        break;
+      case 'addEditTeacherCourses':
+        this.addEditTeacherCourses = true;
         break;
     }
   }
@@ -161,5 +172,19 @@ export class AdminService {
         },
       });
     } 
+  }
+
+  public getTeacherCoursesDetails() {
+    if(localStorage.getItem('currentUser')){
+      this.appService.getTeacher().subscribe({
+        next: (res) => {  
+          this.teachersList = res;
+          this.teachersCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
   }
 }
