@@ -175,8 +175,8 @@ export class TeacherCoursesComponent {
   //get Teachers form details
   private async getTeacherCoursesDetails() {
     if(localStorage.getItem('currentUser')){
-      await this.adminService.getTeacherDetails();
-      this.TeacherCoursesData = this.adminService.teachersList;
+      await this.adminService.getTeacherCoursesDetails();
+      this.TeacherCoursesData = this.adminService.teacherCoursesList;
       this.TeacherCourseDataSource = new MatTableDataSource(
         this.adminService.teacherCoursesList
       );

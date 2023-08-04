@@ -42,6 +42,9 @@ export class AdminService {
   public teachersCount: number = 0;
   public studentsCount: number = 0;
   public editCounselorObj: any = null;
+  public editTeacherObj: any = null;
+  public currentAddImage: any = null;
+  public currentEditImage: any = null;
 
   constructor(private appService: AppService) { }
 
@@ -156,7 +159,7 @@ export class AdminService {
         },
         error: (err) => {
           console.log(err.message);
-        },
+        }
       });
     }
   }

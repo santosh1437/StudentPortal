@@ -18,31 +18,27 @@ export interface Teachers{
   tID : string
   fullName : string
   email : string
-  phoneNo : string
+  phone : string
   password : string
   isActive : boolean
-  subject : string
-  course : string
   address : string
   empId : string
   empEmail : string
   joinedOn: Date
-  createdOn: Date
+  currentCity: string
 }
 
 export interface addTeachers{
   fullName : string
   email : string
-  phoneNo : string
+  phone : string
   password : string
   isActive : boolean
-  subject : string
-  course : string
   address : string
   empId : string
   empEmail : string
   joinedOn: Date
-  createdOn: Date
+  currentCity: string
 }
 
 export interface Student{

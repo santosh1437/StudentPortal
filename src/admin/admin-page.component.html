@@ -215,6 +215,12 @@
                 <div *ngIf="adminService.addTeachers">
                     <app-add-or-edit-teacher></app-add-or-edit-teacher>
                 </div>
+                <div *ngIf="adminService.teacherCourses">
+                    <app-teacher-courses></app-teacher-courses>
+                </div>
+                <div *ngIf="adminService.addEditTeacherCourses">
+                    <app-add-edit-teacher-courses></app-add-edit-teacher-courses>
+                </div>
                 <div *ngIf="adminService.addEditCounsellors">
                     <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
