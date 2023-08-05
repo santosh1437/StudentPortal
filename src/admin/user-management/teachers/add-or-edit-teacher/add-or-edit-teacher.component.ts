@@ -42,7 +42,7 @@ export class AddOrEditTeacherComponent {
       empEmail: new FormControl('', [Validators.email]),
       empId: new FormControl(''),
       currentCity: new FormControl(''),
-      joinedOn: new FormControl()
+      joinedOn: new FormControl('',[Validators.required])
     });
   }
   ngOnInit(): void {
@@ -95,8 +95,10 @@ export class AddOrEditTeacherComponent {
   }
 
   public fillNext(){
-    this.personalDetails = false;
-    this.courseDetails = true;
+    if(this.addEditTeacherForm.valid){
+      this.personalDetails = false;
+      this.courseDetails = true;
+    }
     if(!this.currentTId){
       this.addEditTeacher();
     }
@@ -105,6 +107,7 @@ export class AddOrEditTeacherComponent {
   public addTeachers(teacher: addTeachers){
     this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
+        this.currentTId = res.tID;
         this.success = true;
         this.err = false;
         this.successMsgDialog('Teacher added successfully'); 

@@ -142,13 +142,29 @@ export class AppService {
   }
 
   // Courses APIs
+  addCourse(course:any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Course`,course);
+  }
+  
   getCourses() {
-    return this.httpClient.get<any>(`${this.baseUrlAPI}/Courses`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Course`);
+  }
+
+  editCourse(course: any, uniqueID: string): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Course/${uniqueID}`, course);
+  }
+
+  deleteCourse(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
+  }
+
+  getCourseById(id: string){
+    return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
   }
 
   //Zoom APIs
   createMeeting(createMeeting: any, userId: any){
-    return this.httpClient.post<any>(`${this.zoomBaseUrlApi}//users/${userId}/meetings`,createMeeting);
+    return this.httpClient.post<any>(`${this.zoomBaseUrlApi}/users/${userId}/meetings`,createMeeting);
   }
 
   getMeeting(meetingId:any) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AddCourseToTeacher, Batch, Counsellor, Student, Teachers } from 'src/app/app.model';
+import { AddCourseToTeacher, Batch, Counsellor, Course, Student, Teachers, Subject } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Injectable({
@@ -34,6 +34,8 @@ export class AdminService {
   public batchesList: Batch[] = [];
   public subBatchesList: any = [];
   public teacherCoursesList: AddCourseToTeacher[] = [];
+  public coursesList: Course[] = [];
+  public subjectsList: Subject[] = [];
 
   //Other required fields
   public signOut: boolean = false;
@@ -183,6 +185,19 @@ export class AdminService {
         next: (res) => {  
           this.teachersList = res;
           this.teachersCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getCoursesList(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getCourses().subscribe({
+        next: (res) => {  
+          this.coursesList = res;
         },
         error: (err) => {
           console.log(err.message);

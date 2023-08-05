@@ -71,14 +71,6 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Email </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.empEmail}} </mat-cell>
         </ng-container>
-        <!-- <ng-container matColumnDef="subject">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
-        </ng-container> -->
         <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
             <mat-cell *matCellDef="let element"> <mat-slide-toggle color="primary" [disabled]="clicked" [checked]="element.isActive" (change)="onItemChange(element); clicked = true" ></mat-slide-toggle> </mat-cell>

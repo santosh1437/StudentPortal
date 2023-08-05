@@ -29,7 +29,6 @@ import { AddOrEditTeacherComponent } from './user-management/teachers/add-or-edi
 import { SettingsComponent } from './settings/settings.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import { ManageCoursesComponent } from './settings/manage-courses/manage-courses.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { BatchesComponent } from './scheduler/batches/batches.component';
 import { SubBatchesComponent } from './scheduler/sub-batches/sub-batches.component';
@@ -52,7 +51,6 @@ import { TeacherCoursesComponent } from './user-management/teachers/teacher-cour
     AddOrEditCounsellorComponent,
     AddOrEditTeacherComponent,
     SettingsComponent,
-    ManageCoursesComponent,
     SchedulerComponent,
     BatchesComponent,
     SubBatchesComponent,

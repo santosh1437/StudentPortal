@@ -100,17 +100,15 @@ export interface addCounsellor{
 }
 
 export interface Course{
-  cId : string
-  courseTitle : string
-  courseName: string
-  duration : string
-  description: string
-  currentPrice: number
-  discountPerc: number
-  discountPrice: number
-  batches: string
-  createdOn: Date
-  updatedOn: Date
+  courseId : string
+  segment : string 
+  course : string
+  subCourse : string
+}
+
+export interface Subject{
+  courseId : string
+  subject : string
 }
 
 export interface AddCourseToTeacher{
