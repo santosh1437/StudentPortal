@@ -33,7 +33,7 @@ export class TeachersComponent {
     'tID',
     'fullName',
     'email',
-    'phoneNo',
+    'phone',
     'password',
     'status',
     'joinedOn',
@@ -129,8 +129,8 @@ export class TeachersComponent {
     if (fromDate && toDate) {
       this.tempData.forEach((item: Teachers) => {
         if (
-          new Date(item.createdOn) >= new Date(fromDate) &&
-          new Date(item.createdOn) <= new Date(toDate)
+          new Date(item.joinedOn) >= new Date(fromDate) &&
+          new Date(item.joinedOn) <= new Date(toDate)
         ) {
           selectedItems.push(item);
         }
@@ -172,16 +172,14 @@ export class TeachersComponent {
       decimalseparator: '.',
       showLabels: true,
       useBom: true,
-      headers: ['Id', 'Name', 'MailID', 'Phone No', 'Current City', 'Created On']
+      headers: ['Id', 'Name', 'MailID', 'Phone No']
     };
     const exportData = this.TeachersDataSource.data.map((data) => {
       return {
         id : data.tID,
         fullName : data.fullName,
         email : data.email,
-        phoneNo : data.phoneNo,
-        subject : data.subject,
-        createdOn: data.createdOn
+        phoneNo : data.phone,
       }
     });
     // new ngxCsv(exportData, 'TeachersDetailsReport', options);

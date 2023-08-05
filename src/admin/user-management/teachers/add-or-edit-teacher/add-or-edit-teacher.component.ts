@@ -14,25 +14,14 @@ import { AppService } from 'src/app/app.service';
 export class AddOrEditTeacherComponent {
   public data: any;
   public addEditTeacherForm: FormGroup;
-  public addEditTeacherCourseForm: FormGroup;
   public hide: boolean = true;
   public success: boolean = false;
   public err: boolean = false;
   public personalDetails: boolean = true;
   public courseDetails: boolean = false;
   public url: string = "";
-  public displayedColumns = [
-    'id',
-    'segment',
-    'course',
-    'subCourse',
-    'subject',
-    'edit/delete'
-  ];
-  public deleteId: number = 0;
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
-  public StudentsData: any;
-  @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
+  public currentTId: string = "";
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   dialogRef: any;
 
@@ -47,32 +36,17 @@ export class AddOrEditTeacherComponent {
     this.addEditTeacherForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
+      phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)] ),
-      subject: new FormControl('', [Validators.required]),
-      course: new FormControl('', [Validators.required]),
       address: new FormControl(''),
       empEmail: new FormControl('', [Validators.email]),
-      empId: new FormControl(),
-      joinedOn: new FormControl()
+      empId: new FormControl(''),
+      currentCity: new FormControl(''),
+      joinedOn: new FormControl('',[Validators.required])
     });
-    //Add Courses to teacher form
-    this.addEditTeacherCourseForm = this.fb.group({
-      segment: new FormControl('',[Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      subCourse: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required])
-    })
   }
   ngOnInit(): void {
     this.addEditTeacherForm.patchValue(this.data);
-  }
-
-  openDeleteTeacherCourseConfirm(ID:any){
-    this.deleteId = ID;
-    this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
-      width: 'auto',
-    });
   }
 
   onSelect(event:any){
@@ -82,12 +56,6 @@ export class AddOrEditTeacherComponent {
       reader.onload = (event: any) => {
         this.url = event.target.result;
       }
-      event.files.push({ data: event.files[0], fileName: this.addEditTeacherForm.controls['fullName'].value });
-
-      this.appService.addImage(event.files[0])
-        .subscribe((result: string) => {
-          this.url = result;
-      });
     }
   }
 
@@ -98,32 +66,28 @@ export class AddOrEditTeacherComponent {
           tID: this.data.tID,
           fullName: this.addEditTeacherForm.controls['fullName'].value,
           email: this.addEditTeacherForm.controls['email'].value,
-          phoneNo: this.addEditTeacherForm.controls['phoneNo'].value,
+          phone: this.addEditTeacherForm.controls['phone'].value,
           password: this.addEditTeacherForm.controls['password'].value,
-          subject: this.addEditTeacherForm.controls['subject'].value,
-          course: this.addEditTeacherForm.controls['course'].value,
           address: this.addEditTeacherForm.controls['address'].value,
           empId: this.addEditTeacherForm.controls['empId'].value,
           empEmail: this.addEditTeacherForm.controls['empEmail'].value,
           joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
-          createdOn: new Date(),
           isActive: true,
+          currentCity: this.addEditTeacherForm.controls['currentCity'].value
         };
         this.editTeachers(editTeachersData)
       }else{
         const addTeachersData : addTeachers ={
           fullName: this.addEditTeacherForm.controls['fullName'].value,
           email: this.addEditTeacherForm.controls['email'].value,
-          phoneNo: this.addEditTeacherForm.controls['phoneNo'].value,
+          phone: this.addEditTeacherForm.controls['phone'].value,
           password: this.addEditTeacherForm.controls['password'].value,
-          subject: this.addEditTeacherForm.controls['subject'].value,
-          course: this.addEditTeacherForm.controls['course'].value,
           address: this.addEditTeacherForm.controls['address'].value,
           empId: this.addEditTeacherForm.controls['empId'].value,
           empEmail: this.addEditTeacherForm.controls['empEmail'].value,
           joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
-          createdOn: new Date(),
-          isActive: true
+          isActive: true,
+          currentCity: this.addEditTeacherForm.controls['currentCity'].value
         };
         this.addTeachers(addTeachersData);
       }
@@ -131,25 +95,29 @@ export class AddOrEditTeacherComponent {
   }
 
   public fillNext(){
-    this.personalDetails = false;
-    this.courseDetails = true;
+    if(this.addEditTeacherForm.valid){
+      this.personalDetails = false;
+      this.courseDetails = true;
+    }
+    if(!this.currentTId){
+      this.addEditTeacher();
+    }
   }
 
   public addTeachers(teacher: addTeachers){
     this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
+        this.currentTId = res.tID;
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Teacher added successfully'); 
+        this.successMsgDialog('Teacher added successfully'); 
       },
       error: (err) => {
         this.err = true;
         this.success = false;
         this.successMsgDialog(err.message);
       }
-    })
-      
-
+    });
   }
 
   public editTeachers(teacher: Teachers){
@@ -158,7 +126,7 @@ export class AddOrEditTeacherComponent {
         console.log(res);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Teacher updated successfully');
+        this.successMsgDialog('Teacher Details Saved');
       },
       error: (err) => {
         this.err = true;
@@ -177,7 +145,7 @@ export class AddOrEditTeacherComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('teachers');
+        // this.adminService.openSection('teachers');
       }, timeout);
     });
   }

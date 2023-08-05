@@ -113,8 +113,8 @@ export class CounsellorsComponent {
     if (fromDate && toDate) {
       this.tempData.forEach((item: Counsellor) => {
         if (
-          new Date(item.createdOn) >= new Date(fromDate) &&
-          new Date(item.createdOn) <= new Date(toDate)
+          new Date(item.joinedOn) >= new Date(fromDate) &&
+          new Date(item.joinedOn) <= new Date(toDate)
         ) {
           selectedItems.push(item);
         }

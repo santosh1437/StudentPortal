@@ -18,31 +18,27 @@ export interface Teachers{
   tID : string
   fullName : string
   email : string
-  phoneNo : string
+  phone : string
   password : string
   isActive : boolean
-  subject : string
-  course : string
   address : string
   empId : string
   empEmail : string
   joinedOn: Date
-  createdOn: Date
+  currentCity: string
 }
 
 export interface addTeachers{
   fullName : string
   email : string
-  phoneNo : string
+  phone : string
   password : string
   isActive : boolean
-  subject : string
-  course : string
   address : string
   empId : string
   empEmail : string
   joinedOn: Date
-  createdOn: Date
+  currentCity: string
 }
 
 export interface Student{
@@ -104,17 +100,15 @@ export interface addCounsellor{
 }
 
 export interface Course{
-  cId : string
-  courseTitle : string
-  courseName: string
-  duration : string
-  description: string
-  currentPrice: number
-  discountPerc: number
-  discountPrice: number
-  batches: string
-  createdOn: Date
-  updatedOn: Date
+  courseId : string
+  segment : string 
+  course : string
+  subCourse : string
+}
+
+export interface Subject{
+  courseId : string
+  subject : string
 }
 
 export interface AddCourseToTeacher{

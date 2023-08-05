@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AddCourseToTeacher, Batch, Counsellor, Student, Teachers } from 'src/app/app.model';
+import { AddCourseToTeacher, Batch, Counsellor, Course, Student, Teachers, Subject } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Injectable({
@@ -34,6 +34,8 @@ export class AdminService {
   public batchesList: Batch[] = [];
   public subBatchesList: any = [];
   public teacherCoursesList: AddCourseToTeacher[] = [];
+  public coursesList: Course[] = [];
+  public subjectsList: Subject[] = [];
 
   //Other required fields
   public signOut: boolean = false;
@@ -42,6 +44,9 @@ export class AdminService {
   public teachersCount: number = 0;
   public studentsCount: number = 0;
   public editCounselorObj: any = null;
+  public editTeacherObj: any = null;
+  public currentAddImage: any = null;
+  public currentEditImage: any = null;
 
   constructor(private appService: AppService) { }
 
@@ -156,7 +161,7 @@ export class AdminService {
         },
         error: (err) => {
           console.log(err.message);
-        },
+        }
       });
     }
   }
@@ -180,6 +185,19 @@ export class AdminService {
         next: (res) => {  
           this.teachersList = res;
           this.teachersCount = res.length;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getCoursesList(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getCourses().subscribe({
+        next: (res) => {  
+          this.coursesList = res;
         },
         error: (err) => {
           console.log(err.message);

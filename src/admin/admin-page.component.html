@@ -215,6 +215,12 @@
                 <div *ngIf="adminService.addTeachers">
                     <app-add-or-edit-teacher></app-add-or-edit-teacher>
                 </div>
+                <div *ngIf="adminService.teacherCourses">
+                    <app-teacher-courses></app-teacher-courses>
+                </div>
+                <div *ngIf="adminService.addEditTeacherCourses">
+                    <app-add-edit-teacher-courses></app-add-edit-teacher-courses>
+                </div>
                 <div *ngIf="adminService.addEditCounsellors">
                     <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
@@ -227,9 +233,9 @@
                 <div *ngIf="adminService.manageSubBatches">
                     <app-sub-batches></app-sub-batches>
                 </div>
-                <div *ngIf="adminService.manageCourses">
+                <!-- <div *ngIf="adminService.manageCourses">
                     <app-manage-courses></app-manage-courses>
-                </div>
+                </div> -->
             </div>
         </div>
     </mat-sidenav-content>
