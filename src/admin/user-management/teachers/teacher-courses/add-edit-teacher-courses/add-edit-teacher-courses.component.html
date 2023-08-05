@@ -8,52 +8,52 @@
         <div class="ms-2 d-flex justify-content-between align-items-center" >
             <h2 class="ps-3" *ngIf="data">Edit Course</h2>
             <h2 class="ps-3" *ngIf="!data">Add Course</h2>        </div>
-        <div class="row">
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Segment</mat-label>
-                    <mat-form-field appearance="outline" class="col-10">
-                        <mat-label>Select Segment</mat-label>
-                        <mat-select formControlName="segment">
-                          <mat-option *ngFor="adminService.coursesList as element" value="element.segment">{{element.segment}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Course</mat-label>
-                    <mat-form-field appearance="outline" class="col-10">
-                        <mat-label>Select Course</mat-label>
-                        <mat-select formControlName="course">
-                          <mat-option *ngFor="adminService.coursesList as element" value="element.course">{{element.course}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Sub Course</mat-label>
-                    <mat-form-field appearance="outline" class="col-10">
-                        <mat-label>Select Sub Course</mat-label>
-                        <mat-select formControlName="subCourse">
-                          <mat-option *ngFor="adminService.coursesList as element" value="element.subCourse">{{element.subCourse}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
-                    <mat-form-field appearance="outline" class="col-10">
-                        <input type="text" matInput placeholder="Enter Employee Id" formControlName="subject">
-                    </mat-form-field>
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Segment</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <mat-label>Select Segment</mat-label>
+                    <mat-select formControlName="segment">
+                      <mat-option *ngFor="adminService.coursesList as element" value="element.segment">{{element.segment}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Course</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <mat-label>Select Course</mat-label>
+                    <mat-select formControlName="course">
+                      <mat-option *ngFor="adminService.coursesList as element" value="element.course">{{element.course}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Sub Course</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <mat-label>Select Sub Course</mat-label>
+                    <mat-select formControlName="subCourse">
+                      <mat-option *ngFor="adminService.coursesList as element" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <mat-label>Select Subject</mat-label>
+                    <mat-select formControlName="subject">
+                      <mat-option *ngFor="adminService.coursesList as element" value="element?.subject">{{element?.subject}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
 
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-6 col-md-12">
-                <button mat-raised-button type="button" class="" (click)="adminService.openSection('teachers')">Cancel</button>
+                <button mat-raised-button type="button" class="" (click)="adminService.openSection('teacherCourses')">Cancel</button>
             </div>
             <div class="col-lg-6 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    {{data ? 'Update Course':'Save Course'}} </button>
+                    {{data ? 'Update Course':'Add Course'}} </button>
             </div>
         </div>
     </form>
