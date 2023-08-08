@@ -36,6 +36,10 @@ import { AddOrEditBatchComponent } from './scheduler/batches/add-or-edit-batch/a
 import { AddOrEditSubBatchesComponent } from './scheduler/sub-batches/add-or-edit-sub-batches/add-or-edit-sub-batches.component';
 import { AddEditTeacherCoursesComponent } from './user-management/teachers/teacher-courses/add-edit-teacher-courses/add-edit-teacher-courses.component';
 import { TeacherCoursesComponent } from './user-management/teachers/teacher-courses/teacher-courses.component';
+import { PaymentDetailsComponent } from './user-management/students/payment-details/payment-details.component';
+import { StudentCoursesComponent } from './user-management/students/student-courses/student-courses.component';
+import { StudentPaymentDetailsComponent } from './user-management/students/student-payment-details/student-payment-details.component';
+import { AddOrEditStudentCoursesComponent } from './user-management/students/student-courses/add-or-edit-student-courses/add-or-edit-student-courses.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -57,6 +61,10 @@ import { TeacherCoursesComponent } from './user-management/teachers/teacher-cour
     AddOrEditBatchComponent,
     AddOrEditSubBatchesComponent,
     AddEditTeacherCoursesComponent,
+    PaymentDetailsComponent,
+    StudentCoursesComponent,
+    StudentPaymentDetailsComponent,
+    AddOrEditStudentCoursesComponent,
     // ScheduleSessionComponent
   ],
   imports: [

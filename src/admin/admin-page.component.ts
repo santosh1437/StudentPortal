@@ -18,6 +18,7 @@ export class AdminPageComponent {
     this.adminService.openSection('dashboard');
     this.currentUserData = localStorage.getItem('currentUser');
     this.adminService.currentUser = this.getCurrentUser();
+    this.adminService.getSegmentsList();
   }
 
   // Get Current user from localstorage

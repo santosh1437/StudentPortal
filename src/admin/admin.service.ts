@@ -36,6 +36,7 @@ export class AdminService {
   public teacherCoursesList: AddCourseToTeacher[] = [];
   public coursesList: Course[] = [];
   public subjectsList: Subject[] = [];
+  public segmentsList: any[] = [];
 
   //Other required fields
   public signOut: boolean = false;
@@ -198,6 +199,21 @@ export class AdminService {
       this.appService.getCourses().subscribe({
         next: (res) => {  
           this.coursesList = res;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getSegmentsList(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getSegments().subscribe({
+        next: (res) => {
+          for(var i=0;i<res.length;i++) {
+            this.segmentsList.push(res.title);
+          }
         },
         error: (err) => {
           console.log(err.message);

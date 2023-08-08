@@ -110,12 +110,12 @@ export class AddOrEditTeacherComponent {
         this.currentTId = res.tID;
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Teacher added successfully'); 
+        // this.successMsgDialog('Teacher added successfully'); 
       },
       error: (err) => {
         this.err = true;
         this.success = false;
-        this.successMsgDialog(err.message);
+        // this.successMsgDialog(err.message);
       }
     });
   }
