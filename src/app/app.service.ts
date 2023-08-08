@@ -8,7 +8,8 @@ import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers
 export class AppService {
   public signOut: boolean = false;
   private baseUrlAPI = "/api";
-  //while deploying https://www.edutechex.com/profile/api in baseUrlAPI
+  //while deploying in baseUrlAPI https://www.edutechex.com/profile/api/api
+  private edutechApi = "https://api.edutechex.com/api/Segment/GetSegmentList";
   private zoomBaseUrlApi = "https://api.zoom.us/v2";
   public currentUser: any;
   public httpClientMsg: string ="";
@@ -162,12 +163,17 @@ export class AppService {
     return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
   }
 
-  //Zoom APIs
+  // Zoom APIs
   createMeeting(createMeeting: any, userId: any){
     return this.httpClient.post<any>(`${this.zoomBaseUrlApi}/users/${userId}/meetings`,createMeeting);
   }
 
   getMeeting(meetingId:any) {
     return this.httpClient.get<any>(`${this.zoomBaseUrlApi}/meetings/{meetingId}`);
+  }
+
+  // Edutech APIs
+  getSegments(){
+    return this.httpClient.get<any>(`${this.edutechApi}`);
   }
 }

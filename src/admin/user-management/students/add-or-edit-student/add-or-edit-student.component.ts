@@ -18,6 +18,8 @@ export class AddOrEditStudentComponent {
   public err: boolean = false;
   public personalDetails: boolean = true;
   public courseDetails: boolean = false;
+  public educationDetails: boolean = false;
+  public paymentDetails: boolean = false;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
@@ -27,36 +29,48 @@ export class AddOrEditStudentComponent {
     public adminService: AdminService
   ) {
     this.addEditStudentForm = this.fb.group({
-      fullName: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      dob: new FormControl('', [Validators.required]),
       phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
+      admissionDate: new FormControl('', [Validators.required]),
       studentType: new FormControl('', [Validators.required]),
       currentCity: new FormControl('', [Validators.required]),
       address: new FormControl('', Validators.required),
-      parentPhoneNo: new FormControl('', Validators.required),
-      course: new FormControl('', Validators.required),
-      subject: new FormControl('', Validators.required),
-      batch: new FormControl('', Validators.required),
-      timings: new FormControl('', Validators.required),
-      assignedTeacher: new FormControl('', Validators.required)
+      parentPhoneNo: new FormControl('', [Validators.required,Validators.pattern("^[0-9\-\+]{9,15}$")]),
+      parentName: new FormControl('', Validators.required),
+      parentMailId: new FormControl('', [Validators.required, Validators.email]),
+      counsellor: new FormControl('', [Validators.required]),
+      segment: new FormControl('', [Validators.required]),
+      grade: new FormControl('', [Validators.required]),
+      curriculum: new FormControl('', [Validators.required]),
+      schoolOrCollege: new FormControl('', [Validators.required]),
+      degree: new FormControl('', [Validators.required]),
+      expectedOrPassedOutYear: new FormControl('', [Validators.required])
     });
   }
 
   ngOnInit(): void {
-    this.data  = {
-      id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "", studentType: "External Student", 
-      batch: "1", course: "SAT", subject: "maths", timings:"10 to 11", parentPhoneNo: "6566154", currentCity: "Hyderabad", address: "test"
-    }
+    // this.data  = {
+    //   id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "", studentType: "External Student", 
+    //   batch: "1", course: "SAT", subject: "maths", timings:"10 to 11", parentPhoneNo: "6566154", currentCity: "Hyderabad", address: "test"
+    // }
     this.addEditStudentForm.patchValue(this.data);
   }
 
   public fillNext(){
-    this.personalDetails = false;
-    this.courseDetails = true;
+    if(this.personalDetails){
+      this.personalDetails = false;
+      this.educationDetails = true;
+    } else if(this.educationDetails){
+      this.personalDetails = false;
+      this.educationDetails = false;
+      this.paymentDetails = true;
+    }
   }
 
   onFormSubmit() {

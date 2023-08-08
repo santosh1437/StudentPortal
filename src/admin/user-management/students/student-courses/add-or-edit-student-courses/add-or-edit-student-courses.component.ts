@@ -7,11 +7,11 @@ import { AddCourseToTeacher } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
-  selector: 'app-add-edit-teacher-courses',
-  templateUrl: './add-edit-teacher-courses.component.html',
-  styleUrls: ['./add-edit-teacher-courses.component.css']
+  selector: 'app-add-or-edit-student-courses',
+  templateUrl: './add-or-edit-student-courses.component.html',
+  styleUrls: ['./add-or-edit-student-courses.component.css']
 })
-export class AddEditTeacherCoursesComponent {
+export class AddOrEditStudentCoursesComponent {
   public data: any;
   public addEditTeacherCourseForm: FormGroup;
   public hide: boolean = true;
@@ -138,7 +138,7 @@ export class AddEditTeacherCoursesComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('teachers');
+        this.adminService.openSection('students');
       }, timeout);
     });
   }
