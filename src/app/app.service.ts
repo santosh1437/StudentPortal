@@ -172,6 +172,11 @@ export class AppService {
     return this.httpClient.get<any>(`${this.zoomBaseUrlApi}/meetings/{meetingId}`);
   }
 
+  // Payment details
+  getPaymentDetails(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/`);
+  }
+
   // Edutech APIs
   getSegments(){
     return this.httpClient.get<any>(`${this.edutechApi}`);

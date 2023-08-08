@@ -26,7 +26,7 @@ export class AdminService {
   public sessionSchedule: boolean = false;
   public scheduler: boolean = false;
   public zoomMeetings: boolean = false;
-
+  public paymentDetails: boolean = false;
   //Lists
   public teachersList: Teachers[] = [];
   public counselorsList: Counsellor[] = [];
@@ -37,7 +37,8 @@ export class AdminService {
   public coursesList: Course[] = [];
   public subjectsList: Subject[] = [];
   public segmentsList: any[] = [];
-
+  public PaymentDetailsList: any[] = [];
+  
   //Other required fields
   public signOut: boolean = false;
   public currentUser: any;
@@ -69,6 +70,7 @@ export class AdminService {
     this.zoomMeetings = false;
     this.teacherCourses = false;
     this.addEditTeacherCourses = false;
+    this.paymentDetails = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -121,6 +123,9 @@ export class AdminService {
         break;
       case 'addEditTeacherCourses':
         this.addEditTeacherCourses = true;
+        break;
+      case 'paymentDetails':
+        this.paymentDetails = true;
         break;
     }
   }
@@ -210,6 +215,21 @@ export class AdminService {
   public getSegmentsList(){
     if(localStorage.getItem('currentUser')){
       this.appService.getSegments().subscribe({
+        next: (res) => {
+          for(var i=0;i<res.length;i++) {
+            this.segmentsList.push(res.title);
+          }
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getPaymentDetailsDetails(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getPaymentDetails().subscribe({
         next: (res) => {
           for(var i=0;i<res.length;i++) {
             this.segmentsList.push(res.title);
