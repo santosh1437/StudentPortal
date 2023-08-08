@@ -27,13 +27,24 @@
                 </a>
             </li>
 
-            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
+            <li class="nav-item" *ngIf="adminService.userManagement">
                 <a href="javascript: void(0)" (click)="adminService.openSection('students');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
                     aria-selected="false">
                     <span class="ps-4 pb-1">Students</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="!adminService.students"> chevron_right </mat-icon>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students || adminService.paymentDetails">expand_more</mat-icon>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2" *ngIf="(adminService.userManagement && adminService.students) || adminService.paymentDetails">
+                <a href="javascript: void(0)" (click)="adminService.openSection('paymentDetails');"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <span class="ps-4 pb-1">Payment Details</span>
+                    <!-- <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon> -->
                 </a>
             </li>
 
@@ -232,6 +243,9 @@
                 </div>
                 <div *ngIf="adminService.manageSubBatches">
                     <app-sub-batches></app-sub-batches>
+                </div>
+                <div *ngIf="adminService.paymentDetails">
+                    <app-payment-details></app-payment-details>
                 </div>
                 <!-- <div *ngIf="adminService.manageCourses">
                     <app-manage-courses></app-manage-courses>
