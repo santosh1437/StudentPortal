@@ -185,6 +185,19 @@ export class AdminService {
     } 
   }
 
+  public getSubBatchDetails(){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getSubBatches().subscribe({
+        next: (res) => {  
+          this.subBatchesList = res;
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    } 
+  }
+
   public getTeacherCoursesDetails() {
     if(localStorage.getItem('currentUser')){
       this.appService.getTeacher().subscribe({

@@ -27,6 +27,7 @@ export class AddOrEditBatchComponent {
     public adminService: AdminService
   ) {
     this.addEditBatchForm = this.fb.group({
+      batchType: new FormControl('', [Validators.required]),
       segment: new FormControl('', [Validators.required]),
       course: new FormControl('', Validators.required),
       subCourse: new FormControl('', [Validators.required, Validators.email]),
@@ -40,9 +41,9 @@ export class AddOrEditBatchComponent {
   }
 
   ngOnInit(): void {
-    this.data  = {
-      id:1, bId: "1", course: "SAT", subCourse: "SAT", timings:"10 to 11", startDate: "22/07/2023", currentCity: "Hyderabad", address: "test"
-    }
+    // this.data  = {
+    //   id:1, bId: "1", course: "SAT", subCourse: "SAT", timings:"10 to 11", startDate: "22/07/2023", currentCity: "Hyderabad", address: "test"
+    // }
     this.addEditBatchForm.patchValue(this.data);
   }
 
@@ -64,6 +65,7 @@ export class AddOrEditBatchComponent {
           days: this.addEditBatchForm.controls['days'].value,
           timings: this.addEditBatchForm.controls['timings'].value,
           durationOfCourse: this.addEditBatchForm.controls['durationOfCourse'].value,
+          notes: this.addEditBatchForm.controls['notes'].value
         };
         this.editBatch(editBatchData);
       } else {
@@ -76,6 +78,7 @@ export class AddOrEditBatchComponent {
           days: this.addEditBatchForm.controls['days'].value,
           timings: this.addEditBatchForm.controls['timings'].value,
           durationOfCourse: this.addEditBatchForm.controls['durationOfCourse'].value,
+          notes: this.addEditBatchForm.controls['notes'].value,
         };
         this.addBatch(addBatchData);
       }

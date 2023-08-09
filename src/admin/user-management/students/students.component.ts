@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +14,9 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent {
+  public deleteId: string = '';
+  public success: boolean = false;
+  public err: boolean = false;
   StudentsSearchDateRange = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -20,11 +24,14 @@ export class StudentsComponent {
   public tempData: any;
   public displayedColumns = [
     'id',
-    'fullName',
+    'name',
+    'segment',
     'email',
     'phoneNo',
     'studentType',
-    'createdOn'
+    'paymentStatus',
+    'dueDate',
+    'edit/delete'
   ];
   public StudentsDataSource: MatTableDataSource<Student>;
   public StudentsData: any;
@@ -33,10 +40,15 @@ export class StudentsComponent {
     new MatPaginatorIntl(),
     ChangeDetectorRef.prototype
   );
+  @ViewChild('deleteTeacherConfirm') deleteStudentConfirmDialog =
+  {} as TemplateRef<any>;
+  dialogRef: any;
+  @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
 
   constructor(
     public appService: AppService,
-    public adminService: AdminService
+    public adminService: AdminService,
+    public dialog: MatDialog
     ) {
     this.getStudentsDetails();
     this.StudentsDataSource = new MatTableDataSource(this.StudentsData);
@@ -70,6 +82,10 @@ export class StudentsComponent {
     }
   }
 
+  public closeModal() {
+    this.dialogRef.close();
+  }
+
   // On clicking Show All button
   public showAll() {
     this.StudentsSearchDateRange.reset();
@@ -94,6 +110,35 @@ export class StudentsComponent {
     }
   }
 
+  // Delete Student
+  public deleteTeacher() {
+    this.appService.deleteTeacher(this.deleteId).subscribe({
+      next: (res) => {
+        this.closeModal();
+        this.success = true;
+        this.err = false;
+        this.successMsgDialog('Teacher deleted Successfully');
+        this.getStudentsDetails();
+      },
+      error: (err) => {
+        this.closeModal();
+        this.success = false;
+        this.err = true;
+        this.successMsgDialog(
+          'Something went wrong, Please try after some time!'
+        );
+      },
+    });
+    this.deleteId = '';
+  }
+
+  openDeleteStudentConfirm(id: any) {
+    this.deleteId = id;
+    this.dialogRef = this.dialog.open(this.deleteStudentConfirmDialog, {
+      width: 'auto',
+    });
+  }
+
   //On clicking Export button, exporting to excel
   ExportTOExcel(){
     var options = { 
@@ -115,5 +160,19 @@ export class StudentsComponent {
       }
     });
     // new ngxCsv(exportData, 'InternalStudentsDetailsReport', options);
+  }
+
+  //Success or error msg dialog after form submissions or performing some actions
+  public successMsgDialog(msg: string) {
+    this.appService.httpClientMsg = msg;
+    const timeout = 3000;
+    const dialogRef = this.dialog.open(this.successDialog, {
+      width: 'auto',
+    });
+    dialogRef.afterOpened().subscribe((_) => {
+      setTimeout(() => {
+        dialogRef.close();
+      }, timeout);
+    });
   }
 }

@@ -46,9 +46,14 @@
             <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="fullName">
+        <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+        <!-- Segment Column -->
+        <ng-container matColumnDef="segment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
         <ng-container matColumnDef="email">
@@ -65,10 +70,35 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Student Type </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.studentType}} </mat-cell>
         </ng-container>
+        <!-- Payment Status Column -->
+        <ng-container matColumnDef="paymentStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Status </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.paymentStatus}} </mat-cell>
+        </ng-container>
         <!-- Created On Column -->
-        <ng-container matColumnDef="createdOn">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Created On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.createdOn | date:'medium'}} </mat-cell>
+        <ng-container matColumnDef="dueDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dueDate | date:'medium'}} </mat-cell>
+        </ng-container>
+
+        <!-- Edit/Delete -->
+        <ng-container matColumnDef="edit/delete" >
+            <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <ul class="list-unstyled p-2 px-3 mb-0">
+                    <li>
+                        <a class="d-flex text-decoration-none custom-icon"
+                        (click)="adminService.openSection('addStudents');" style="cursor: pointer;">
+                            <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
+                        </a>
+                    </li>
+                    <li *ngIf="element.email != this.adminService.currentUser.email">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteStudentConfirm(element?.tID)" style="cursor:pointer;">
+                            <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
+                        </a>
+                    </li>
+                </ul>
+            </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="loading">
