@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -118,11 +118,28 @@ export class AppService {
   }
 
   editBatch(batch: Batch){
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${batch.bId}`, batch);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Batch/${batch.bId}`, batch);
   }
 
   deleteBatch(bId: string){
-    return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${bId}`);
+    return this.httpClient.delete(`${this.baseUrlAPI}/Batch/${bId}`);
+  }
+
+  // Sub Batches APIs
+  getSubBatches() {
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/SubBatch`);
+  }
+
+  addSubBatch(subBatch: addSubBatch): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/SubBatch`, subBatch);
+  }
+
+  editSubBatch(subBatch: SubBatch){
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/SubBatch/${subBatch.sbId}`, subBatch);
+  }
+
+  deleteSubBatch(bId: string){
+    return this.httpClient.delete(`${this.baseUrlAPI}/SubBatch/${bId}`);
   }
 
   // Image APIs
@@ -174,7 +191,7 @@ export class AppService {
 
   // Payment details
   getPaymentDetails(){
-    return this.httpClient.get<any>(`${this.baseUrlAPI}/`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}`);
   }
 
   // Edutech APIs

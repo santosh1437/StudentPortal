@@ -129,6 +129,7 @@ export interface Batch{
   timings: string
   days: number
   startDate: Date
+  notes: string
 }
 
 export interface addBatch{
@@ -140,4 +141,30 @@ export interface addBatch{
   timings: string
   days: number
   startDate: Date
+  notes: string
+}
+
+export interface SubBatch{
+  sbId : string
+  segment : string
+  course: string
+  subCourse: string
+  teacher : string
+  counselor: string
+  timings: string
+  days: number
+  startDate: Date
+  notes: string
+}
+
+export interface addSubBatch{
+  segment : string
+  course: string
+  subCourse: string
+  teacher : string
+  counselor: string
+  timings: string
+  days: number
+  startDate: Date
+  notes: string
 }

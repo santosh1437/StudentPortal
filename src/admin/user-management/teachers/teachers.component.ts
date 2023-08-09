@@ -49,7 +49,7 @@ export class TeachersComponent {
     ChangeDetectorRef.prototype
   );
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
-  @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog =
+  @ViewChild('deleteTeacherConfirm') deleteTeacherConfirmDialog =
     {} as TemplateRef<any>;
   dialogRef: any;
 
@@ -96,7 +96,7 @@ export class TeachersComponent {
 
   openDeleteTeacherConfirm(id: any) {
     this.deleteId = id;
-    this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog, {
+    this.dialogRef = this.dialog.open(this.deleteTeacherConfirmDialog, {
       width: 'auto',
     });
   }
