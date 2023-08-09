@@ -21,7 +21,7 @@ export class AdminService {
   public manageCourses: boolean = false;
   public batches :boolean = false;
   public addOrEditBatches: boolean = false;
-  public manageSubBatches: boolean = false;
+  public subBatches: boolean = false;
   public classSchedule: boolean = false;
   public sessionSchedule: boolean = false;
   public scheduler: boolean = false;
@@ -63,7 +63,7 @@ export class AdminService {
     this.addEditCounsellors = false;
     this.batches = false;
     this.addOrEditBatches = false;
-    this.manageSubBatches = false;
+    this.subBatches = false;
     this.classSchedule = false;
     this.sessionSchedule = false;
     this.manageCourses = false;
@@ -106,8 +106,8 @@ export class AdminService {
       case 'addOrEditBatches':
         this.addOrEditBatches = true;
         break;
-      case 'manageSubBatches':
-        this.manageSubBatches = true;
+      case 'subBatches':
+        this.subBatches = true;
         break;
       case 'classSchedule':
         this.classSchedule = true;

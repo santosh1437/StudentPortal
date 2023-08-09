@@ -91,12 +91,12 @@
             </li>
 
             <li class="nav-item mb-2" *ngIf="adminService.scheduler">
-                <a href="javascript: void(0)" (click)="adminService.openSection('manageSubBatches');"
+                <a href="javascript: void(0)" (click)="adminService.openSection('subBatches');"
                     class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
                     data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
                     aria-selected="false">
                     <span class="ps-4 pb-1">Sub Batches</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.manageSubBatches"> chevron_right </mat-icon>
+                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.subBatches"> chevron_right </mat-icon>
                 </a>
             </li>
 
@@ -226,14 +226,14 @@
                 <div *ngIf="adminService.addTeachers">
                     <app-add-or-edit-teacher></app-add-or-edit-teacher>
                 </div>
+                <div *ngIf="adminService.addEditCounsellors">
+                    <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
+                </div>
                 <div *ngIf="adminService.teacherCourses">
                     <app-teacher-courses></app-teacher-courses>
                 </div>
                 <div *ngIf="adminService.addEditTeacherCourses">
                     <app-add-edit-teacher-courses></app-add-edit-teacher-courses>
-                </div>
-                <div *ngIf="adminService.addEditCounsellors">
-                    <app-add-or-edit-counsellor></app-add-or-edit-counsellor>
                 </div>
                 <div *ngIf="adminService.batches">
                     <app-batches></app-batches>
@@ -241,8 +241,14 @@
                 <div *ngIf="adminService.addOrEditBatches">
                     <app-add-or-edit-batch></app-add-or-edit-batch>
                 </div>
-                <div *ngIf="adminService.manageSubBatches">
+                <div *ngIf="adminService.subBatches">
                     <app-sub-batches></app-sub-batches>
+                </div>
+                <div *ngIf="adminService.classSchedule">
+                    <app-class-scheduler></app-class-scheduler>
+                </div>
+                <div *ngIf="adminService.sessionSchedule">
+                    <app-session-scheduler></app-session-scheduler>
                 </div>
                 <div *ngIf="adminService.paymentDetails">
                     <app-payment-details></app-payment-details>
