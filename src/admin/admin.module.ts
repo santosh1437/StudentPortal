@@ -40,6 +40,8 @@ import { PaymentDetailsComponent } from './user-management/students/payment-deta
 import { StudentCoursesComponent } from './user-management/students/student-courses/student-courses.component';
 import { StudentPaymentDetailsComponent } from './user-management/students/student-payment-details/student-payment-details.component';
 import { AddOrEditStudentCoursesComponent } from './user-management/students/student-courses/add-or-edit-student-courses/add-or-edit-student-courses.component';
+import { ClassSchedulerComponent } from './scheduler/class-scheduler/class-scheduler.component';
+import { SessionSchedulerComponent } from './scheduler/session-scheduler/session-scheduler.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { AddOrEditStudentCoursesComponent } from './user-management/students/stu
     StudentCoursesComponent,
     StudentPaymentDetailsComponent,
     AddOrEditStudentCoursesComponent,
+    ClassSchedulerComponent,
+    SessionSchedulerComponent,
     // ScheduleSessionComponent
   ],
   imports: [

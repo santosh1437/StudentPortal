@@ -168,3 +168,24 @@ export interface addSubBatch{
   startDate: Date
   notes: string
 }
+
+export interface ClassSchedule{
+  admissionDate: Date
+  name: string
+  preferredTimings: string
+  allottedTimings: string
+  assignBatch: boolean
+}
+
+export interface SessionSchedule{
+  name: string
+  course: string
+  subCourse: string
+  counselor: string
+  startDate: Date
+  deadlineDate: Date
+  sessionsPerWeek: number
+  totalSessions: number
+  sessionsTaken: number
+  sessionsremaining: number
+}

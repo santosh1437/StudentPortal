@@ -1,0 +1,98 @@
+<section class="mx-2 p-3 card bg-white rounded-0">
+    <div class="ms-2 mt-4 d-flex justify-content-between align-items-center">
+        <h2 class="ps-3">Class Schedule</h2>
+    </div>
+    <div class="d-flex align-items-center row justify-content-between my-4 mx-2">
+        <div class="col-8"></div>
+        <div class="justify-content-end col-4">
+            <span class="h4 m-2">Search </span>
+            <input type="text" (keyup)="applyFilter($event)" class="border p-1 border-2" style="outline: none;">
+        </div>
+    </div>
+    <mat-table #table [dataSource]="classDataSource" matSort>
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index;">
+                <span ></span> {{i + 1}} </mat-cell>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+        <!-- Segment Column -->
+        <ng-container matColumnDef="segment" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
+        </ng-container>
+        <!-- Course Column -->
+        <ng-container matColumnDef="course" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+        </ng-container>
+        <!-- Sub Course Column -->
+        <ng-container matColumnDef="subCourse" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
+        </ng-container>
+        <!-- Sr.Counsellor Column -->
+        <ng-container matColumnDef="counsellor" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sr.Counsellor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.counsellor}} </mat-cell>
+        </ng-container>
+        <!-- Start Date Column -->
+        <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
+        </ng-container>
+        <!-- Deadline Date Column -->
+        <ng-container matColumnDef="deadlineDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Deadline Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.deadlineDate}} </mat-cell>
+        </ng-container>
+        <!-- Sessions per week Column -->
+        <ng-container matColumnDef="sessionsPerWeek">
+            <mat-header-cell *matHeaderCellDef> Sessions per week </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sessionsPerWeek}} </mat-cell>
+        </ng-container>
+        <!-- Total Sessions Column -->
+        <ng-container matColumnDef="totalSessions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Total Sessions </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.totalSessions}} </mat-cell>
+        </ng-container>
+        <!-- Sessions remaining Column -->
+        <ng-container matColumnDef="sessionsRemaining">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sessions remaining </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sessionsRemaining}} </mat-cell>
+        </ng-container>
+        <!-- sessionsTaken Column -->
+        <ng-container matColumnDef="sessionsTaken">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sessions Taken </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sessionsTaken}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                Loading data...
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                No data available to show.
+            </mat-footer-cell>
+        </ng-container>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':classDataSource!=null}">
+        </mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']"
+            [ngClass]="{'hide':!(classDataSource!=null && classDataSource.data.length==0)}">
+        </mat-footer-row>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- Pagination -->
+    <mat-paginator #adminPaginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+        aria-label="ClassSchedule details page"></mat-paginator>
+</section>
