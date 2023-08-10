@@ -22,11 +22,13 @@ export class AdminService {
   public batches :boolean = false;
   public addOrEditBatches: boolean = false;
   public subBatches: boolean = false;
+  public addOrEditSubBatches: boolean = false;
   public classSchedule: boolean = false;
   public sessionSchedule: boolean = false;
   public scheduler: boolean = false;
   public zoomMeetings: boolean = false;
   public paymentDetails: boolean = false;
+  
   //Lists
   public teachersList: Teachers[] = [];
   public counselorsList: Counsellor[] = [];
@@ -47,8 +49,9 @@ export class AdminService {
   public studentsCount: number = 0;
   public editCounselorObj: any = null;
   public editTeacherObj: any = null;
-  public currentAddImage: any = null;
-  public currentEditImage: any = null;
+  public currentImage: any = null;
+  public currentEditId: string = '';
+  public currentAddId: string = '';
 
   constructor(private appService: AppService) { }
 
@@ -71,6 +74,7 @@ export class AdminService {
     this.teacherCourses = false;
     this.addEditTeacherCourses = false;
     this.paymentDetails = false;
+    this.addOrEditSubBatches = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -108,6 +112,9 @@ export class AdminService {
         break;
       case 'subBatches':
         this.subBatches = true;
+        break;
+      case 'addOrEditSubBatches':
+        this.addOrEditSubBatches = true;
         break;
       case 'classSchedule':
         this.classSchedule = true;

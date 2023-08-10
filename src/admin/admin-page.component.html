@@ -244,6 +244,9 @@
                 <div *ngIf="adminService.subBatches">
                     <app-sub-batches></app-sub-batches>
                 </div>
+                <div *ngIf="adminService.addOrEditSubBatches">
+                    <app-add-or-edit-sub-batches></app-add-or-edit-sub-batches>
+                </div>
                 <div *ngIf="adminService.classSchedule">
                     <app-class-scheduler></app-class-scheduler>
                 </div>

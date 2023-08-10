@@ -27,14 +27,10 @@ export class AddOrEditSubBatchesComponent {
     public adminService: AdminService
   ) {
     this.addEditSubBatchForm = this.fb.group({
-      batchType: new FormControl('', [Validators.required]),
-      segment: new FormControl('', [Validators.required]),
-      course: new FormControl('', Validators.required),
-      subCourse: new FormControl('', [Validators.required, Validators.email]),
-      days: new FormControl('', Validators.required),
-      timings: new FormControl('', Validators.required),
-      counselor: new FormControl('', Validators.required),
-      durationOfCourse: new FormControl('', [Validators.required]),
+      batchID: new FormControl('', [Validators.required]),
+      subject: new FormControl('', [Validators.required]),
+      teacher: new FormControl('', Validators.required),
+      days: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       notes: new FormControl('')
     });

@@ -54,15 +54,53 @@ export class AddOrEditCounsellorComponent {
       reader.onload = (event: any) => {
         this.url = event.target.result;
       }
-      event.files.push({ data: event.files[0], fileName: this.addEditCounsellorForm.controls['fullName'].value });
+      this.adminService.currentImage = event.target.files[0];
+      // event.files.push({ data: event.files[0], fileName: this.addEditCounsellorForm.controls['fullName'].value });
+    }
+  }
 
-      this.appService.addImage(event.files[0])
-        .subscribe((result: string) => {
-          this.url = result;
+  private addOrEditImage(){
+    // const tempObj = {
+    //   uniqueId: this.data ? this.adminService.currentEditId : this.adminService.currentAddId,
+    //   imageFile: this.adminService.currentImage
+    // }
+    const formData : any = new FormData();
+      formData.append('imagefile',  this.adminService.currentImage);
+      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
+    if(this.data){
+      this.appService.editImage(formData).subscribe( {
+          // this.url = result;
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Counselor Image updated successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          }
+      });
+    } else{
+      this.appService.addImage(formData).subscribe({
+          // this.url = result;
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Counselor Image added successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          },
       });
     }
   }
-  addEditCousellingDetails() {
+
+  public addEditCousellingDetails() {
     if (this.addEditCounsellorForm.valid) {
       if (this.data) {
         const editCounsellorData: Counsellor = {
@@ -101,27 +139,30 @@ export class AddOrEditCounsellorComponent {
     }
   }
 
-  public addCounsellor(counsellor: addCounsellor) {
+  private addCounsellor(counsellor: addCounsellor) {
     this.appService.addCounselor(counsellor).subscribe({
       next: (res) => {
+        this.adminService.currentAddId = res.cID;
         console.log(res);
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Counselor added successfully');
       },
       error: (err) => {
         this.err = true;
         this.success = false;
         this.successMsgDialog(err.message);
-      },
+      }
     });
   }
 
-  public editCounsellor(counsellor: Counsellor) {
+  private editCounsellor(counsellor: Counsellor) {
     this.appService.editCounselor(counsellor).subscribe({
       next: (res) => {
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Counselor updated successfully');
       },
       error: (err) => {

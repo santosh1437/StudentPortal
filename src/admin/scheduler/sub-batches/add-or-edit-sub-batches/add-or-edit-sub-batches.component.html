@@ -8,94 +8,59 @@
     <form [formGroup]="addEditSubBatchForm" (ngSubmit)="onFormSubmit()">
         <!-- (ngSubmit)="onFormSubmit()" -->
         <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Batch Type :</mat-label>
+            <mat-label class="col-12 pb-2 fs-4">Batch ID :</mat-label>
             <mat-form-field appearance="outline" class="col-8">
-                <mat-label>Select Batch Type</mat-label>
-                <mat-select formControlName = "batchType">
+                <mat-label>Select Batch ID</mat-label>
+                <mat-select formControlName = "batchID">
                   <mat-option value="1:1">1:1</mat-option>
-                  <mat-option value="Multiple">Multiple</mat-option>
                 </mat-select>
               </mat-form-field>
+        </div>            
+    
+        <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <input matInput type="text" placeholder="Enter subject" formControlName="subject">
+            </mat-form-field>
         </div>
 
-        <!-- <div class="row justify-content-center my-5"> -->
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Segment :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter segment" formControlName="segment">
-                </mat-form-field>
-            </div>
-    
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="tel" placeholder="Enter course" formControlName="course">
-                </mat-form-field>
-            </div>
-    
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Sub Course :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput type="text" placeholder="Enter sub course" formControlName="subCourse">
-                </mat-form-field>
-            </div>
+        <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Teacher :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <input matInput type="text" placeholder="Enter teacher" formControlName="teacher">
+            </mat-form-field>
+        </div>
 
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Duration Of Course :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <mat-label>Select Duration Of Course</mat-label>
-                    <mat-select>
-                      <mat-option value="Internal">1 month</mat-option>
-                      <mat-option value="External">2 month</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
+        <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Days :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <input matInput type="tel" placeholder="Enter days" formControlName="days">
+            </mat-form-field>
+        </div>
 
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Start date :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput [matDatepicker]="picker" placeholder="Enter start Date" formControlName="durationOfCourse">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
+        <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Start date :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <input matInput [matDatepicker]="picker" placeholder="Enter start Date" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
 
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Days :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Days" formControlName="days">
-                </mat-form-field>
-            </div>
+        <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Notes :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <input type="text" matInput placeholder="Enter Notes" formControlName="notes">
+            </mat-form-field>
+        </div>
 
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Timings :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Timings" formControlName="timings">
-                </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Counselor :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Select Batch" formControlName="counselor">
-                </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Notes :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input type="text" matInput placeholder="Enter Notes" formControlName="notes">
-                </mat-form-field>
-            </div>
-
-        <!-- </div> -->
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button type="button" class="" (click)="adminService.openSection('counsellors')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    {{data ? 'Update Batch':'Create Batch'}} </button>    
+                    {{data ? 'Update Sub Batch':'Create Sub Batch'}} </button>    
             </div>
         </div>
     </form>

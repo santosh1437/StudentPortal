@@ -20,6 +20,7 @@ export class AddOrEditStudentComponent {
   public courseDetails: boolean = false;
   public educationDetails: boolean = false;
   public paymentDetails: boolean = false;
+  public url: any = '';
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
@@ -136,6 +137,56 @@ export class AddOrEditStudentComponent {
         this.successMsgDialog(err.message);
       },
     });
+  }
+
+  onSelect(event:any){
+    if(event.target.files[0]){
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      }
+      this.adminService.currentImage = event.target.files[0];
+    }
+  }
+
+  private addOrEditImage(){
+    // const tempObj = {
+    //   uniqueId: this.data ? this.adminService.currentEditId : this.adminService.currentAddId,
+    //   imageFile: this.adminService.currentImage
+    // }
+    const formData : any = new FormData();
+      formData.append('imagefile',  this.adminService.currentImage);
+      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
+    if(this.data){
+      this.appService.editImage(formData).subscribe( {
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image updated successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          }
+      });
+    } else{
+      this.appService.addImage(formData).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image added successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          },
+      });
+    }
   }
 
   public successMsgDialog(msg: string) {

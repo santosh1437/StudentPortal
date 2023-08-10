@@ -151,8 +151,8 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Image`);
   }
 
-  editImage(image: any, uniqueID: string): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Image/${uniqueID}`, image);
+  editImage(image: any): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Image`, image);
   }
 
   deleteImage(id: string): Observable<any> {

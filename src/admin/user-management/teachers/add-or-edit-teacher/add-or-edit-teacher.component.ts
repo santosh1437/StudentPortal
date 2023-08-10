@@ -56,6 +56,7 @@ export class AddOrEditTeacherComponent {
       reader.onload = (event: any) => {
         this.url = event.target.result;
       }
+      this.adminService.currentImage = event.target.files[0];
     }
   }
 
@@ -134,6 +135,45 @@ export class AddOrEditTeacherComponent {
         this.successMsgDialog(err.message);
       },
     });
+  }
+
+  private addOrEditImage(){
+    // const tempObj = {
+    //   uniqueId: this.data ? this.adminService.currentEditId : this.adminService.currentAddId,
+    //   imageFile: this.adminService.currentImage
+    // }
+    const formData : any = new FormData();
+      formData.append('imagefile',  this.adminService.currentImage);
+      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
+    if(this.data){
+      this.appService.editImage(formData).subscribe( {
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image updated successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          }
+      });
+    } else{
+      this.appService.addImage(formData).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image added successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          },
+      });
+    }
   }
 
   public successMsgDialog(msg: string) {
