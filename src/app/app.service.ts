@@ -8,6 +8,7 @@ import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers
 export class AppService {
   public signOut: boolean = false;
   private baseUrlAPI = "/api";
+  // https://www.edutechex.com/profile/api
   //while deploying in baseUrlAPI https://www.edutechex.com/profile/api/api
   private edutechApi = "https://api.edutechex.com/api/Segment/GetSegmentList";
   private zoomBaseUrlApi = "https://api.zoom.us/v2";
@@ -159,6 +160,10 @@ export class AppService {
     return this.httpClient.delete(`${this.baseUrlAPI}/Image/${id}`);
   }
 
+  getImageById(uniqueID: string){
+    return this.httpClient.get(`${this.baseUrlAPI}/Image/${uniqueID}`);
+  }
+
   // Courses APIs
   addCourse(course:any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Course`,course);
@@ -173,10 +178,6 @@ export class AppService {
   }
 
   deleteCourse(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
-  }
-
-  getCourseById(id: string){
     return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
   }
 

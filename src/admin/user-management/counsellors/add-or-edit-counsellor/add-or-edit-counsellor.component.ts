@@ -45,6 +45,9 @@ export class AddOrEditCounsellorComponent {
   ngOnInit(): void {
     this.data = this.adminService.editCounselorObj;
     this.addEditCounsellorForm.patchValue(this.data);
+    if(this.data){
+      this.adminService.getImageByID(this.data.cID);
+    }
   }
 
   onSelect(event:any){
@@ -52,18 +55,13 @@ export class AddOrEditCounsellorComponent {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        this.adminService.url = event.target.result;
       }
       this.adminService.currentImage = event.target.files[0];
-      // event.files.push({ data: event.files[0], fileName: this.addEditCounsellorForm.controls['fullName'].value });
     }
   }
 
   private addOrEditImage(){
-    // const tempObj = {
-    //   uniqueId: this.data ? this.adminService.currentEditId : this.adminService.currentAddId,
-    //   imageFile: this.adminService.currentImage
-    // }
     const formData : any = new FormData();
       formData.append('imagefile',  this.adminService.currentImage);
       formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
@@ -74,6 +72,7 @@ export class AddOrEditCounsellorComponent {
             console.log(res);
             this.success = true;
             this.err = false;
+            this.adminService.openSection('counsellors')
             this.successMsgDialog('Counselor Image updated successfully');
           },
           error: (err) => {
@@ -89,6 +88,7 @@ export class AddOrEditCounsellorComponent {
             console.log(res);
             this.success = true;
             this.err = false;
+            this.adminService.openSection('counsellors')
             this.successMsgDialog('Counselor Image added successfully');
           },
           error: (err) => {

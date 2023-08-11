@@ -46,7 +46,11 @@ export class AddOrEditTeacherComponent {
     });
   }
   ngOnInit(): void {
+    this.data = this.adminService.editCounselorObj;
     this.addEditTeacherForm.patchValue(this.data);
+    if(this.data){
+      this.adminService.getImageByID(this.data.tID);
+    }
   }
 
   onSelect(event:any){
@@ -54,7 +58,7 @@ export class AddOrEditTeacherComponent {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        this.adminService.url = event.target.result;
       }
       this.adminService.currentImage = event.target.files[0];
     }
@@ -137,11 +141,7 @@ export class AddOrEditTeacherComponent {
     });
   }
 
-  private addOrEditImage(){
-    // const tempObj = {
-    //   uniqueId: this.data ? this.adminService.currentEditId : this.adminService.currentAddId,
-    //   imageFile: this.adminService.currentImage
-    // }
+  public addOrEditImage(){
     const formData : any = new FormData();
       formData.append('imagefile',  this.adminService.currentImage);
       formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)

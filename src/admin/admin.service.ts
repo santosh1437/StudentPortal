@@ -52,6 +52,7 @@ export class AdminService {
   public currentImage: any = null;
   public currentEditId: string = '';
   public currentAddId: string = '';
+  public url: any;
 
   constructor(private appService: AppService) { }
 
@@ -254,6 +255,20 @@ export class AdminService {
           for(var i=0;i<res.length;i++) {
             this.segmentsList.push(res.title);
           }
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    }
+  }
+
+  public getImageByID(id: string){
+    if(localStorage.getItem('currentUser')){
+      this.appService.getImageById(id).subscribe({
+        next: (res: any) => {
+          this.url = res.imagePath;
+          this.currentImage = res.imagePath;
         },
         error: (err) => {
           console.log(err.message);
