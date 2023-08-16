@@ -33,7 +33,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addEditTeacherCourses');"> Add Course </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditStudentCourses');"> Add Course </button>
     </div> 
     <mat-table [dataSource]="TeacherCourseDataSource" matSort>
         <!-- ID Column -->
@@ -102,6 +102,16 @@
     <!-- Pagination -->
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
         aria-label="Students details page"></mat-paginator>
+
+    <div mat-dialog-actions class="my-5">
+        <div class="col-lg-5 col-md-12">
+            <button mat-raised-button type="button" class="" (click)="adminService.openSection('addStudents')">Cancel</button>
+        </div>
+        <div class="col-lg-5 col-md-12">
+            <button mat-raised-button color="primary" class="float-lg-end" (click)="adminService.openSection('studentPaymentDetails')">
+                Next </button>
+        </div>
+    </div>
 </section>
 
 <ng-template #successMsg>

@@ -85,9 +85,9 @@ export class BatchesComponent {
 
   openDeleteBatchConfirm(ID:any){
     this.deleteId = ID;
-  this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
-    width: 'auto',
-  });
+    this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
+      width: 'auto',
+    });
   }
 
   onItemChange(element:any){

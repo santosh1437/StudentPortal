@@ -145,7 +145,7 @@ export class StudentCoursesComponent {
       next:(res) => {
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Course added to Teacher successfully'); 
+      this.successMsgDialog('Course added to Student successfully'); 
       },
       error: (err) => {
         this.err = true;
@@ -161,7 +161,7 @@ export class StudentCoursesComponent {
         console.log(res);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Course updated to Teacher successfully');
+        this.successMsgDialog('Course updated to Student successfully');
       },
       error: (err) => {
         this.err = true;

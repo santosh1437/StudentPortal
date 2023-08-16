@@ -11,6 +11,11 @@ export class AdminService {
   public settings: boolean = false;
   public students: boolean = false;
   public addStudents: boolean = false;
+  public studentCourseDetails: boolean = false;
+  public studentPaymentDetails: boolean = false;
+  public addOrEditStudentCourses: boolean = false;
+  public addOrEditStudentPayments: boolean = false;
+  public paymentDetails: boolean = false;
   public teachers: boolean = false;
   public addTeachers: boolean = false;
   public teacherCourses: boolean = false;
@@ -27,8 +32,18 @@ export class AdminService {
   public sessionSchedule: boolean = false;
   public scheduler: boolean = false;
   public zoomMeetings: boolean = false;
-  public paymentDetails: boolean = false;
-  
+  public liveDemo: boolean = false;
+  public liveClass: boolean = false;
+  public liveSession: boolean = false;
+  public counselingSession: boolean = false;
+  public interview: boolean = false;
+
+  public scheduleLiveDemo: boolean = false;
+  public scheduleLiveClass: boolean = false;
+  public scheduleLiveSession: boolean = false;
+  public scheduleCounsellingSession: boolean = false;
+  public scheduleInterview: boolean = false;
+
   //Lists
   public teachersList: Teachers[] = [];
   public counselorsList: Counsellor[] = [];
@@ -40,6 +55,11 @@ export class AdminService {
   public subjectsList: Subject[] = [];
   public segmentsList: any[] = [];
   public PaymentDetailsList: any[] = [];
+  public upcomingInterviewsList: any[] = [];
+  public upcomingCounsellingList: any[] = [];
+  public upcomingLiveSessionsList: any[] = [];
+  public upcomingLiveClasssList: any[] = [];
+  public studentPaymentsList: any[] = [];
   
   //Other required fields
   public signOut: boolean = false;
@@ -71,11 +91,24 @@ export class AdminService {
     this.classSchedule = false;
     this.sessionSchedule = false;
     this.manageCourses = false;
-    this.zoomMeetings = false;
     this.teacherCourses = false;
     this.addEditTeacherCourses = false;
     this.paymentDetails = false;
     this.addOrEditSubBatches = false;
+    this.liveClass = false;
+    this.liveDemo = false;
+    this.liveSession = false;
+    this.counselingSession = false;
+    this.interview = false;
+    this.scheduleLiveClass = false;
+    this.scheduleLiveDemo = false;
+    this.scheduleLiveSession = false;
+    this.scheduleCounsellingSession = false;
+    this.scheduleInterview = false;
+    this.studentCourseDetails = false;
+    this.studentPaymentDetails = false;
+    this.addOrEditStudentCourses = false;
+    this.addOrEditStudentPayments = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -87,6 +120,18 @@ export class AdminService {
         break;
       case 'addStudents':
         this.addStudents = true;
+        break;
+      case 'studentCourseDetails':
+        this.studentCourseDetails = true;
+        break;
+      case 'studentPaymentDetails':
+        this.studentPaymentDetails = true;
+        break;
+      case 'addOrEditStudentCourses':
+        this.addOrEditStudentCourses = true;
+        break;
+      case 'addOrEditStudentPayments':
+        this.addOrEditStudentPayments = true;
         break;
       case 'teachers':
         this.teachers = true;
@@ -123,9 +168,6 @@ export class AdminService {
       case 'sessionSchedule':
         this.sessionSchedule = true;
         break;
-      case 'zoomMeetings':
-        this.zoomMeetings = true;
-        break;
       case 'teacherCourses':
         this.teacherCourses = true;
         break;
@@ -134,6 +176,37 @@ export class AdminService {
         break;
       case 'paymentDetails':
         this.paymentDetails = true;
+        break;
+      case 'interview':
+        this.interview = true;
+        break;
+      case 'liveDemo':
+        this.liveDemo = true;
+        break;
+      case 'zoomMeetings':
+      case 'liveClass':
+        this.liveClass = true;
+        break;
+      case 'liveSession':
+        this.liveSession = true;
+        break;
+      case 'counselingSession':
+        this.counselingSession = true;
+        break;
+      case 'scheduleInterview':
+        this.scheduleInterview = true;
+        break;
+      case 'scheduleLiveDemo':
+        this.scheduleLiveDemo = true;
+        break;
+      case 'scheduleLiveClass':
+        this.scheduleLiveClass = true;
+        break;
+      case 'scheduleLiveSession':
+        this.scheduleLiveSession = true;
+        break;
+      case 'scheduleCounsellingSession':
+        this.scheduleCounsellingSession = true;
         break;
     }
   }

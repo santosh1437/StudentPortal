@@ -15,7 +15,7 @@ export class AppService {
   public currentUser: any;
   public httpClientMsg: string ="";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   // Admin APIs
   getAuthentication(credentials: any): Observable<any> {
@@ -101,8 +101,8 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-  editCounselor(counselor: Counsellor): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counselor.cID}`, counselor);
+  editCounselor(counsellor: Counsellor): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counsellor.cID}`, counsellor);
   }
 
   deleteCounselor(id: string): Observable<any> {
@@ -179,6 +179,27 @@ export class AppService {
 
   deleteCourse(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
+  }
+
+  // Interview APIs
+  addInterview(interview:any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Interview`,interview);
+  }
+  
+  getInterviews(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Interview`);
+  }
+
+  editInterview(interview: any): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Interview`, interview);
+  }
+
+  deleteInterview(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Interview/${id}`);
+  }
+
+  getInterviewById(uniqueID: string){
+    return this.httpClient.get(`${this.baseUrlAPI}/Interview/${uniqueID}`);
   }
 
   // Zoom APIs

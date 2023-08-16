@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class AdminPageComponent {
   public currentUserData: any;
   public subMenuStudent: boolean = false;
+  public subMenuPost: boolean = false;
+  public subMenuPre: boolean = false;
   constructor(
     public router:Router,
     public adminService: AdminService

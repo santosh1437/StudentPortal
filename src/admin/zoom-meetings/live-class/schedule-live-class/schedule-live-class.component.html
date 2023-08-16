@@ -1,0 +1,76 @@
+<section class="mx-2 p-3 card bg-white rounded-0">
+    <div class="ms-3 d-flex align-items-center">
+        <h2 class="ps-3">Schedule Live Class</h2>
+    </div>
+    <form [formGroup]="scheduleLiveClassForm" (ngSubmit)="scheduleLiveClass()">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4"> Date :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput [matDatepicker]="picker" placeholder="Enter Date" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Time</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Select Time</mat-label>
+                    <mat-select formControlName="time">
+                      <mat-option *ngFor="let element of adminService.coursesList" value="element.course">
+                        <span *ngIf="(element?.segment == scheduleLiveClassForm.controls['segment'].value) || (element?.segment == '')">{{element.course}}</span>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Zoom Account</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Select Zoom Account</mat-label>
+                    <mat-select formControlName="zoomAccount">
+                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Candidate Email:</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter Candidate Email" formControlName="candidate">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Host Email :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter host Email" formControlName="host">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Co-Host Email:</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter co-host Email" formControlName="coHost">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div mat-dialog-actions class="my-5">
+            <div class="col-lg-6 col-md-12">
+                <button mat-raised-button type="button" class="" (click)="adminService.openSection('liveClass')">Cancel</button>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <button mat-raised-button color="primary" type="submit" class="float-lg-end">
+                    Create Meeting
+                 </button>
+            </div>
+        </div>
+    </form>
+    
+    <!-- Success/Failure Message Popup -->
+    <ng-template #successMsg>
+        <div mat-dialog-title>
+            <p *ngIf="success" style="opacity: 0.85; color: green;" class="align-items-center justify-content-center fs-3">
+                {{appService.httpClientMsg}}</p>
+            <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3">
+                {{appService.httpClientMsg}}</p>
+        </div>
+    </ng-template>
+</section>

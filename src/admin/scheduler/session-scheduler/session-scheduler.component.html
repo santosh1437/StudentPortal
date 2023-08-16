@@ -1,15 +1,15 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-2 mt-4 d-flex justify-content-between align-items-center">
-        <h2 class="ps-3">Class Schedule</h2>
+        <h2 class="ps-3">Session Schedule</h2>
     </div>
     <div class="d-flex align-items-center row justify-content-between my-4 mx-2">
-        <div class="col-8"></div>
-        <div class="justify-content-end col-4">
+        <div class="col-9"></div>
+        <div class="justify-content-end col-3">
             <span class="h4 m-2">Search </span>
             <input type="text" (keyup)="applyFilter($event)" class="border p-1 border-2" style="outline: none;">
         </div>
     </div>
-    <mat-table #table [dataSource]="classDataSource" matSort>
+    <mat-table #table [dataSource]="sessionDataSource" matSort>
         <!-- id Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
@@ -82,10 +82,10 @@
                 No data available to show.
             </mat-footer-cell>
         </ng-container>
-        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':classDataSource!=null}">
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':sessionDataSource!=null}">
         </mat-footer-row>
         <mat-footer-row *matFooterRowDef="['noData']"
-            [ngClass]="{'hide':!(classDataSource!=null && classDataSource.data.length==0)}">
+            [ngClass]="{'hide':!(sessionDataSource!=null && sessionDataSource.data.length==0)}">
         </mat-footer-row>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

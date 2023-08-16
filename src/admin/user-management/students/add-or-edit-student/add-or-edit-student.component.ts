@@ -70,6 +70,13 @@ export class AddOrEditStudentComponent {
     } else if(this.educationDetails){
       this.personalDetails = false;
       this.educationDetails = false;
+      this.adminService.openSection('studentCourseDetails');
+      this.courseDetails = true;
+    } else if(this.courseDetails) {
+      this.personalDetails = false;
+      this.educationDetails = false;
+      this.courseDetails = false;
+      this.adminService.openSection('studentPaymentDetails');
       this.paymentDetails = true;
     }
   }
@@ -114,6 +121,7 @@ export class AddOrEditStudentComponent {
       next: (res) => {
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Student added successfully');
       },
       error: (err) => {
@@ -129,6 +137,7 @@ export class AddOrEditStudentComponent {
       next: (res) => {
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Student updated successfully');
       },
       error: (err) => {

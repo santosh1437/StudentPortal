@@ -25,47 +25,49 @@
                     <mat-icon class="fs-2" *ngIf="!adminService.userManagement">arrow_right</mat-icon>
                     <mat-icon class="fs-2" *ngIf="adminService.userManagement">arrow_drop_down</mat-icon>
                 </a>
-            </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
-                <a href="javascript: void(0)" (click)="subMenuStudent = !subMenuStudent; adminService.openSection('students');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Students</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="!subMenuStudent"> chevron_right </mat-icon>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="subMenuStudent">expand_more</mat-icon>
-                </a>
-            </li>
-
-            <li class="nav-item" *ngIf="subMenuStudent && adminService.userManagement">
-                <a href="javascript: void(0)" (click)="adminService.openSection('paymentDetails');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Payment Details</span>
-                    <!-- <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon> -->
-                </a>
-            </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
-                <a href="javascript: void(0)" (click)="adminService.openSection('teachers');"
-                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                aria-selected="false">
-                <span class="ps-4 pb-1">Teachers</span>
-                <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
-                </a>
-            </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.userManagement">
-                <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Counsellors</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
-                </a>
+                <ul class="pl-5 list-unstyled">
+                    <li class="py-3" *ngIf="adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="subMenuStudent = !subMenuStudent; adminService.openSection('students');"
+                        [ngClass]="{'bg-blue': (subMenuStudent || adminService.students || adminService.addStudents || adminService.studentCourseDetails ||
+                        adminService.studentPaymentDetails || adminService.addOrEditStudentCourses || adminService.addOrEditStudentPayments)}" type="button" 
+                        class="text-white d-flex align-items-center text-decoration-none" role="tab" aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Students</span>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="!subMenuStudent"> chevron_right </mat-icon>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="subMenuStudent">expand_more</mat-icon>
+                        </a>
+                    </li>
+        
+                    <li class="pb-3" *ngIf="subMenuStudent && adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('paymentDetails');" [ngClass]="{'bg-dark': adminService.paymentDetails}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Payment Details</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.students"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+        
+                    <li class="pb-3" *ngIf="adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('teachers');" 
+                        [ngClass]="{'bg-dark': (adminService.teachers || adminService.addTeachers || adminService.teacherCourses || adminService.addEditTeacherCourses)}"
+                        class="text-white d-flex align-items-center text-decoration-none" type="button" role="tab"
+                        aria-selected="false">
+                        <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                        <span class="ps-2 p1-1">Teachers</span>
+                        <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.teachers"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+        
+                    <li class="" *ngIf="adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');" [ngClass]="{'bg-dark': adminService.counsellors}"
+                            class="text-white d-flex align-items-center text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 p1-1">Counsellors</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.counsellors"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <!-- Scheduler -->
@@ -79,43 +81,43 @@
                     <mat-icon class="fs-2" *ngIf="adminService.scheduler">arrow_drop_down</mat-icon>
                 </a>
                 <ul class="pl-5 list-unstyled">
-                    <li class="py-2" *ngIf="adminService.scheduler">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('batches');"
+                    <li class="py-3" *ngIf="adminService.scheduler">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('batches');" [ngClass]="{'bg-dark': (adminService.batches || adminService.addOrEditBatches)}"
                             class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
                             <span class="ps-2 py-1">Batches</span>
-                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.batches"> chevron_right </mat-icon>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.batches"> chevron_right </mat-icon> -->
                         </a>
                     </li>
                 
-                    <li class="pb-2" *ngIf="adminService.scheduler">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('subBatches');"
+                    <li class="pb-3" *ngIf="adminService.scheduler">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('subBatches');" [ngClass]="{'bg-dark': (adminService.subBatches || adminService.addOrEditSubBatches)}"
                             class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
                             <span class="ps-2 py-1">Sub Batches</span>
-                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.subBatches"> chevron_right </mat-icon>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.subBatches"> chevron_right </mat-icon> -->
                         </a>
                     </li> 
                 
-                    <li class="pb-2" *ngIf="adminService.scheduler">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('classSchedule');"
+                    <li class="pb-3" *ngIf="adminService.scheduler">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('classSchedule');" [ngClass]="{'bg-dark': adminService.classSchedule}"
                             class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
                             <span class="ps-2 py-1">Class Schedule</span>
-                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.classSchedule"> chevron_right </mat-icon>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.classSchedule"> chevron_right </mat-icon> -->
                         </a>
                     </li>
                 
                     <li class="" *ngIf="adminService.scheduler">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('sessionSchedule');"
+                        <a href="javascript: void(0)" (click)="adminService.openSection('sessionSchedule');" [ngClass]="{'bg-dark': adminService.sessionSchedule}"
                             class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
                             <span class="ps-2 py-1">Session Schedule</span>
-                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.sessionSchedule"> chevron_right </mat-icon>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.sessionSchedule"> chevron_right </mat-icon> -->
                         </a>
                     </li>
                 </ul>
@@ -131,59 +133,70 @@
                     <mat-icon class="fs-2" *ngIf="!adminService.zoomMeetings">arrow_right</mat-icon>
                     <mat-icon class="fs-2" *ngIf="adminService.zoomMeetings">arrow_drop_down</mat-icon>
                 </a>
-            </li>
 
-            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
-                <a href="javascript: void(0)" (click)="adminService.openSection('students');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Students</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.students"> chevron_right </mat-icon>
-                </a>
+                <ul class="pl-5 list-unstyled" *ngIf="adminService.zoomMeetings">
+                    <li class="py-3">
+                        <a href="javascript: void(0)" (click)="subMenuPost = !subMenuPost;"
+                        [ngClass]="{'bg-blue': subMenuPost}" type="button" 
+                        class="text-white d-flex align-items-center text-decoration-none" role="tab" aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Post Admission</span>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="!subMenuPost"> chevron_right </mat-icon>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="subMenuPost">expand_more</mat-icon>
+                        </a>
+                    </li>
+                    <li class="pb-3" *ngIf="subMenuPost">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('liveClass');" [ngClass]="{'bg-dark': (adminService.liveClass || adminService.scheduleLiveClass)}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Live Class</span>
+                        </a>
+                    </li>
+                    <li class="pb-3" *ngIf="subMenuPost">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('liveSession');" [ngClass]="{'bg-dark':( adminService.liveSession || adminService.scheduleLiveSession)}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Live Session</span>
+                        </a>
+                    </li>
+        
+                    <li class="pb-3">
+                        <a href="javascript: void(0)" (click)="subMenuPre = !subMenuPre;"
+                        [ngClass]="{'bg-blue': subMenuPre}" type="button" 
+                        class="text-white d-flex align-items-center text-decoration-none" role="tab" aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Pre Admission</span>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="!subMenuPre"> chevron_right </mat-icon>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="subMenuPre">expand_more</mat-icon>
+                        </a>
+                    </li>
+        
+                    <li class="pb-3" *ngIf="subMenuPre">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('liveDemo');" [ngClass]="{'bg-dark': (adminService.liveDemo || adminService.scheduleLiveDemo)}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Live Demo</span>
+                        </a>
+                    </li>
+                    <li class="pb-3" *ngIf="subMenuPre">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('counselingSession');" [ngClass]="{'bg-dark': (adminService.counselingSession || adminService.scheduleCounsellingSession)}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Counseling Session</span>
+                        </a>
+                    </li>
+        
+                    <li class="">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('interview');" [ngClass]="{'bg-dark': adminService.interview}"
+                            class="text-white d-flex align-items-center text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Interview</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.counsellors"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+                </ul>
             </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
-                <a href="javascript: void(0)" (click)="adminService.openSection('teachers');"
-                class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                aria-selected="false">
-                <span class="ps-4 pb-1">Teachers</span>
-                <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.teachers"> chevron_right </mat-icon>
-                </a>
-            </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.zoomMeetings">
-                <a href="javascript: void(0)" (click)="adminService.openSection('counsellors');"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Counsellors</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.counsellors"> chevron_right </mat-icon>
-                </a>
-            </li>
-
-            <!-- Settings -->
-            <!-- <li class="nav-item mb-2">
-                <a href="javascript: void(0)" (click)="adminService.openSection('settings');adminService.settings = !adminService.settings;"
-                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <mat-icon class="fs-2"> settings </mat-icon><span class="ps-4 col-9">Settings</span>
-                    <mat-icon class="fs-2" *ngIf="!adminService.settings">arrow_right</mat-icon>
-                    <mat-icon class="fs-2" *ngIf="adminService.settings">arrow_drop_down</mat-icon>
-                </a>
-            </li>
-
-            <li class="nav-item mb-2" *ngIf="adminService.settings">
-                <a href="javascript: void(0)" (click)="adminService.openSection('manageCourses');"
-                    class="nav-link text-white d-flex" id="course-pills-tab-1" data-bs-toggle="pill"
-                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
-                    aria-selected="false">
-                    <span class="ps-4 pb-1">Manage Courses</span>
-                    <mat-icon class="fs-2 pt-1 ml-50p" *ngIf="adminService.manageCourses"> chevron_right </mat-icon>
-                </a>
-            </li> -->
         </ul>
         <!-- Tabs END -->
     </mat-sidenav>
@@ -260,6 +273,49 @@
                 <!-- <div *ngIf="adminService.manageCourses">
                     <app-manage-courses></app-manage-courses>
                 </div> -->
+                <div *ngIf="adminService.liveClass">
+                    <app-live-class></app-live-class>
+                </div>
+                <div *ngIf="adminService.liveSession">
+                    <app-live-session></app-live-session>
+                </div>
+                <div *ngIf="adminService.liveDemo">
+                    <app-live-demo></app-live-demo>
+                </div>
+                <div *ngIf="adminService.counselingSession">
+                    <app-counseling-session></app-counseling-session>
+                </div>
+                <div *ngIf="adminService.interview">
+                    <app-interview></app-interview>
+                </div>
+
+                <div *ngIf="adminService.scheduleLiveClass">
+                    <app-schedule-live-class></app-schedule-live-class>
+                </div>
+                <div *ngIf="adminService.scheduleLiveSession">
+                    <app-schedule-live-session></app-schedule-live-session>
+                </div>
+                <div *ngIf="adminService.scheduleLiveDemo">
+                    <app-schedule-live-demo></app-schedule-live-demo>
+                </div>
+                <div *ngIf="adminService.scheduleCounsellingSession">
+                    <app-schedule-counselling-session></app-schedule-counselling-session>
+                </div>
+                <div *ngIf="adminService.scheduleInterview">
+                    <app-schedule-interview></app-schedule-interview>
+                </div>
+                <div *ngIf="adminService.studentPaymentDetails">
+                    <app-student-payment-details></app-student-payment-details>
+                </div>
+                <div *ngIf="adminService.studentCourseDetails">
+                    <app-student-courses></app-student-courses>
+                </div>
+                <div *ngIf="adminService.addOrEditStudentCourses">
+                    <app-add-or-edit-student-courses></app-add-or-edit-student-courses>
+                </div>
+                <div *ngIf="adminService.addOrEditStudentPayments">
+                    <app-add-or-edit-payment-details></app-add-or-edit-payment-details>
+                </div>
             </div>
         </div>
     </mat-sidenav-content>

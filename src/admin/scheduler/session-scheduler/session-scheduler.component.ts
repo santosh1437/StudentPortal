@@ -17,7 +17,7 @@ export class SessionSchedulerComponent {
     new MatPaginatorIntl(),
     ChangeDetectorRef.prototype
   );
-  public classDataSource: MatTableDataSource<SessionSchedule>;
+  public sessionDataSource: MatTableDataSource<SessionSchedule>;
   public adminData: any;
   public displayedColumns = [
     'id',
@@ -39,7 +39,7 @@ export class SessionSchedulerComponent {
     public adminService: AdminService,
   ) {
     this.getSessionScheduleDetails();
-    this.classDataSource = new MatTableDataSource(this.adminData);
+    this.sessionDataSource = new MatTableDataSource(this.adminData);
   }
 
   ngOnInit(){}
@@ -51,13 +51,13 @@ export class SessionSchedulerComponent {
     //     // Setting up table columns and data based on type of user
     //     if (this.adminService.currentUser.adminType == "Super SessionSchedule") {
     //       this.adminData = res;
-    //       this.classDataSource = new MatTableDataSource(this.adminData);
+    //       this.sessionDataSource = new MatTableDataSource(this.adminData);
     //     } else {
     //       this.adminData = [this.adminService.currentUser];
-    //       this.classDataSource = new MatTableDataSource(this.adminData);
+    //       this.sessionDataSource = new MatTableDataSource(this.adminData);
     //     }
-    //     this.classDataSource.paginator = this.paginator;
-    //     this.classDataSource.sort = this.sort;
+    //     this.sessionDataSource.paginator = this.paginator;
+    //     this.sessionDataSource.sort = this.sort;
     //   },
     //   error: (error) => {
     //     console.log(error.error.message);
@@ -68,6 +68,6 @@ export class SessionSchedulerComponent {
   // Search SessionSchedule table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.classDataSource.filter = filterValue.trim().toLowerCase();
+    this.sessionDataSource.filter = filterValue.trim().toLowerCase();
   }
 }

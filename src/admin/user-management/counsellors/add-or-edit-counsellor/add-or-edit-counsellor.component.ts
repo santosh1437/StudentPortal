@@ -67,7 +67,6 @@ export class AddOrEditCounsellorComponent {
       formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
     if(this.data){
       this.appService.editImage(formData).subscribe( {
-          // this.url = result;
           next: (res) => {
             console.log(res);
             this.success = true;
@@ -83,7 +82,6 @@ export class AddOrEditCounsellorComponent {
       });
     } else{
       this.appService.addImage(formData).subscribe({
-          // this.url = result;
           next: (res) => {
             console.log(res);
             this.success = true;

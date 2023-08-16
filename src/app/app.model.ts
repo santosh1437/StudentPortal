@@ -125,7 +125,7 @@ export interface Batch{
   course: string
   subCourse: string
   durationOfCourse : string
-  counselor: string
+  counsellor: string
   timings: string
   days: number
   startDate: Date
@@ -137,7 +137,7 @@ export interface addBatch{
   course: string
   subCourse: string
   durationOfCourse : string
-  counselor: string
+  counsellor: string
   timings: string
   days: number
   startDate: Date
@@ -150,7 +150,7 @@ export interface SubBatch{
   course: string
   subCourse: string
   teacher : string
-  counselor: string
+  counsellor: string
   timings: string
   days: number
   startDate: Date
@@ -162,7 +162,7 @@ export interface addSubBatch{
   course: string
   subCourse: string
   teacher : string
-  counselor: string
+  counsellor: string
   timings: string
   days: number
   startDate: Date
@@ -181,11 +181,62 @@ export interface SessionSchedule{
   name: string
   course: string
   subCourse: string
-  counselor: string
+  counsellor: string
   startDate: Date
   deadlineDate: Date
   sessionsPerWeek: number
   totalSessions: number
   sessionsTaken: number
   sessionsremaining: number
+}
+
+export interface Interview{
+  hostMail: string
+  coHostMail: string
+  date: Date
+  time: string
+  zoomAccount: string
+  candidateName: string
+  candidateMail: string
+  meetingLink: string
+  meetingID: string
+}
+
+export interface Counselling{
+  student: string
+  studentMailID: string
+  parentMailID: string
+  srCounsellorMailID: string
+  coHostMailID: string
+  date: Date
+  time: string
+  meetingLink: string
+}
+
+export interface LiveSession{
+  student: string
+  studentMailID: string
+  hostMailID: string
+  coHostMailID: string
+  date: Date
+  time: string
+}
+
+export interface LiveClass{
+  student: string
+  studentMailID: string
+  hostMailID: string
+  coHostMailID: string
+  date: Date
+  time: string
+}
+
+export interface AddOrEditPaymentToStudent{
+  totalFee: number
+  amountPaid: number
+  paidOn: Date
+  paymentMethod: string
+  paymentType: string
+  dueAmount: number
+  dueDate: Date
 }

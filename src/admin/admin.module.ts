@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { StudentsComponent } from './user-management/students/students.component';
 import { TeachersComponent } from './user-management/teachers/teachers.component';
 import { AddOrEditAdminComponent } from './dashboard/add-or-edit-admin/add-or-edit-admin.component';
@@ -42,6 +43,19 @@ import { StudentPaymentDetailsComponent } from './user-management/students/stude
 import { AddOrEditStudentCoursesComponent } from './user-management/students/student-courses/add-or-edit-student-courses/add-or-edit-student-courses.component';
 import { ClassSchedulerComponent } from './scheduler/class-scheduler/class-scheduler.component';
 import { SessionSchedulerComponent } from './scheduler/session-scheduler/session-scheduler.component';
+import { ZoomMeetingsComponent } from './zoom-meetings/zoom-meetings.component';
+import { LiveClassComponent } from './zoom-meetings/live-class/live-class.component';
+import { LiveSessionComponent } from './zoom-meetings/live-session/live-session.component';
+import { LiveDemoComponent } from './zoom-meetings/live-demo/live-demo.component';
+import { CounselingSessionComponent } from './zoom-meetings/counseling-session/counseling-session.component';
+import { InterviewComponent } from './zoom-meetings/interview/interview.component';
+import { InterviewTableComponent } from './zoom-meetings/interview/interview-table/interview-table.component';
+import { ScheduleInterviewComponent } from './zoom-meetings/interview/schedule-interview/schedule-interview.component';
+import { ScheduleCounsellingSessionComponent } from './zoom-meetings/counseling-session/schedule-counselling-session/schedule-counselling-session.component';
+import { ScheduleLiveClassComponent } from './zoom-meetings/live-class/schedule-live-class/schedule-live-class.component';
+import { ScheduleLiveSessionComponent } from './zoom-meetings/live-session/schedule-live-session/schedule-live-session.component';
+import { ScheduleLiveDemoComponent } from './zoom-meetings/live-demo/schedule-live-demo/schedule-live-demo.component';
+import { AddOrEditPaymentDetailsComponent } from './user-management/students/student-payment-details/add-or-edit-payment-details/add-or-edit-payment-details.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -69,6 +83,19 @@ import { SessionSchedulerComponent } from './scheduler/session-scheduler/session
     AddOrEditStudentCoursesComponent,
     ClassSchedulerComponent,
     SessionSchedulerComponent,
+    ZoomMeetingsComponent,
+    LiveClassComponent,
+    LiveSessionComponent,
+    LiveDemoComponent,
+    CounselingSessionComponent,
+    InterviewComponent,
+    InterviewTableComponent,
+    ScheduleInterviewComponent,
+    ScheduleCounsellingSessionComponent,
+    ScheduleLiveClassComponent,
+    ScheduleLiveSessionComponent,
+    ScheduleLiveDemoComponent,
+    AddOrEditPaymentDetailsComponent,
     // ScheduleSessionComponent
   ],
   imports: [
@@ -95,7 +122,8 @@ import { SessionSchedulerComponent } from './scheduler/session-scheduler/session
     MatNativeDateModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule
   ],
   exports: [AdminPageComponent,
     DashboardComponent,

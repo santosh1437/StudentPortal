@@ -1,0 +1,179 @@
+<section class="mx-2 p-3 card bg-white rounded-0">
+    <div class="ms-2 d-flex justify-content-between align-items-center">
+        <h2 class="ps-3">Schedule Live Class</h2>
+    </div>
+    <div class="mx-2 mb-4">
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('scheduleLiveClass');"> Schedule Live Class </button>
+    </div> 
+    <div class="d-flex align-items-center justify-content-center my-4 mx-2 row">
+        <div class="d-flex col-6">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="LiveClassSearchDateRange" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="LiveClassSearchDateRange.controls.start.hasError('matStartDateInvalid')">Invalid
+                    Start date</mat-error>
+                <mat-error *ngIf="LiveClassSearchDateRange.controls.end.hasError('matEndDateInvalid')">Invalid End
+                    date</mat-error>
+            </mat-form-field>
+            <div class="m-3">
+                <button type="submit" (click)="getDateRangeFilteredData()" mat-raised-button class="mx-2"
+                    style="background-color: #313d9c; color: white;">Filter</button>
+                <button type="submit" (click)="showAll()" mat-raised-button class="mx-2"
+                    style="background-color: #313d9c; color: white;">Show All</button>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-end col-6">
+            <!-- <span class="h4 m-2">Search </span>
+            <input type="text" (keyup)="applySearchFilter($event)" class="border p-1 border-2" style="outline: none;"> -->
+        </div>
+    </div>
+
+    <div class="row">
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label class="">
+              <div class="align-items-center col-2" (click)="tabSelected= !tabSelected">
+                  <div class="fw-bold pb-2">Upcoming Sessions</div>
+              </div>
+            </ng-template>
+            <mat-table [dataSource]="LiveClassDataSource" matSort class="pt-5">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
+                    <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="student">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClassee Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.student}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="studentMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClassee Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.studentMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="hostMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Host Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.hostMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="coHostMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Co-Host Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.coHostMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClass Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="meetingLink">
+                    <mat-header-cell *matHeaderCellDef> Meeting Link </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.meetingLink}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="loading">
+                    <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                        Loading data...
+                    </mat-footer-cell>
+                </ng-container>
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                        No data available to show.
+                    </mat-footer-cell>
+                </ng-container>
+                <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':LiveClassDataSource!=null}">
+                </mat-footer-row>
+                <mat-footer-row *matFooterRowDef="['noData']"
+                    [ngClass]="{'hide':!(LiveClassDataSource!=null && LiveClassDataSource.data.length==0)}">
+                </mat-footer-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!-- Pagination -->
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                aria-label="LiveClass details page"></mat-paginator>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="align-items-center" (click)="tabSelected= !tabSelected">
+                  <div class="fw-bold pb-2">Past Sessions</div>
+              </div>
+            </ng-template>
+            <mat-table [dataSource]="LiveClassDataSource" matSort class="pt-5">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
+                    <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="student">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClassee Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.student}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="studentMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClassee Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.studentMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="hostMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Host Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.hostMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="coHostMailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Co-Host Mail ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.coHostMailID}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> LiveClass Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="meetingLink">
+                    <mat-header-cell *matHeaderCellDef> Meeting Link </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.meetingLink}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="loading">
+                    <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                        Loading data...
+                    </mat-footer-cell>
+                </ng-container>
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                        No data available to show.
+                    </mat-footer-cell>
+                </ng-container>
+                <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':LiveClassDataSource!=null}">
+                </mat-footer-row>
+                <mat-footer-row *matFooterRowDef="['noData']"
+                    [ngClass]="{'hide':!(LiveClassDataSource!=null && LiveClassDataSource.data.length==0)}">
+                </mat-footer-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!-- Pagination -->
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                aria-label="LiveClass details page"></mat-paginator>
+          </mat-tab>
+        </mat-tab-group>
+    </div>
+</section>
+
+<ng-template #successMsg>
+    <div mat-dialog-title>
+        <p *ngIf="success" style="opacity: 0.85; color: green;"
+            class="align-items-center justify-content-center fs-3 ml-4">{{appService.httpClientMsg}}</p>
+        <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3 ml-4">
+            {{appService.httpClientMsg}}</p>
+    </div>
+</ng-template>
