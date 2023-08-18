@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "/api";
+  private baseUrlAPI = "https://www.edutechex.com/profile/api/api";
   // https://www.edutechex.com/profile/api
   //while deploying in baseUrlAPI https://www.edutechex.com/profile/api/api
   private edutechApi = "https://api.edutechex.com/api/Segment/GetSegmentList";
@@ -216,8 +216,23 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}`);
   }
 
-  // Edutech APIs
-  getSegments(){
-    return this.httpClient.get<any>(`${this.edutechApi}`);
+  // Segment Details
+  addSegments(segment:AddSegment): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Segment`,segment);
   }
+  getSegments(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Segment`);
+  }
+  getSegmentsById(sId:any){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/Segment/${sId}`);
+  }
+  updateSegments(segment:any): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Segment`,segment);
+  }
+  deleteSegments(segId:any): Observable<any>{
+    return this.httpClient.delete(`${this.baseUrlAPI}/Segment/${segId}`);
+  }
+  // getSegments(){
+  //   return this.httpClient.get<any>(`${this.edutechApi}`);
+  // }
 }

@@ -1,0 +1,98 @@
+<section class="my-4 ">
+    <h2 class="ps-2 fw-bold">Manage Segment</h2>
+    <div class="mx-2 p-3 card bg-white rounded-0">
+        <form action="" class="w-25 my-3" [formGroup]="segmentForm">
+            <label for="segmanet">Segment Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control fs-4" formControlName="segmentName" placeholder="Enter Segment Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <span class="btn btn-lg text-white" id="basic-addon2" style="background-color: #313d9c;" (click)="AddSegment()">Add</span>
+              </div>
+        </form>
+
+        <div class="mat-elevation-z8 w-50">
+            <table mat-table [dataSource]="segmentDataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> S.No. </th>
+                <td mat-cell *matCellDef="let i=index"> {{this.paginator.pageIndex * this.paginator.pageSize + i + 1}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Segment Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.segmentName}} </td>
+              </ng-container>
+          
+              <!-- Action Column -->
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <ul class="list-unstyled p-2 px-3 mb-0">
+                        <li >
+                            <a class="d-flex text-decoration-none custom-icon"
+                            (click)="editSegment(element.id)" style="cursor: pointer;">
+                                <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
+                            </a>
+                        </li>
+                        <li *ngIf="element.email != this.adminService.currentUser.email">
+                            <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteSegmentConfirm(element?.id)" style="cursor:pointer;">
+                                <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6" class="justify-content-center">
+                    No data available to show.
+                </mat-footer-cell>
+            </ng-container>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':segmentDataSource!=null}">
+            </mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']"
+                [ngClass]="{'hide':!(segmentDataSource!=null && segmentDataSource.data.length==0)}">
+            </mat-footer-row>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+          
+        
+    </div>
+    <ng-template #successMsg>
+        <div mat-dialog-title>
+            <p *ngIf="success" style="opacity: 0.85; color: green;"
+                class="align-items-center justify-content-center fs-3 ml-4">{{appService.httpClientMsg}}</p>
+            <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3 ml-4">
+                {{appService.httpClientMsg}}</p>
+        </div>
+    </ng-template>
+    <ng-template #deleteSegmentConfirm>
+        <div mat-dialog-title>
+            <span>Delete Segment?</span>
+        </div>
+        <hr/>
+        <div mat-dialog-content>
+            <p>
+                Do you really want to delete the Segment?</p>
+        </div>
+        <hr/>
+        <div mat-dialog-actions class="justify-content-between m-2">
+            <button mat-button (click)="closeModal()">Cancel</button>
+            <button style="color: black;" mat-button (click)="deleteSegment()" cdkFocusInitial>Ok</button>
+        </div>
+    </ng-template>
+</section>

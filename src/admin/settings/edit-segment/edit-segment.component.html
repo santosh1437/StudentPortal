@@ -1,0 +1,29 @@
+<h2 mat-dialog-title> Edit Segment</h2>
+<div mat-dialog-content>
+    <form [formGroup]="segmentEditForm">
+        <mat-form-field appearance="outline" aria-readonly="true" >
+            <mat-label>Segment Name</mat-label>
+            <input matInput  formControlName="segmentName" [value]="selectedSegmentName">
+        </mat-form-field>
+        <!-- <div mat-dialog-close [align]="'center'">
+            <button mat-raised-button color="primary" (click)="closeModal()">Cancel</button>
+        </div> -->
+        <div mat-dialog-actions class="justify-content-between">
+            <button mat-raised-button  (click)="closeModal()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="updateSegment()">Update</button>
+        </div>
+    </form>
+</div>
+<ng-template #successMsg>
+    <div mat-dialog-title>
+        <p *ngIf="success" style="opacity: 0.85; color: green;" class="align-items-center justify-content-center fs-3">
+            {{appService.httpClientMsg}}</p>
+        <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3">
+            {{appService.httpClientMsg}}</p>
+    </div>
+</ng-template>
+
+
+
+
+

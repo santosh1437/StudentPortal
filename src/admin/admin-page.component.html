@@ -197,6 +197,39 @@
                     </li>
                 </ul>
             </li>
+
+            <!-- Seeings -->
+            <li class="nav-item mb-2">
+                <a href="javascript: void(0)" (click)="adminService.openSection('settings');adminService.settings = !adminService.settings;"
+                    class="nav-link text-white d-flex align-items-center" id="course-pills-tab-1" data-bs-toggle="pill"
+                    data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1"
+                    aria-selected="false">
+                    <mat-icon class="fs-2">settings</mat-icon><span class="ps-4 col-9">Settings</span>
+                    <mat-icon class="fs-2" *ngIf="!adminService.settings">arrow_right</mat-icon>
+                    <mat-icon class="fs-2" *ngIf="adminService.settings">arrow_drop_down</mat-icon>
+                </a>
+                <ul class="pl-5 list-unstyled">
+                    <li class="py-3" *ngIf="adminService.settings">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('manageSegment');" [ngClass]="{'bg-dark': (adminService.manageSegment)}"
+                            class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Segments</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.batches"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+                
+                    <li class="pb-3" *ngIf="adminService.settings">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('manageCourses');" [ngClass]="{'bg-dark': (adminService.manageCourses || adminService.addOrEditSubBatches)}"
+                            class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
+                            <span class="ps-2 py-1">Courses</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.subBatches"> chevron_right </mat-icon> -->
+                        </a>
+                    </li> 
+                </ul>
+            </li>
         </ul>
         <!-- Tabs END -->
     </mat-sidenav>
@@ -315,6 +348,12 @@
                 </div>
                 <div *ngIf="adminService.addOrEditStudentPayments">
                     <app-add-or-edit-payment-details></app-add-or-edit-payment-details>
+                </div>
+                <div *ngIf="adminService.manageSegment">
+                    <app-add-or-edit-segment></app-add-or-edit-segment>
+                </div>
+                <div *ngIf="adminService.manageCourses">
+                    <app-add-or-edit-course></app-add-or-edit-course>
                 </div>
             </div>
         </div>

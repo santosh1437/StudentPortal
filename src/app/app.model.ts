@@ -240,3 +240,6 @@ export interface AddOrEditPaymentToStudent{
   dueAmount: number
   dueDate: Date
 }
+export interface AddSegment{
+  segmentname: string
+}

@@ -56,6 +56,9 @@ import { ScheduleLiveClassComponent } from './zoom-meetings/live-class/schedule-
 import { ScheduleLiveSessionComponent } from './zoom-meetings/live-session/schedule-live-session/schedule-live-session.component';
 import { ScheduleLiveDemoComponent } from './zoom-meetings/live-demo/schedule-live-demo/schedule-live-demo.component';
 import { AddOrEditPaymentDetailsComponent } from './user-management/students/student-payment-details/add-or-edit-payment-details/add-or-edit-payment-details.component';
+import { AddOrEditSegmentComponent } from './settings/add-or-edit-segment/add-or-edit-segment.component';
+import { AddOrEditCourseComponent } from './settings/add-or-edit-course/add-or-edit-course.component';
+import { EditSegmentComponent } from './settings/edit-segment/edit-segment.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -96,6 +99,9 @@ import { AddOrEditPaymentDetailsComponent } from './user-management/students/stu
     ScheduleLiveSessionComponent,
     ScheduleLiveDemoComponent,
     AddOrEditPaymentDetailsComponent,
+    AddOrEditSegmentComponent,
+    AddOrEditCourseComponent,
+    EditSegmentComponent,
     // ScheduleSessionComponent
   ],
   imports: [

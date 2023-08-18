@@ -37,6 +37,8 @@ export class AdminService {
   public liveSession: boolean = false;
   public counselingSession: boolean = false;
   public interview: boolean = false;
+  public manageSegment: boolean = false;
+  public editSegment: boolean = false;
 
   public scheduleLiveDemo: boolean = false;
   public scheduleLiveClass: boolean = false;
@@ -109,6 +111,8 @@ export class AdminService {
     this.studentPaymentDetails = false;
     this.addOrEditStudentCourses = false;
     this.addOrEditStudentPayments = false;
+    this.manageSegment = false;
+    this.editSegment = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -146,6 +150,12 @@ export class AdminService {
         this.addEditCounsellors = true;
         break;
       case 'settings':
+        case 'manageSegment':
+          this.manageSegment = true;
+          break;
+          case 'editSegment':
+            this.editSegment = true;
+            break;
         case 'manageCourses':
         this.manageCourses = true;
         break;

@@ -63,6 +63,17 @@ export class AddOrEditStudentComponent {
     this.addEditStudentForm.patchValue(this.data);
   }
 
+  public backBtn(){
+    if(this.personalDetails){
+      // this.personalDetails = false;
+      // this.educationDetails = true;
+      this.adminService.openSection('students');
+    }else if(this.educationDetails){
+      this.personalDetails = true;
+      this.educationDetails = false;
+    }
+  }
+
   public fillNext(){
     if(this.personalDetails){
       this.personalDetails = false;

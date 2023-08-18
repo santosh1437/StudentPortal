@@ -8,7 +8,7 @@
     <form [formGroup]="addEditStudentForm">
         <!-- (ngSubmit)="onFormSubmit()" -->
         <div class="ms-2 d-flex justify-content-between align-items-center my-2">
-            <a class="text-bg-light p-2 text-decoration-none">
+            <a href="javascript: void(0)" class="text-bg-light p-2 text-decoration-none" *ngIf="personalDetails || educationDetails" (click)="backBtn()">
                 <img src="assets/images/arrow_back.svg" alt="Back" height="20"/>Back
             </a>
         </div>
