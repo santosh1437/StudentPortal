@@ -69,7 +69,12 @@ export interface addStudent{
 }
 
 export interface Counsellor{
+<<<<<<< HEAD
   cID : string
+=======
+  id : number
+  cID: string
+>>>>>>> 8ec39b4c703e5e1e5863adf7497104bf7d72a7fd
   fullName : string
   password : string
   email : string
@@ -97,6 +102,7 @@ export interface addCounsellor{
   empEmail : string
   joinedOn : Date
   createdOn: Date
+<<<<<<< HEAD
 }
 
 export interface Course{
@@ -242,4 +248,6 @@ export interface AddOrEditPaymentToStudent{
 }
 export interface AddSegment{
   segmentname: string
+=======
+>>>>>>> 8ec39b4c703e5e1e5863adf7497104bf7d72a7fd
 }

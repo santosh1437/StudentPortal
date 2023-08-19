@@ -102,7 +102,12 @@ export class AddOrEditCounsellorComponent {
     if (this.addEditCounsellorForm.valid) {
       if (this.data) {
         const editCounsellorData: Counsellor = {
+<<<<<<< HEAD
           cID: this.data.cID,
+=======
+          id: this.data.id,
+          cID: '',
+>>>>>>> 8ec39b4c703e5e1e5863adf7497104bf7d72a7fd
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
