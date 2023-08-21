@@ -59,6 +59,7 @@ import { AddOrEditPaymentDetailsComponent } from './user-management/students/stu
 import { AddOrEditSegmentComponent } from './settings/add-or-edit-segment/add-or-edit-segment.component';
 import { AddOrEditCourseComponent } from './settings/add-or-edit-course/add-or-edit-course.component';
 import { EditSegmentComponent } from './settings/edit-segment/edit-segment.component';
+import { CourseComponent } from './settings/course/course.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { EditSegmentComponent } from './settings/edit-segment/edit-segment.compo
     AddOrEditSegmentComponent,
     AddOrEditCourseComponent,
     EditSegmentComponent,
+    CourseComponent,
     // ScheduleSessionComponent
   ],
   imports: [

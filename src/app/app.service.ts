@@ -101,16 +101,9 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Counsellor`);
   }
 
-<<<<<<< HEAD
   editCounselor(counsellor: Counsellor): Observable<any>{
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counsellor.cID}`, counsellor);
   }
-=======
-//Edit Counseeling
-editCounselling(counseller: Counsellor): Observable<any>{
-  return this.httpClient.put<any>(`${this.baseUrlAPI}/Counsellor/${counseller.id}`, counseller);
-}
->>>>>>> 8ec39b4c703e5e1e5863adf7497104bf7d72a7fd
 
   deleteCounselor(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Counsellor/${id}`);
@@ -180,12 +173,12 @@ editCounselling(counseller: Counsellor): Observable<any>{
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Course`);
   }
 
-  editCourse(course: any, uniqueID: string): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Course/${uniqueID}`, course);
+  editCourse(uniqueID: string): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Course/${uniqueID}`,uniqueID);
   }
 
-  deleteCourse(id: string): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/Course/${id}`);
+  deleteCourse(courseID: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/Course/${courseID}`);
   }
 
   // Interview APIs

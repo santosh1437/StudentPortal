@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "@popperjs/core": "^2.11.8",
     "@zoomus/websdk": "^2.14.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",

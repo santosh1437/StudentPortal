@@ -210,7 +210,7 @@
                 </a>
                 <ul class="pl-5 list-unstyled">
                     <li class="py-3" *ngIf="adminService.settings">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('manageSegment');" [ngClass]="{'bg-dark': (adminService.manageSegment)}"
+                        <a href="javascript: void(0)" (click)="adminService.openSection('manageSegment');" [ngClass]="{'bg-dark': (adminService.manageSegment || adminService.addOrEditBatches)}"
                             class="text-white d-flex align-items-center justify-content-start text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
@@ -303,9 +303,9 @@
                 <div *ngIf="adminService.paymentDetails">
                     <app-payment-details></app-payment-details>
                 </div>
-                <!-- <div *ngIf="adminService.manageCourses">
-                    <app-manage-courses></app-manage-courses>
-                </div> -->
+                <div *ngIf="adminService.manageCourses">
+                    <app-course></app-course>
+                </div>
                 <div *ngIf="adminService.liveClass">
                     <app-live-class></app-live-class>
                 </div>
@@ -352,7 +352,7 @@
                 <div *ngIf="adminService.manageSegment">
                     <app-add-or-edit-segment></app-add-or-edit-segment>
                 </div>
-                <div *ngIf="adminService.manageCourses">
+                <div *ngIf="adminService.addOrEditCourse">
                     <app-add-or-edit-course></app-add-or-edit-course>
                 </div>
             </div>

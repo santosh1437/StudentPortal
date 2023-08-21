@@ -39,6 +39,8 @@ export class AdminService {
   public interview: boolean = false;
   public manageSegment: boolean = false;
   public editSegment: boolean = false;
+  public addOrEditCourse: boolean = false;
+  
 
   public scheduleLiveDemo: boolean = false;
   public scheduleLiveClass: boolean = false;
@@ -75,6 +77,7 @@ export class AdminService {
   public currentEditId: string = '';
   public currentAddId: string = '';
   public url: any;
+  public editCourseObj: any = null;
 
   constructor(private appService: AppService) { }
 
@@ -113,6 +116,7 @@ export class AdminService {
     this.addOrEditStudentPayments = false;
     this.manageSegment = false;
     this.editSegment = false;
+    this.addOrEditCourse = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -159,6 +163,9 @@ export class AdminService {
         case 'manageCourses':
         this.manageCourses = true;
         break;
+        case 'addOrEditCourse':
+          this.addOrEditCourse = true;
+          break;
       case 'scheduler':
         case 'batches':
         this.batches = true;
