@@ -89,15 +89,13 @@ export class AddOrEditCourseComponent {
       next:(res)=>{
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Courses Added Successfully');
-        this.dialogRef.close(true);
         this.adminService.openSection('manageCourses');
+        this.successMsgDialog('Courses Added Successfully');
       },
       error:(err) =>{
         this.success = true;
         this.err = false;
         this.successMsgDialog(err.message);
-        this.dialogRef.close(true);
       }
     })
   }
@@ -108,13 +106,11 @@ export class AddOrEditCourseComponent {
         this.success = true;
         this.err = false;
         this.successMsgDialog('Courses Updated Successfully');
-        this.dialogRef.close(true);
       },
       error:(err) =>{
-        this.success = true;
-        this.err = false;
+        this.success = false;
+        this.err = true;
         this.successMsgDialog(err.message);
-        this.dialogRef.close(true);
       }
     })
   }
