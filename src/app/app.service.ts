@@ -173,8 +173,8 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/Course`);
   }
 
-  editCourse(uniqueID: string): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Course/${uniqueID}`,uniqueID);
+  editCourse(course: any): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Course`,course);
   }
 
   deleteCourse(courseID: string): Observable<any> {

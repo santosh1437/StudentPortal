@@ -114,6 +114,7 @@ export interface Course{
 }
 export interface AddCourse{
   id : string
+  courseID : string
   segment : string 
   course : string
   subCourse : string

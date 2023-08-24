@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
 import { Course } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
+import { AddOrEditCourseComponent } from '../add-or-edit-course/add-or-edit-course.component';
 // import { Popover } from 'bootstrap'
 
 @Component({
@@ -78,6 +79,20 @@ export class CourseComponent {
 
   public closeModal(){
     this.dialogRef.close();
+  }
+  openAddCourseModal(){
+    const dialogRef = this.dialog.open(AddOrEditCourseComponent);
+    dialogRef.afterClosed().subscribe((res) => {
+      this.getCourseData();
+    });
+  }
+  openEditCourseModal(data: any){
+    const dialogRef = this.dialog.open(AddOrEditCourseComponent,{
+      data,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.getCourseData();
+    });
   }
   //delete course
   deleteCourse(){

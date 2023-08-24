@@ -15,16 +15,19 @@ export class AddOrEditCourseComponent {
   public data: any;
   public success:boolean = false;
   public err:boolean = false;
-  dialogRef: any;
-  // @Inject(MAT_DIALOG_DATA) public data: any,
+  // dialogRef: any;
+  
 @ViewChild('successMsg') successDialog = {} as TemplateRef<any>
   constructor(
     public appService: AppService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     public adminService: AdminService,
+    private dialogRef: MatDialogRef<AddOrEditCourseComponent>,
+    @Inject(MAT_DIALOG_DATA) public datas: any,
   ){
     this.addEditCourseForm = this.fb.group({
+      courseID: new FormControl('',[Validators.required]),
       segment: new FormControl('',[Validators.required]),
       course: new FormControl('',[Validators.required]),
       subCourse: '',
@@ -34,12 +37,13 @@ export class AddOrEditCourseComponent {
       discountPrice: new FormControl('',[Validators.required]),
       discountPercentage: new FormControl('',[Validators.required]),
 
-    })
+    });
+    // this.data = this.adminService.editCourseObj;
+    
   }
 
   ngOnInit(): void{
-    this.data = this.adminService.editCourseObj;
-   this.addEditCourseForm.patchValue(this.data);
+    this.addEditCourseForm.patchValue(this.datas);
   //  console.log(this.data);
   this.getAllSegmentList();
   }
@@ -53,10 +57,10 @@ export class AddOrEditCourseComponent {
 
   onFormSubmit(){
     if(this.addEditCourseForm.valid){
-      if(this.data){
+      if(this.datas){
         const EditCourse: Course ={
-          id : this.data.id,
-          courseID : this.data.courseID,
+          id : this.datas.id,
+          courseID : this.addEditCourseForm.controls['courseID'].value,
           segment : this.addEditCourseForm.controls['segment'].value,
           course : this.addEditCourseForm.controls['course'].value,
           subCourse : this.addEditCourseForm.controls['subCourse'].value,
@@ -70,6 +74,7 @@ export class AddOrEditCourseComponent {
       }else{
         const AddCourse: AddCourse ={
           id : '',
+          courseID : this.addEditCourseForm.controls['courseID'].value,
           segment : this.addEditCourseForm.controls['segment'].value,
           course : this.addEditCourseForm.controls['course'].value,
           subCourse : this.addEditCourseForm.controls['subCourse'].value,
@@ -89,23 +94,9 @@ export class AddOrEditCourseComponent {
       next:(res)=>{
         this.success = true;
         this.err = false;
+        this.dialogRef.close(true);
         this.adminService.openSection('manageCourses');
         this.successMsgDialog('Courses Added Successfully');
-      },
-      error:(err) =>{
-        this.success = true;
-        this.err = false;
-        this.successMsgDialog(err.message);
-      }
-    })
-  }
-  public editCourseData(course : Course){
-    this.appService.editCourse(course.courseID).subscribe({
-      next:(res)=>{
-        console.log(res);
-        this.success = true;
-        this.err = false;
-        this.successMsgDialog('Courses Updated Successfully');
       },
       error:(err) =>{
         this.success = false;
@@ -114,11 +105,31 @@ export class AddOrEditCourseComponent {
       }
     })
   }
+  public editCourseData(course : Course){
+    this.appService.editCourse(course).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.success = true;
+        this.err = false;
+        this.dialogRef.close(true);
+        this.adminService.openSection('manageCourses');
+        this.successMsgDialog('Courses Updated Successfully');
+      },
+      error:(err) =>{
+        this.success = false;
+        this.err = true;
+        this.adminService.openSection('manageCourses');
+        this.successMsgDialog(err.message);
+      }
+    })
+  }
 
-
+  public closeModal(){
+    this.dialogRef.close();
+  }
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
-    const timeout = 750;
+    const timeout = 3000;
     const dialogRef = this.dialog.open(this.successDialog, {
       width: 'auto',
     });

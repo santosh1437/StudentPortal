@@ -1,6 +1,6 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-2 d-flex justify-content-between align-items-center">
-        <h2 class="ps-3">Batches Details List</h2>
+        <h2 class="ps-3">Courses Details List</h2>
     </div>
     <div class="d-flex align-items-center justify-content-center my-4 mx-2 row">
         <div class="d-flex col-8">
@@ -35,7 +35,8 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditCourse');"> Create Course </button>
+        <!-- <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditCourse');"> Create Course </button> -->
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddCourseModal()"> Create Course </button>
     </div> 
 
     <mat-table [dataSource]="CourseDataSource" matSort>
@@ -70,8 +71,12 @@
             <mat-cell *matCellDef="let element"> 
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
+                        <!-- <a class="d-flex text-decoration-none custom-icon" 
+                        (click)="adminService.editCourseObj = element;adminService.currentEditId == element.id; adminService.openSection('addOrEditCourse');" style="cursor: pointer;">
+                            <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
+                        </a> -->
                         <a class="d-flex text-decoration-none custom-icon" 
-                        (click)="adminService.editCourseObj = element;adminService.currentEditId == element.courseID; adminService.openSection('addOrEditCourse');" style="cursor: pointer;">
+                        (click)="openEditCourseModal(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
@@ -148,12 +153,12 @@
 </ng-template>
 <ng-template #deleteCourseConfirm>
     <div mat-dialog-title>
-        <span>Delete Batch?</span>
+        <span>Delete Course?</span>
     </div>
     <hr/>
     <div mat-dialog-content>
         <p>
-            Do you really want to delete the Batch?</p>
+            Do you really want to delete the Course?</p>
     </div>
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">
@@ -167,9 +172,12 @@
         <h2 class="text-center fw-bold">Course Details</h2>
         <hr/>
         <div mat-dialog-content class="row" >
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Segment :</span> {{selectedCourse?.segment}}</mat-label>
-            </div>
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Course ID :</span> {{selectedCourse?.courseID}}</mat-label>
+                </div>
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Segment :</span> {{selectedCourse?.segment}}</mat-label>
+                </div>
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Course :</span>{{selectedCourse?.course}}</mat-label>
                 </div>
