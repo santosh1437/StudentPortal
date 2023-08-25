@@ -124,6 +124,30 @@ export interface AddCourse{
   discountPrice : string
   discountPercentage : string
 }
+export interface subCourse{
+  id : string
+  subCourseID : string
+  segment : string 
+  course : string
+  subCourse : string
+  duration : string
+  description : string
+  currentPrice : string
+  discountPrice : string
+  discountPercentage : string
+}
+export interface AddSubCourse{
+  id : string
+  subCourseID : string
+  segment : string 
+  course : string
+  subCourse : string
+  duration : string
+  description : string
+  currentPrice : string
+  discountPrice : string
+  discountPercentage : string
+}
 
 export interface Subject{
   courseId : string

@@ -60,6 +60,8 @@ import { AddOrEditSegmentComponent } from './settings/add-or-edit-segment/add-or
 import { AddOrEditCourseComponent } from './settings/add-or-edit-course/add-or-edit-course.component';
 import { EditSegmentComponent } from './settings/edit-segment/edit-segment.component';
 import { CourseComponent } from './settings/course/course.component';
+import { SubcourseComponent } from './settings/subcourse/subcourse.component';
+import { AddOrEditSubcourseComponent } from './settings/subcourse/add-or-edit-subcourse/add-or-edit-subcourse.component';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 @NgModule({
   declarations: [
@@ -104,6 +106,8 @@ import { CourseComponent } from './settings/course/course.component';
     AddOrEditCourseComponent,
     EditSegmentComponent,
     CourseComponent,
+    SubcourseComponent,
+    AddOrEditSubcourseComponent,
     // ScheduleSessionComponent
   ],
   imports: [

@@ -181,6 +181,21 @@ export class AppService {
     return this.httpClient.delete(`${this.baseUrlAPI}/Course/${courseID}`);
   }
 
+  // SubCOurses API
+  addSubCourse(subCourse:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/SubCourse`,subCourse);
+  }
+  getSubCourse(){
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/SubCourse`)
+  }
+  editSubCourse(subCourse: any): Observable<any> {
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/SubCourse`,subCourse);
+  }
+  deleteSubCourse(ID:any): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrlAPI}/SubCourse/${ID}`);
+  }
+
+
   // Interview APIs
   addInterview(interview:any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Interview`,interview);

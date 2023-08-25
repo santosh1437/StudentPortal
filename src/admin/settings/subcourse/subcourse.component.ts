@@ -1,21 +1,18 @@
 import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { Course } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
-import { AddOrEditCourseComponent } from '../add-or-edit-course/add-or-edit-course.component';
-// import { Popover } from 'bootstrap'
+import { AddOrEditSubcourseComponent } from './add-or-edit-subcourse/add-or-edit-subcourse.component';
 
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
+  selector: 'app-subcourse',
+  templateUrl: './subcourse.component.html',
+  styleUrls: ['./subcourse.component.css']
 })
-export class CourseComponent {
+export class SubcourseComponent {
   public displayedColumns = [
     'id',
     'segment',
@@ -27,7 +24,7 @@ export class CourseComponent {
     
   ];
   // public CourseDataSource = MatTableDataSource<Course>;
-  CourseDataSource: any;
+  SubCourseDataSource: any;
   public CoursesData : any;
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator = new MatPaginator(
@@ -48,7 +45,7 @@ export class CourseComponent {
     public adminService: AdminService,
     public dialog: MatDialog
     ){
-      this.CourseDataSource = new MatTableDataSource(this.CoursesData);
+      this.SubCourseDataSource = new MatTableDataSource(this.CoursesData);
     }
 
   ngOnInit(): void{
@@ -56,37 +53,37 @@ export class CourseComponent {
   }
 
   ngAfterViewInit() {
-    this.CourseDataSource.paginator = this.paginator;
-    this.CourseDataSource.sort = this.sort;
+    this.SubCourseDataSource.paginator = this.paginator;
+    this.SubCourseDataSource.sort = this.sort;
   }
 
   //get course data
   getCourseData(){
-    this.appService.getCourses().subscribe((res:any)=>{
+    this.appService.getSubCourse().subscribe((res:any)=>{
       this.CoursesData = res;
-      this.CourseDataSource = new MatTableDataSource(this.CoursesData);
-      this.CourseDataSource.paginator = this.paginator;
-      this.CourseDataSource.sort = this.sort;
+      this.SubCourseDataSource = new MatTableDataSource(this.CoursesData);
+      this.SubCourseDataSource.paginator = this.paginator;
+      this.SubCourseDataSource.sort = this.sort;
     })
   }
 
   //Search table
   public applySearchFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.CourseDataSource.filter = filterValue.trim().toLowerCase();
+    this.SubCourseDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   public closeModal(){
     this.dialogRef.close();
   }
   openAddCourseModal(){
-    const dialogRef = this.dialog.open(AddOrEditCourseComponent);
+    const dialogRef = this.dialog.open(AddOrEditSubcourseComponent);
     dialogRef.afterClosed().subscribe((res) => {
       this.getCourseData();
     });
   }
   openEditCourseModal(data: any){
-    const dialogRef = this.dialog.open(AddOrEditCourseComponent,{
+    const dialogRef = this.dialog.open(AddOrEditSubcourseComponent,{
       data,
     });
     dialogRef.afterClosed().subscribe((res) => {
@@ -95,7 +92,7 @@ export class CourseComponent {
   }
   //delete course
   deleteCourse(){
-    this.appService.deleteCourse(this.deleteId).subscribe({
+    this.appService.deleteSubCourse(this.deleteId).subscribe({
       next: (res) => {
         console.log(res);
         this.closeModal();
@@ -113,7 +110,7 @@ export class CourseComponent {
     });
     this.deleteId = "0";
   }
-  selectedCourse:any
+  selectedSubCourse:any
   openFormDetails(data:any){
     const dialogRef = this.dialog.open(this.displayedSelectedCourse,{
       width:'50%',
@@ -121,7 +118,7 @@ export class CourseComponent {
       enterAnimationDuration:'1000ms',
       data,
     });
-    this.selectedCourse = data;
+    this.selectedSubCourse = data;
     console.log(data);
     dialogRef.afterClosed().subscribe((res) => {
       this.getCourseData();
@@ -150,5 +147,4 @@ export class CourseComponent {
   }
 
   
-
 }

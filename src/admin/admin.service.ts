@@ -40,6 +40,8 @@ export class AdminService {
   public manageSegment: boolean = false;
   public editSegment: boolean = false;
   public addOrEditCourse: boolean = false;
+  public subCourse: boolean = false;
+  public addOrEditSubCourse = false;
   
 
   public scheduleLiveDemo: boolean = false;
@@ -117,6 +119,8 @@ export class AdminService {
     this.manageSegment = false;
     this.editSegment = false;
     this.addOrEditCourse = false;
+    this.subCourse = false;
+    this.addOrEditSubCourse = false;
 
     switch (sectionName) {
       case 'dashboard':
@@ -166,6 +170,12 @@ export class AdminService {
         case 'addOrEditCourse':
           this.addOrEditCourse = true;
           break;
+        case 'subCourse':
+          this.subCourse = true;
+          break;
+        case 'addOrEditSubCourse':
+          this.addOrEditSubCourse = true;
+          break;  
       case 'scheduler':
         case 'batches':
         this.batches = true;
