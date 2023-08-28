@@ -24,7 +24,7 @@
             <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
             <mat-form-field appearance="outline" class="col-8">
                 <mat-label>Select Course</mat-label>
-                <mat-select formControlName="course" (change)='onSelectSub(val2.value)' #val2>
+                <mat-select formControlName="course" (click)='onSelectSub(val2.value)' #val2>
                     <mat-option *ngFor="let item of diplayedCourse; let i=index" [value]="item?.course">
                         <ng-container>
                             {{ item?.course }}

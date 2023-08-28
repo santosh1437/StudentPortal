@@ -17,6 +17,7 @@ export class SubcourseComponent {
     'id',
     'segment',
     'course',
+    'subCourse',
     'teachers',
     'batch',
     'action',

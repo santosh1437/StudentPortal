@@ -32,7 +32,7 @@ export class AddOrEditSubcourseComponent {
       course: new FormControl('',[Validators.required]),
       subCourse: '',
       duration: new FormControl('',[Validators.required]),
-      description: new FormControl('',[Validators.required]),
+      description: '',
       currentPrice: new FormControl('',[Validators.required]),
       discountPrice: new FormControl('',[Validators.required]),
       discountPercentage: new FormControl('',[Validators.required]),
