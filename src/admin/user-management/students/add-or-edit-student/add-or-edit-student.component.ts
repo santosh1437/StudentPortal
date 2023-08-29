@@ -31,14 +31,14 @@ export class AddOrEditStudentComponent {
   ) {
     this.addEditStudentForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
-      dob: new FormControl('', [Validators.required]),
+      dob: '',
       phoneNo: new FormControl('', [Validators.required, Validators.pattern("^[0-9\-\+]{9,15}$")]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
-      admissionDate: new FormControl('', [Validators.required]),
+      admissionDate: '',
       studentType: new FormControl('', [Validators.required]),
       currentCity: new FormControl('', [Validators.required]),
       address: new FormControl('', Validators.required),
@@ -51,7 +51,9 @@ export class AddOrEditStudentComponent {
       curriculum: new FormControl('', [Validators.required]),
       schoolOrCollege: new FormControl('', [Validators.required]),
       degree: new FormControl('', [Validators.required]),
-      expectedOrPassedOutYear: new FormControl('', [Validators.required])
+      expectedOrPassedOutYear: new FormControl('', [Validators.required]),
+      courseAssign: '',
+      cID: '',
     });
   }
 
@@ -93,38 +95,10 @@ export class AddOrEditStudentComponent {
   }
 
   onFormSubmit() {
-    if (this.addEditStudentForm.valid) {
-      if (this.data) {
-        const editStudentData: Student = {
-          sID: this.data.sID,
-          fullName: this.addEditStudentForm.controls['fullName'].value,
-          phoneNo: this.addEditStudentForm.controls['phone'].value,
-          email: this.addEditStudentForm.controls['email'].value,
-          createdOn: new Date(),
-          studentType: this.addEditStudentForm.controls['studentType'].value,
-          updatedOn: new Date(),
-          password: this.addEditStudentForm.controls['password'].value,
-          currentCity: this.addEditStudentForm.controls['currentCity'].value,
-          address: this.addEditStudentForm.controls['address'].value,
-          parentPhoneNo: ''
-        };
-        this.editStudent(editStudentData);
-      } else {
-        const addStudentData: addStudent = {
-          fullName: this.addEditStudentForm.controls['fullName'].value,
-          phoneNo: this.addEditStudentForm.controls['phone'].value,
-          email: this.addEditStudentForm.controls['email'].value,
-          studentType: this.addEditStudentForm.controls['studentType'].value,
-          password: this.addEditStudentForm.controls['password'].value,
-          updatedOn: new Date(),
-          createdOn: new Date(),
-          currentCity: this.addEditStudentForm.controls['currentCity'].value,
-          address: this.addEditStudentForm.controls['address'].value,
-          parentPhoneNo: ''
-        };
-        this.addStudent(addStudentData);
-      }
-    }
+    console.log(this.addEditStudentForm.value);
+   this.appService.addStudentDetails(this.addEditStudentForm.value).subscribe((res:any)=>{
+    console.log(res);
+   })
   }
 
   public addStudent(student: addStudent) {

@@ -41,7 +41,7 @@ export class StudentsComponent {
     ChangeDetectorRef.prototype
   );
   @ViewChild('deleteTeacherConfirm') deleteStudentConfirmDialog =
-  {} as TemplateRef<any>;
+    {} as TemplateRef<any>;
   dialogRef: any;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
 
@@ -49,7 +49,7 @@ export class StudentsComponent {
     public appService: AppService,
     public adminService: AdminService,
     public dialog: MatDialog
-    ) {
+  ) {
     this.getStudentsDetails();
     this.StudentsDataSource = new MatTableDataSource(this.StudentsData);
   }
@@ -70,15 +70,15 @@ export class StudentsComponent {
     this.tempData = this.StudentsData;
     let selectedItems: Student[] = [];
     if (fromDate && toDate) {
-      this.tempData.forEach((item: Student) => {
-        if (
-          new Date(item.createdOn) >= new Date(fromDate) &&
-          new Date(item.createdOn) <= new Date(toDate)
-        ) {
-          selectedItems.push(item);
-        }
-      });
-      this.StudentsDataSource.data = selectedItems;
+      // this.tempData.forEach((item: Student) => {
+      //   if (
+      //     new Date(item.createdOn) >= new Date(fromDate) &&
+      //     new Date(item.createdOn) <= new Date(toDate)
+      //   ) {
+      //     selectedItems.push(item);
+      //   }
+      // });
+      // this.StudentsDataSource.data = selectedItems;
     }
   }
 
@@ -100,14 +100,19 @@ export class StudentsComponent {
 
   //get Students form details
   private async getStudentsDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getStudentDetails();
-      this.StudentsDataSource = new MatTableDataSource(
-        this.StudentsData
-      );
+    // if(localStorage.getItem('currentUser')){
+    //   await this.adminService.getStudentDetails();
+    //   this.StudentsDataSource = new MatTableDataSource(
+    //     this.StudentsData
+    //   );
+    //   this.StudentsDataSource.paginator = this.paginator;
+    //   this.StudentsDataSource.sort = this.sort;
+    // }
+    this.appService.getStudents().subscribe((res: any) => {
+      this.StudentsDataSource = new MatTableDataSource(res);
       this.StudentsDataSource.paginator = this.paginator;
       this.StudentsDataSource.sort = this.sort;
-    }
+    })
   }
 
   // Delete Student
@@ -140,23 +145,23 @@ export class StudentsComponent {
   }
 
   //On clicking Export button, exporting to excel
-  ExportTOExcel(){
-    var options = { 
+  ExportTOExcel() {
+    var options = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalseparator: '.',
       showLabels: true,
       useBom: true,
-      headers: ['Id', 'Name', 'MailID', 'Phone No','studentType', 'Created On']
+      headers: ['Id', 'Name', 'MailID', 'Phone No', 'studentType', 'Created On']
     };
     const exportData = this.StudentsDataSource.data.map((data) => {
       return {
-        id : data.sID,
-        fullName : data.fullName,
-        email : data.email,
-        phoneNo : data.phoneNo,
+        id: data.sID,
+        fullName: data.name,
+        email: data.email,
+        phoneNo: data.phoneNo,
         studentType: data.studentType,
-        createdOn: data.createdOn
+        // createdOn: data.createdOn
       }
     });
     // new ngxCsv(exportData, 'InternalStudentsDetailsReport', options);

@@ -84,9 +84,12 @@ export class AppService {
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.sID}`, student);
   }
 
-  addStudentDetails(student: addStudent): Observable<any> {
+  addStudentDetails(student: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
   }
+  // addStudent(student:any): Observable<any> {
+  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student)
+  // }
 
   deleteStudent(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);

@@ -43,29 +43,53 @@ export interface addTeachers{
 
 export interface Student{
   sID : string
-  fullName : string
-  email : string
-  password: string
+  name : string
+  dob :  string
   phoneNo : string
+  email : string
+  password : string
+  admissionDate : string
+  parentName :  string
+  parentPhoneNo : string
+  parentMailId : string
   studentType: string
-  currentCity: string
   address: string
-  parentPhoneNo: string
+  currentCity: string
+  schoolOrCollege : string
+  courseAssign: string
+  segment : string
+  grade : string
+  curriculum : string
+  degree : string
+  expectedOrPassedOutYear : string
+  cID : string
   createdOn: Date
   updatedOn: Date
 }
 
 export interface addStudent{
-  fullName : string
-  email : string
-  password: string
+  name : string
+  dob :  string
   phoneNo : string
+  email : string
+  password : string
+  admissionDate : string
+  parentName :  string
+  parentPhoneNo : string
+  parentMailId : string
   studentType: string
-  currentCity: string
   address: string
-  parentPhoneNo: string
-  updatedOn: Date
+  currentCity: string
+  schoolOrCollege : string
+  courseAssign: string
+  segment : string
+  grade : string
+  curriculum : string
+  degree : string
+  expectedOrPassedOutYear : string
+  cID : string
   createdOn: Date
+  updatedOn: Date
 }
 
 export interface Counsellor{
@@ -128,8 +152,9 @@ export interface subCourse{
   id : string
   subCourseID : string
   segment : string 
-  course : string
+  courseID : string
   subCourse : string
+  subject : string
   duration : string
   description : string
   currentPrice : string
@@ -140,8 +165,9 @@ export interface AddSubCourse{
   id : string
   subCourseID : string
   segment : string 
-  course : string
+  courseID : string
   subCourse : string
+  subject : string
   duration : string
   description : string
   currentPrice : string

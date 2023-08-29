@@ -26,7 +26,7 @@
                     </mat-form-field>
                 </div>
     
-                <div class="col-lg-6 row">
+                <!-- <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Date Of Birth :</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
                         <input matInput [matDatepicker]="pickerDOB" placeholder="Enter date of birth" formControlName="dob">
@@ -109,7 +109,7 @@
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Counselor :</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input matInput placeholder="Enter Current city" formControlName="counsellor">
+                        <input matInput placeholder="Enter Current city" formControlName="cID">
                     </mat-form-field>
                 </div>
     
@@ -119,9 +119,54 @@
                         <input type="text" matInput placeholder="Enter Address" formControlName="address">
                     </mat-form-field>
                 </div>
+
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Segment :</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput type="text" placeholder="Enter segment" formControlName="segment">
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">School/College Name</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput type="tel" placeholder="Enter school or college name" formControlName="schoolOrCollege">
+                    </mat-form-field>
+                </div>
+        
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Grade</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput type="text" placeholder="Enter Grade" formControlName="grade">
+                    </mat-form-field>
+                </div>
+        
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Curriculum</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput placeholder="Enter curriculum" formControlName="curriculum"
+                            required>
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Degree</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput placeholder="Enter degree" formControlName="degree"
+                            required>
+                    </mat-form-field>
+                </div>
+    
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Expected/Passed Out Year</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input matInput placeholder="Enter expected or passed out year" formControlName="expectedOrPassedOutYear"
+                            required>
+                    </mat-form-field>
+                </div> -->
             </div>
             <!-- Image add edit part -->
-            <div class="col-4 my-5 py-5">
+            <!-- <div class="col-4 my-5 py-5">
                 <div class="uploadBox d-flex align-items-center justify-content-center">
                     <div *ngIf="url" style="position:relative; overflow:none; display:inline-block;">
                         <div class="" style="position: absolute;">
@@ -141,11 +186,11 @@
                         </label>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- EDUCATION DETAILS -->
-        <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="educationDetails">
+        <!-- <div class="ms-2 d-flex justify-content-between align-items-center" *ngIf="educationDetails">
             <h2 class="ps-3">Education Details</h2>
         </div>
         <div class="row justify-content-center my-5" *ngIf="educationDetails">
@@ -193,17 +238,18 @@
                         required>
                 </mat-form-field>
             </div>
-        </div>
+        </div> -->
 
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button type="button" class="" (click)="adminService.openSection('students')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails || educationDetails" (click)="fillNext()">
-                    Next </button>
+                <!-- <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails || educationDetails" (click)="fillNext()">
+                    Next </button> -->
                 <!-- <button mat-raised-button color="primary" type="submit" class="float-lg-end" *ngIf="paymentDetails">
                     {{data ? 'Update Student':'Save Student'}} </button> -->
+                    <button type="submit" mat-raised-button color="primary" class="float-lg-end" (click)="onFormSubmit()">Submit</button>
             </div>
         </div>
     </form>

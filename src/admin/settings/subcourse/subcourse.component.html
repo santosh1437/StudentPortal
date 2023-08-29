@@ -33,7 +33,7 @@
         <!-- Phone no. Column -->
         <ng-container matColumnDef="course">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.courseID}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="subCourse">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
@@ -123,7 +123,7 @@
 </ng-template>
 <ng-template #displayCourseDetails>
     <div mat-dialog-title>
-        <h2 class="text-center fw-bold">Course Details</h2>
+        <h2 class="text-center fw-bold">SubCourse Details</h2>
         <hr/>
         <div mat-dialog-content class="row" >
                 <div class="col-lg-6 row">
@@ -133,7 +133,7 @@
                     <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Segment :</span> {{selectedSubCourse?.segment}}</mat-label>
                 </div>
                 <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Course :</span>{{selectedSubCourse?.course}}</mat-label>
+                    <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Course :</span>{{selectedSubCourse?.courseID}}</mat-label>
                 </div>
         
                 <div class="col-lg-6 row">
