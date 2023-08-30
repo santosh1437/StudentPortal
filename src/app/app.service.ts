@@ -74,6 +74,7 @@ export class AppService {
   deleteTeacherCourse(tID: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
   }
+  
 
   // Student APIs
   getStudents() {
@@ -84,11 +85,14 @@ export class AppService {
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.sID}`, student);
   }
 
-  addStudentDetails(student: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
+  // addStudentDetails(student: any): Observable<any> {
+  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
+  // }
+  addStudent(student:addStudent): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student);
   }
-  // addStudent(student:any): Observable<any> {
-  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student)
+  // addStudent(student:addStudent): Observable<any> {
+  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student);
   // }
 
   deleteStudent(id: string): Observable<any> {

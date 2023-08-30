@@ -42,7 +42,8 @@ export class AddOrEditTeacherComponent {
       empEmail: new FormControl('', [Validators.email]),
       empId: new FormControl(''),
       currentCity: new FormControl(''),
-      joinedOn: new FormControl('',[Validators.required])
+      joinedOn: new FormControl('',[Validators.required]),
+      courseAssign: '',
     });
   }
   ngOnInit(): void {
@@ -51,6 +52,7 @@ export class AddOrEditTeacherComponent {
     if(this.data){
       this.adminService.getImageByID(this.data.tID);
     }
+    this.getSubCourse();
   }
 
   onSelect(event:any){
@@ -78,7 +80,8 @@ export class AddOrEditTeacherComponent {
           empEmail: this.addEditTeacherForm.controls['empEmail'].value,
           joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           isActive: true,
-          currentCity: this.addEditTeacherForm.controls['currentCity'].value
+          currentCity: this.addEditTeacherForm.controls['currentCity'].value,
+          courseAssign: this.addEditTeacherForm.controls['courseAssign'].value
         };
         this.editTeachers(editTeachersData)
       }else{
@@ -92,12 +95,21 @@ export class AddOrEditTeacherComponent {
           empEmail: this.addEditTeacherForm.controls['empEmail'].value,
           joinedOn: this.addEditTeacherForm.controls['joinedOn'].value,
           isActive: true,
-          currentCity: this.addEditTeacherForm.controls['currentCity'].value
+          currentCity: this.addEditTeacherForm.controls['currentCity'].value,
+          courseAssign: this.addEditTeacherForm.controls['courseAssign'].value
         };
         this.addTeachers(addTeachersData);
       }
     } 
   }
+
+  subCourseData: any;
+  getSubCourse(){
+    this.appService.getSubCourse().subscribe((res:any)=>{
+      this.subCourseData = res;
+    })
+  }
+
 
   public fillNext(){
     if(this.addEditTeacherForm.valid){
@@ -112,15 +124,17 @@ export class AddOrEditTeacherComponent {
   public addTeachers(teacher: addTeachers){
     this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
+        console.log(res);
         this.currentTId = res.tID;
         this.success = true;
         this.err = false;
-        // this.successMsgDialog('Teacher added successfully'); 
+        this.successMsgDialog('Teacher added successfully'); 
+        this.adminService.openSection('teachers')
       },
       error: (err) => {
         this.err = true;
         this.success = false;
-        // this.successMsgDialog(err.message);
+        this.successMsgDialog(err.message);
       }
     });
   }

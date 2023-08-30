@@ -76,6 +76,20 @@
                         <input type="text" matInput placeholder="Enter address" formControlName="address">
                     </mat-form-field>
                 </div>
+
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Course Assign :</mat-label>
+                    <mat-form-field appearance="outline" class="col-10">
+                        <mat-select formControlName="courseAssign" placeholder="Select Assign Course">
+                            <mat-option>Select Assign Course</mat-option>
+                            <mat-option *ngFor="let item of subCourseData" [value]="item.subCourseID">
+                                <ng-container>
+                                    {{item.subCourseID}}
+                                </ng-container>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <!-- Image add edit part -->
             <div class="col-4 my-5 py-5" *ngIf="personalDetails">
@@ -101,17 +115,17 @@
             </div>
         </div>
 
-        <ng-container *ngIf="courseDetails">
+        <!-- <ng-container *ngIf="courseDetails">
             <app-teacher-courses></app-teacher-courses>
-        </ng-container>
+        </ng-container> -->
 
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-6 col-md-12">
                 <button mat-raised-button type="button" class="" (click)="adminService.openSection('teachers')">Cancel</button>
             </div>
             <div class="col-lg-6 col-md-12">
-                <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails" (click)="fillNext()">
-                    Next </button>
+                <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails">
+                    Submit </button>
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end" *ngIf="courseDetails">
                     {{data ? 'Update Teacher':'Save Teacher'}} </button>
             </div>

@@ -26,6 +26,7 @@ export interface Teachers{
   empEmail : string
   joinedOn: Date
   currentCity: string
+  courseAssign: string
 }
 
 export interface addTeachers{
@@ -39,11 +40,12 @@ export interface addTeachers{
   empEmail : string
   joinedOn: Date
   currentCity: string
+  courseAssign: string
 }
 
 export interface Student{
   sID : string
-  name : string
+  name: string
   dob :  string
   phoneNo : string
   email : string
@@ -63,12 +65,10 @@ export interface Student{
   degree : string
   expectedOrPassedOutYear : string
   cID : string
-  createdOn: Date
-  updatedOn: Date
 }
 
 export interface addStudent{
-  name : string
+  name: string
   dob :  string
   phoneNo : string
   email : string
@@ -88,8 +88,6 @@ export interface addStudent{
   degree : string
   expectedOrPassedOutYear : string
   cID : string
-  createdOn: Date
-  updatedOn: Date
 }
 
 export interface Counsellor{
