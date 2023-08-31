@@ -39,29 +39,9 @@
             <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
-        <!-- Segment Column -->
-        <ng-container matColumnDef="segment">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
-        </ng-container>
-        <!-- Course Column -->
-        <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
-        </ng-container>
-        <!-- Phone no. Column -->
-        <ng-container matColumnDef="phoneNo">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
-        </ng-container>
-        <!-- Student Type Column -->
-        <ng-container matColumnDef="studentType">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Student Type </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.studentType}} </mat-cell>
+        <ng-container matColumnDef="sid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Student ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sID}} </mat-cell>
         </ng-container>
         <!-- Total Amount Column -->
         <ng-container matColumnDef="totalFee">
@@ -78,6 +58,11 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Paid On </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.paidOn}} </mat-cell>
         </ng-container>
+         <!-- Payment Type Column -->
+         <ng-container matColumnDef="paymentMethod">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Method </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.paymentMethod}} </mat-cell>
+        </ng-container>
         <!-- Payment Type Column -->
         <ng-container matColumnDef="paymentType">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Type </mat-header-cell>
@@ -93,6 +78,12 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.dueDate}} </mat-cell>
         </ng-container>
+        <!-- Comment Column -->
+        <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Comments </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.comment}} </mat-cell>
+        </ng-container>
+        
         <!-- edit/delete -->
         <ng-container matColumnDef="edit/delete" >
             <mat-header-cell *matHeaderCellDef> Edit/Delete </mat-header-cell>

@@ -11,42 +11,67 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Segment</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Total Fee</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Segment</mat-label>
-                    <mat-select formControlName="segment">
-                      <mat-option *ngFor="let element of adminService.segmentsList" value="element.title">{{element?.title}}</mat-option>
-                    </mat-select>
+                    <input type="text" matInput formControlName="totalFee" placeholder="Total Fee">
                   </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Course</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Amount Paid</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Course</mat-label>
-                    <mat-select formControlName="course">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.course">
-                        <span *ngIf="(element?.segment == addEditTeacherCourseForm.controls['segment'].value) || (element?.segment == '')">{{element.course}}</span>
-                      </mat-option>
-                    </mat-select>
+                    <input type="text" matInput formControlName="amountPaid" placeholder="Amount Paid">
                   </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Sub Course</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Paid On</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Sub Course</mat-label>
-                    <mat-select formControlName="subCourse">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
-                    </mat-select>
+                    <input matInput [matDatepicker]="picker" placeholder="paid on" formControlName="paidOn">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
             </div>
+
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Payment Method</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Subject</mat-label>
-                    <mat-select formControlName="subject">
-                      <mat-option *ngFor="let element of adminService.subjectsList" value="element?.subject">{{element?.subject}}</mat-option>
+                    <mat-select formControlName="paymentMethod" placeholder="selct payment method">
+                      <mat-option  value="Online">Online</mat-option>
+                      <mat-option  value="Offline (Cash)">Offline (Cash)</mat-option>
                     </mat-select>
                 </mat-form-field>
+            </div>
+            
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Payment Type</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <mat-select formControlName="paymentType" placeholder="selct payment type">
+                      <mat-option  value="One Time Payment">One Time Payment</mat-option>
+                      <mat-option  value="Installment">Installment</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Due Date</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <input matInput [matDatepicker]="picker1" placeholder="Enter Date" formControlName="dueDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Due Amount</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <input type="text" matInput formControlName="dueAmount" placeholder="due amount">
+                  </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Comments</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <input type="text" matInput formControlName="comment" placeholder="comments">
+                  </mat-form-field>
             </div>
         </div>
 

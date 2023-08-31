@@ -55,6 +55,7 @@ export class AddOrEditStudentComponent {
       expectedOrPassedOutYear: new FormControl('', [Validators.required]),
       cID: new FormControl('', [Validators.required]),
       courseAssign: new FormControl('', [Validators.required]),
+      batchID:new FormControl('', [Validators.required]),
     });
   }
 
@@ -65,6 +66,7 @@ export class AddOrEditStudentComponent {
     // }
     this.getSubCourse();
     this.getCounsellor();
+    this.getBatchData();
     this.addEditStudentForms.patchValue(this.data);
   }
 
@@ -113,6 +115,13 @@ export class AddOrEditStudentComponent {
     })
   }
 
+  batchData: any;
+  getBatchData(){
+    this.appService.getBatches().subscribe((res:any)=>{
+      this.batchData = res;
+    })
+  }
+
   addEditStudent() {
     if (this.addEditStudentForms.valid) {
       if (this.data) {
@@ -138,7 +147,7 @@ export class AddOrEditStudentComponent {
           expectedOrPassedOutYear: this.addEditStudentForms.controls['expectedOrPassedOutYear'].value,
           cID: this.addEditStudentForms.controls['cID'].value,
           courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
-          
+          batchID: this.addEditStudentForms.controls['batchID'].value,
         };
         this.editStudent(editStudentData);
       } else {
@@ -163,6 +172,7 @@ export class AddOrEditStudentComponent {
           expectedOrPassedOutYear: this.addEditStudentForms.controls['expectedOrPassedOutYear'].value,
           cID: this.addEditStudentForms.controls['cID'].value,
           courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
+          batchID: this.addEditStudentForms.controls['batchID'].value,
         };
         this.addStudent(addStudentData);
       }
@@ -178,6 +188,7 @@ export class AddOrEditStudentComponent {
         this.addOrEditImage();
         this.successMsgDialog('Student added successfully');
         // this.adminService.openSection('students');
+        localStorage.setItem('StudentID', res.sID);
       },
       error: (err) => {
         this.err = true;
@@ -222,35 +233,35 @@ export class AddOrEditStudentComponent {
     const formData : any = new FormData();
       formData.append('imageFile',  this.adminService.currentImage);
       formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
-    if(this.data){
-      this.appService.editImage(formData).subscribe( {
-          next: (res) => {
-            console.log(res);
-            this.success = true;
-            this.err = false;
-            this.successMsgDialog('Teacher Image updated successfully');
-          },
-          error: (err) => {
-            this.err = true;
-            this.success = false;
-            this.successMsgDialog(err.message);
-          }
-      });
-    } else{
-      this.appService.addImage(formData).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.success = true;
-            this.err = false;
-            this.successMsgDialog('Teacher Image added successfully');
-          },
-          error: (err) => {
-            this.err = true;
-            this.success = false;
-            this.successMsgDialog(err.message);
-          },
-      });
-    }
+    // if(this.data){
+    //   this.appService.editImage(formData).subscribe( {
+    //       next: (res) => {
+    //         console.log(res);
+    //         this.success = true;
+    //         this.err = false;
+    //         this.successMsgDialog('Teacher Image updated successfully');
+    //       },
+    //       error: (err) => {
+    //         this.err = true;
+    //         this.success = false;
+    //         this.successMsgDialog(err.message);
+    //       }
+    //   });
+    // } else{
+    //   this.appService.addImage(formData).subscribe({
+    //       next: (res) => {
+    //         console.log(res);
+    //         this.success = true;
+    //         this.err = false;
+    //         this.successMsgDialog('Teacher Image added successfully');
+    //       },
+    //       error: (err) => {
+    //         this.err = true;
+    //         this.success = false;
+    //         this.successMsgDialog(err.message);
+    //       },
+    //   });
+    // }
   }
 
   public successMsgDialog(msg: string) {

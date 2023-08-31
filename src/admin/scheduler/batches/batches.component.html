@@ -44,28 +44,28 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
             <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
         </ng-container>
-        <!-- Name Column -->
-        <ng-container matColumnDef="bId">
+         <ng-container matColumnDef="bId">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Batch ID </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.bId}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.batchID}} </mat-cell>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="subcourseID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subCourseID}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
-        <ng-container matColumnDef="segment">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
+        <ng-container matColumnDef="btype">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Batch Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.batchType}} </mat-cell>
         </ng-container>
         <!-- Phone no. Column -->
-        <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+        <ng-container matColumnDef="tId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Teacher ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tID}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="subCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="counsellor">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Counsellor </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.counsellor}} </mat-cell>
+        <ng-container matColumnDef="cId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Counsellor ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cID}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="days">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Days </mat-header-cell>
@@ -76,8 +76,8 @@
             <mat-cell *matCellDef="let element"> {{element.timings}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="durationOfCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Duration Of Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.durationOfCourse}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Duration</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="startDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
@@ -90,7 +90,7 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addBatches');" style="cursor: pointer;">
+                        (click)="adminService.openSection('addOrEditBatches');" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>

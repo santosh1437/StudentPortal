@@ -24,4 +24,7 @@
     background: #f8f9fa;
     font-size: medium;
   }
+  mat-cell ul li a{
+    color: black;
+  }
   

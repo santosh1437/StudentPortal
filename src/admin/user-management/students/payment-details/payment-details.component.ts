@@ -26,17 +26,15 @@ export class PaymentDetailsComponent {
   public url: string = "";
   public displayedColumns = [
     'id',
-    'name',
-    'segment',
-    'course',
-    'phoneNo',
-    'studentType',
+    'sid',
     'totalFee',
     'amountPaid',
     'paidOn',
+    'paymentMethod',
     'paymentType',
     'dueAmount',
     'dueDate',
+    'comment',
     'edit/delete'
   ];
   PaymentsSearchDateRange = new FormGroup({
@@ -212,15 +210,20 @@ export class PaymentDetailsComponent {
 
   //get Payments form details
   private async getPaymentDetailsDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getPaymentDetailsDetails();
-      this.PaymentDetailsData = this.adminService.PaymentDetailsList;
-      this.PaymentDetailDataSource = new MatTableDataSource(
-        this.adminService.PaymentDetailsList
-      );
+    // if(localStorage.getItem('currentUser')){
+    //   await this.adminService.getPaymentDetailsDetails();
+    //   this.PaymentDetailsData = this.adminService.PaymentDetailsList;
+    //   this.PaymentDetailDataSource = new MatTableDataSource(
+    //     this.adminService.PaymentDetailsList
+    //   );
+    //   this.PaymentDetailDataSource.paginator = this.paginator;
+    //   this.PaymentDetailDataSource.sort = this.sort;
+    // }
+    this.appService.getPaymentDetails().subscribe((res:any)=>{
+         this.PaymentDetailDataSource = new MatTableDataSource(res);
       this.PaymentDetailDataSource.paginator = this.paginator;
       this.PaymentDetailDataSource.sort = this.sort;
-    }
+    })
   }
 
   public successMsgDialog(msg: string) {

@@ -65,6 +65,7 @@ export interface Student{
   degree : string
   expectedOrPassedOutYear : string
   cID : string
+  batchID: string
 }
 
 export interface addStudent{
@@ -88,6 +89,7 @@ export interface addStudent{
   degree : string
   expectedOrPassedOutYear : string
   cID : string
+  batchID: string
 }
 
 export interface Counsellor{
@@ -188,26 +190,26 @@ export interface AddCourseToTeacher{
 
 export interface Batch{
   bId : string
-  segment : string
-  course: string
-  subCourse: string
-  durationOfCourse : string
-  counsellor: string
+  batchType : string
+  subCourseID: string
+  tID: string
+  cID : string
   timings: string
+  duration: string
+  startDate: string
   days: number
-  startDate: Date
   notes: string
 }
 
 export interface addBatch{
-  segment : string
-  course: string
-  subCourse: string
-  durationOfCourse : string
-  counsellor: string
+  batchType : string
+  subCourseID: string
+  tID: string
+  cID : string
   timings: string
+  duration: string
+  startDate: string
   days: number
-  startDate: Date
   notes: string
 }
 
@@ -309,4 +311,28 @@ export interface AddOrEditPaymentToStudent{
 }
 export interface AddSegment{
   segmentname: string
+}
+
+export interface payment{
+  pID: string
+  sID: string
+  totalFee: string
+  amountPaid: string
+  paidOn: Date
+  paymentMethod: string
+  paymentType: string
+  dueDate: Date
+  dueAmount: string
+  comment: string
+}
+export interface addPayment{
+  sID: string
+  totalFee: string
+  amountPaid: string
+  paidOn: Date
+  paymentMethod: string
+  paymentType: string
+  dueDate: Date
+  dueAmount: string
+  comment: string
 }

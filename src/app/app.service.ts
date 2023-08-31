@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment, addPayment, payment } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -235,7 +235,13 @@ export class AppService {
 
   // Payment details
   getPaymentDetails(){
-    return this.httpClient.get<any>(`${this.baseUrlAPI}`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/payment`);
+  }
+  addPaymentDetails(payment: addPayment){
+    return this.httpClient.post(`${this.baseUrlAPI}/payment`,payment);
+  }
+  editPayment(payments: payment){
+    return this.httpClient.put(`${this.baseUrlAPI}/payment`,payments);
   }
 
   // Segment Details

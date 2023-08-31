@@ -52,7 +52,7 @@
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Admission Date :</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input matInput [matDatepicker]="picker" placeholder="Enter date of birth" formControlName="admissionDate">
+                        <input matInput [matDatepicker]="picker" placeholder="Enter Admission Date" formControlName="admissionDate">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -105,6 +105,13 @@
                         <input matInput placeholder="Enter Current city" formControlName="currentCity">
                     </mat-form-field>
                 </div>
+
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
+                    <mat-form-field appearance="outline" class="col-8">
+                        <input type="text" matInput placeholder="Enter Address" formControlName="address">
+                    </mat-form-field>
+                </div>
     
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4">Counselor Assign:</mat-label>
@@ -132,15 +139,21 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-    
+
                 <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Address :</mat-label>
+                    <mat-label class="col-12 pb-2 fs-4">Batch Assign :</mat-label>
                     <mat-form-field appearance="outline" class="col-8">
-                        <input type="text" matInput placeholder="Enter Address" formControlName="address">
+                        <mat-select formControlName="batchID" placeholder="Select Assign Course">
+                            <mat-option>Select Assign Batch</mat-option>
+                            <mat-option *ngFor="let item of batchData" [value]="item.batchID">
+                                <ng-container>
+                                    {{item.batchID}}
+                                </ng-container>
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
-
-                
+    
             </div>
             <!-- Image add edit part -->
             <!-- <div class="col-4 my-5 py-5">

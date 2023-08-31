@@ -29,8 +29,8 @@ export class StudentsComponent {
     'email',
     'phoneNo',
     'studentType',
-    'paymentStatus',
-    'dueDate',
+    // 'paymentStatus',
+    // 'dueDate',
     'edit/delete'
   ];
   public StudentsDataSource: MatTableDataSource<Student>;

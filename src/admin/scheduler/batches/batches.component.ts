@@ -25,11 +25,12 @@ export class BatchesComponent {
   });
   public tempData: any;
   public displayedColumns = [
+    'id',
     'bId',
-    'segment',
-    'course',
-    'subCourse',
-    'counsellor',
+    'subcourseID',
+    'btype',
+    'tId',
+    'cId',
     'days',
     'timings',
     'startDate',
@@ -141,15 +142,20 @@ export class BatchesComponent {
 
   //get Batches form details
   private async getBatchesDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getBatchDetails();
-      this.BatchesData = this.adminService.batchesList;
-      this.BatchesDataSource = new MatTableDataSource(
-        this.BatchesData
-      );
+    // if(localStorage.getItem('currentUser')){
+    //   await this.adminService.getBatchDetails();
+    //   this.BatchesData = this.adminService.batchesList;
+    //   this.BatchesDataSource = new MatTableDataSource(
+    //     this.BatchesData
+    //   );
+    //   this.BatchesDataSource.paginator = this.paginator;
+    //   this.BatchesDataSource.sort = this.sort;
+    // }
+    this.appService.getBatches().subscribe((res:any)=>{
+         this.BatchesDataSource = new MatTableDataSource(res);
       this.BatchesDataSource.paginator = this.paginator;
       this.BatchesDataSource.sort = this.sort;
-    }
+    })
   }
 
   //On clicking Export button, exporting to excel

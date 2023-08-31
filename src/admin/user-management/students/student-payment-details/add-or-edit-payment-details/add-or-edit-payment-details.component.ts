@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { AddCourseToTeacher } from 'src/app/app.model';
+import { AddCourseToTeacher, addPayment, payment } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -36,14 +36,23 @@ export class AddOrEditPaymentDetailsComponent {
     this.TeacherCourseDataSource = new MatTableDataSource();
     //Add Courses to teacher form
     this.addEditTeacherCourseForm = this.fb.group({
-      segment: new FormControl('',[Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      subCourse: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required])
+      
+      totalFee: new FormControl('', [Validators.required]),
+      amountPaid: new FormControl('', [Validators.required]),
+      paidOn: new FormControl('', [Validators.required]),
+      paymentMethod: new FormControl('', [Validators.required]),
+      paymentType: new FormControl('', [Validators.required]),
+      dueDate: new FormControl('', [Validators.required]),
+      dueAmount: new FormControl('', [Validators.required]),
+      comment: new FormControl('', [Validators.required]),
+      sID: this.selectedSID,
     })
   }
+  selectedSID: any;
   ngOnInit(): void {
     this. addEditTeacherCourseForm.patchValue(this.data);
+    this.selectedSID = localStorage.getItem('StudentID');
+    console.log(this.selectedSID);
   }
 
   openDeleteTeacherCourseConfirm(ID:any){
@@ -72,23 +81,32 @@ export class AddOrEditPaymentDetailsComponent {
   addEditTeacherCourse(){
     if(this. addEditTeacherCourseForm.valid){
       if(this.data){
-        const editTeacherCourseData : AddCourseToTeacher ={
-          tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+        const editPayemtData : payment ={
+          pID: this.addEditTeacherCourseForm.controls['pID'].value,
+          sID: this. addEditTeacherCourseForm.controls['sID'].value,
+          totalFee: this. addEditTeacherCourseForm.controls['totalFee'].value,
+          amountPaid: this. addEditTeacherCourseForm.controls['amountPaid'].value,
+          paidOn: this. addEditTeacherCourseForm.controls['paidOn'].value,
+          paymentMethod: this. addEditTeacherCourseForm.controls['paymentMethod'].value,
+          paymentType: this. addEditTeacherCourseForm.controls['paymentType'].value,
+          dueDate: this. addEditTeacherCourseForm.controls['dueDate'].value,
+          dueAmount: this. addEditTeacherCourseForm.controls['dueAmount'].value,
+          comment: this. addEditTeacherCourseForm.controls['comment'].value,
         };
-        this.editTeacherCourse(editTeacherCourseData)
+        this.editTeacherCourse(editPayemtData)
       }else{
-        const addTeacherCourseData : AddCourseToTeacher ={
-          tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+        const addPaymentData : addPayment ={
+          sID: this.selectedSID,
+          totalFee: this. addEditTeacherCourseForm.controls['totalFee'].value,
+          amountPaid: this. addEditTeacherCourseForm.controls['amountPaid'].value,
+          paidOn: this. addEditTeacherCourseForm.controls['paidOn'].value,
+          paymentMethod: this. addEditTeacherCourseForm.controls['paymentMethod'].value,
+          paymentType: this. addEditTeacherCourseForm.controls['paymentType'].value,
+          dueDate: this. addEditTeacherCourseForm.controls['dueDate'].value,
+          dueAmount: this. addEditTeacherCourseForm.controls['dueAmount'].value,
+          comment: this. addEditTeacherCourseForm.controls['comment'].value,
         };
-        this.addTeacherCourse(addTeacherCourseData);
+        this.addTeacherCourse(addPaymentData);
       }
     } 
   }
@@ -98,12 +116,13 @@ export class AddOrEditPaymentDetailsComponent {
     this.courseDetails = true;
   }
 
-  public addTeacherCourse(teacher: AddCourseToTeacher){
-    this.appService.addTeacherCourse(teacher).subscribe({
+  public addTeacherCourse(payment: addPayment){
+    this.appService.addPaymentDetails(payment).subscribe({
       next:(res) => {
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Teacher added successfully'); 
+      this.successMsgDialog('payment added successfully'); 
+      
       },
       error: (err) => {
         this.err = true;
@@ -113,8 +132,8 @@ export class AddOrEditPaymentDetailsComponent {
     })
   }
 
-  public editTeacherCourse(teacher: AddCourseToTeacher){
-    this.appService.editTeacherCourse(teacher).subscribe({
+  public editTeacherCourse(payments: payment){
+    this.appService.editPayment(payments).subscribe({
       next: (res) => {
         console.log(res);
         this.success = true;
