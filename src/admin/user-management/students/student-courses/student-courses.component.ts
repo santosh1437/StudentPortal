@@ -23,10 +23,10 @@ export class StudentCoursesComponent {
   public url: string = "";
   public displayedColumns = [
     'id',
-    'segment',
+    'sid',
     'course',
-    'subCourse',
-    'subject',
+    'counsellor',
+    'batch',
     'edit/delete'
   ];
   public deleteId: string = '';
@@ -173,15 +173,21 @@ export class StudentCoursesComponent {
 
   //get Teachers form details
   private async getTeacherCoursesDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getTeacherCoursesDetails();
-      this.TeacherCoursesData = this.adminService.teacherCoursesList;
-      this.TeacherCourseDataSource = new MatTableDataSource(
-        this.adminService.teacherCoursesList
-      );
-      this.TeacherCourseDataSource.paginator = this.paginator;
-      this.TeacherCourseDataSource.sort = this.sort;
-    }
+    // if(localStorage.getItem('currentUser')){
+    //   await this.adminService.getTeacherCoursesDetails();
+    //   this.TeacherCoursesData = this.adminService.teacherCoursesList;
+    //   this.TeacherCourseDataSource = new MatTableDataSource(
+    //     this.adminService.teacherCoursesList
+    //   );
+    //   this.TeacherCourseDataSource.paginator = this.paginator;
+    //   this.TeacherCourseDataSource.sort = this.sort;
+    // }
+    this.appService.getStudentCourse().subscribe((res:any)=>{
+      this.TeacherCourseDataSource = new MatTableDataSource(res);
+          this.TeacherCourseDataSource.paginator = this.paginator;
+          this.TeacherCourseDataSource.sort = this.sort;
+    })
+
   }
 
   public successMsgDialog(msg: string) {

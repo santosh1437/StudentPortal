@@ -58,14 +58,11 @@ export interface Student{
   address: string
   currentCity: string
   schoolOrCollege : string
-  courseAssign: string
   segment : string
   grade : string
   curriculum : string
   degree : string
   expectedOrPassedOutYear : string
-  cID : string
-  batchID: string
 }
 
 export interface addStudent{
@@ -82,12 +79,24 @@ export interface addStudent{
   address: string
   currentCity: string
   schoolOrCollege : string
-  courseAssign: string
   segment : string
   grade : string
   curriculum : string
   degree : string
   expectedOrPassedOutYear : string
+  
+}
+
+export interface courseStudent{
+  sID: string
+  courseID: string
+  cID : string
+  batchID: string
+}
+
+export interface addCourseStudent{
+  sID: string
+  courseID: string
   cID : string
   batchID: string
 }

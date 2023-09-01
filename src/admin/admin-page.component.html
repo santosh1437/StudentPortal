@@ -37,7 +37,15 @@
                             <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="subMenuStudent">expand_more</mat-icon>
                         </a>
                     </li>
-        
+                    
+                    <li class="pb-3" *ngIf="subMenuStudent && adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('studentCourseDetails');" [ngClass]="{'bg-dark': adminService.studentCourseDetails}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Student Course</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.students"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
                     <li class="pb-3" *ngIf="subMenuStudent && adminService.userManagement">
                         <a href="javascript: void(0)" (click)="adminService.openSection('paymentDetails');" [ngClass]="{'bg-dark': adminService.paymentDetails}"
                             class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment, addPayment, payment } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment, addPayment, payment, addCourseStudent, courseStudent } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -85,18 +85,23 @@ export class AppService {
     return this.httpClient.put<any>(`${this.baseUrlAPI}/Student/${student.sID}`, student);
   }
 
-  // addStudentDetails(student: any): Observable<any> {
-  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`, student);
-  // }
   addStudent(student:addStudent): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student);
   }
-  // addStudent(student:addStudent): Observable<any> {
-  //   return this.httpClient.post<any>(`${this.baseUrlAPI}/Student`,student);
-  // }
-
+  
   deleteStudent(id: string): Observable<any> {
     return this.httpClient.delete(`${this.baseUrlAPI}/Student/${id}`);
+  }
+
+  // Student Course
+  addStudentCourse(course: addCourseStudent): Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/studentCourse`,course);
+  }
+  getStudentCourse(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/studentCourse`);
+  }
+  editStudentCourse(editCourse: courseStudent): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/studentCourse`,editCourse);
   }
 
   // Counsellor APIs

@@ -113,47 +113,6 @@
                     </mat-form-field>
                 </div>
     
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Counselor Assign:</mat-label>
-                    <mat-form-field appearance="outline" class="col-8">
-                        <mat-select formControlName="cID" placeholder="Select Counsellor ID">
-                            <mat-option *ngFor="let item of counsellorData" [value]="item.cID">
-                                <ng-container>
-                                    {{item.cID}}
-                                </ng-container>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Course Assign :</mat-label>
-                    <mat-form-field appearance="outline" class="col-8">
-                        <mat-select formControlName="courseAssign" placeholder="Select Assign Course">
-                            <mat-option>Select Assign Course</mat-option>
-                            <mat-option *ngFor="let item of subCourseData" [value]="item.subCourseID">
-                                <ng-container>
-                                    {{item.subCourseID}}
-                                </ng-container>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-lg-6 row">
-                    <mat-label class="col-12 pb-2 fs-4">Batch Assign :</mat-label>
-                    <mat-form-field appearance="outline" class="col-8">
-                        <mat-select formControlName="batchID" placeholder="Select Assign Course">
-                            <mat-option>Select Assign Batch</mat-option>
-                            <mat-option *ngFor="let item of batchData" [value]="item.batchID">
-                                <ng-container>
-                                    {{item.batchID}}
-                                </ng-container>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-    
             </div>
             <!-- Image add edit part -->
             <!-- <div class="col-4 my-5 py-5">
@@ -236,7 +195,7 @@
             </div>
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button color="primary" class="float-lg-end" *ngIf="personalDetails || educationDetails" (click)="fillNext()">
-                    Next </button>
+                    {{personalDetails ? 'Next':'Submit'}} </button>
                 <!-- <button mat-raised-button color="primary" type="submit" class="float-lg-end" *ngIf="paymentDetails">
                     {{data ? 'Update Student':'Save Student'}} </button> -->
                     <!-- <button type="submit" mat-raised-button color="primary" class="float-lg-end" >Submit</button> -->

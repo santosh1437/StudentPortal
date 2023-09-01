@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { AddCourseToTeacher } from 'src/app/app.model';
+import { AddCourseToTeacher, addCourseStudent, courseStudent } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class AddOrEditStudentCoursesComponent {
   public data: any;
-  public addEditTeacherCourseForm: FormGroup;
+  public addEditCourseCourseForm: FormGroup;
   public hide: boolean = true;
   public success: boolean = false;
   public err: boolean = false;
@@ -35,15 +35,46 @@ export class AddOrEditStudentCoursesComponent {
   ){
     this.TeacherCourseDataSource = new MatTableDataSource();
     //Add Courses to teacher form
-    this.addEditTeacherCourseForm = this.fb.group({
-      segment: new FormControl('',[Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      subCourse: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required])
+    this.addEditCourseCourseForm = this.fb.group({
+      sID: new FormControl('', [Validators.required]),
+      cID: new FormControl('', [Validators.required]),
+      courseID: new FormControl('', [Validators.required]),
+      batchID:new FormControl('', [Validators.required]),
     })
   }
   ngOnInit(): void {
-    this. addEditTeacherCourseForm.patchValue(this.data);
+    this.getStudent();
+    this.getSubCourse();
+    this.getCounsellor();
+    this.getBatchData();
+    this. addEditCourseCourseForm.patchValue(this.data);
+  }
+
+  studentData: any;
+  getStudent(){
+    this.appService.getStudents().subscribe((res:any)=>{
+      this.studentData = res;
+    })
+  }
+  subCourseData: any;
+  getSubCourse(){
+    this.appService.getSubCourse().subscribe((res:any)=>{
+      this.subCourseData = res;
+    })
+  }
+
+  counsellorData: any;
+  getCounsellor(){
+    this.appService.getCounselor().subscribe((res:any)=>{
+      this.counsellorData = res;
+    })
+  }
+
+  batchData: any;
+  getBatchData(){
+    this.appService.getBatches().subscribe((res:any)=>{
+      this.batchData = res;
+    })
   }
 
   openDeleteTeacherCourseConfirm(ID:any){
@@ -60,7 +91,7 @@ export class AddOrEditStudentCoursesComponent {
       reader.onload = (event: any) => {
         this.url = event.target.result;
       }
-      event.files.push({ data: event.files[0], fileName: this. addEditTeacherCourseForm.controls['fullName'].value });
+      event.files.push({ data: event.files[0], fileName: this. addEditCourseCourseForm.controls['fullName'].value });
 
       this.appService.addImage(event.files[0])
         .subscribe((result: string) => {
@@ -70,40 +101,40 @@ export class AddOrEditStudentCoursesComponent {
   }
 
   addEditTeacherCourse(){
-    if(this. addEditTeacherCourseForm.valid){
+    if(this. addEditCourseCourseForm.valid){
       if(this.data){
-        const editTeacherCourseData : AddCourseToTeacher ={
-          tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+        const editStudentCourseData : courseStudent ={
+          sID: this.addEditCourseCourseForm.controls['sID'].value,
+          cID: this. addEditCourseCourseForm.controls['cID'].value,
+          courseID: this. addEditCourseCourseForm.controls['courseID'].value,
+          batchID: this. addEditCourseCourseForm.controls['batchID'].value,
         };
-        this.editTeacherCourse(editTeacherCourseData)
+        this.editStudentCourse(editStudentCourseData)
       }else{
-        const addTeacherCourseData : AddCourseToTeacher ={
-          tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+        const addTeacherCourseData : addCourseStudent ={
+          sID: this.addEditCourseCourseForm.controls['sID'].value,
+          cID: this. addEditCourseCourseForm.controls['cID'].value,
+          courseID: this. addEditCourseCourseForm.controls['courseID'].value,
+          batchID: this. addEditCourseCourseForm.controls['batchID'].value,
         };
-        this.addTeacherCourse(addTeacherCourseData);
+        this.addStudentCourse(addTeacherCourseData);
       }
     } 
   }
 
-  public fillNext(){
-    this.personalDetails = false;
-    this.courseDetails = true;
-  }
+  // public fillNext(){
+  //   this.personalDetails = false;
+  //   this.courseDetails = true;
+  // }
 
-  public addTeacherCourse(teacher: AddCourseToTeacher){
-    this.appService.addTeacherCourse(teacher).subscribe({
+  public addStudentCourse(addCourse: addCourseStudent){
+    alert("add");
+    this.appService.addStudentCourse(addCourse).subscribe({
       next:(res) => {
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Teacher added successfully'); 
+      this.successMsgDialog('Course added successfully'); 
+      this.adminService.openSection('studentCourseDetails');
       },
       error: (err) => {
         this.err = true;
@@ -113,13 +144,14 @@ export class AddOrEditStudentCoursesComponent {
     })
   }
 
-  public editTeacherCourse(teacher: AddCourseToTeacher){
-    this.appService.editTeacherCourse(teacher).subscribe({
+  public editStudentCourse(editCourse: courseStudent){
+    this.appService.editStudentCourse(editCourse).subscribe({
       next: (res) => {
         console.log(res);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Teacher updated successfully');
+        this.successMsgDialog('Course updated successfully');
+        this.adminService.openSection('studentCourseDetails');
       },
       error: (err) => {
         this.err = true;

@@ -42,24 +42,24 @@
             <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="segment">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
+        <ng-container matColumnDef="sid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Student ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sID}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
         <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course Assign </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.courseID}} </mat-cell>
         </ng-container>
         <!-- Phone no. Column -->
-        <ng-container matColumnDef="subCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
+        <ng-container matColumnDef="counsellor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Consellor Assign </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cID}} </mat-cell>
         </ng-container>
         <!-- Student Type Column -->
-        <ng-container matColumnDef="subject">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+        <ng-container matColumnDef="batch">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Batch Assign </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.batchID}} </mat-cell>
         </ng-container>
         <!-- edit/delete -->
         <ng-container matColumnDef="edit/delete" >
@@ -103,7 +103,7 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
         aria-label="Students details page"></mat-paginator>
 
-    <div mat-dialog-actions class="my-5">
+    <!-- <div mat-dialog-actions class="my-5">
         <div class="col-lg-5 col-md-12">
             <button mat-raised-button type="button" class="" (click)="adminService.openSection('addStudents')">Cancel</button>
         </div>
@@ -111,7 +111,7 @@
             <button mat-raised-button color="primary" class="float-lg-end" (click)="adminService.openSection('studentPaymentDetails')">
                 Next </button>
         </div>
-    </div>
+    </div> -->
 </section>
 
 <ng-template #successMsg>

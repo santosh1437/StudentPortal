@@ -53,9 +53,7 @@ export class AddOrEditStudentComponent {
       curriculum: new FormControl('', [Validators.required]),
       degree: new FormControl('', [Validators.required]),
       expectedOrPassedOutYear: new FormControl('', [Validators.required]),
-      cID: new FormControl('', [Validators.required]),
-      courseAssign: new FormControl('', [Validators.required]),
-      batchID:new FormControl('', [Validators.required]),
+      
     });
   }
 
@@ -64,9 +62,7 @@ export class AddOrEditStudentComponent {
     //   id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "", studentType: "External Student", 
     //   batch: "1", course: "SAT", subject: "maths", timings:"10 to 11", parentPhoneNo: "6566154", currentCity: "Hyderabad", address: "test"
     // }
-    this.getSubCourse();
-    this.getCounsellor();
-    this.getBatchData();
+   
     this.addEditStudentForms.patchValue(this.data);
   }
 
@@ -101,26 +97,7 @@ export class AddOrEditStudentComponent {
     // }
   }
 
-  subCourseData: any;
-  getSubCourse(){
-    this.appService.getSubCourse().subscribe((res:any)=>{
-      this.subCourseData = res;
-    })
-  }
-
-  counsellorData: any;
-  getCounsellor(){
-    this.appService.getCounselor().subscribe((res:any)=>{
-      this.counsellorData = res;
-    })
-  }
-
-  batchData: any;
-  getBatchData(){
-    this.appService.getBatches().subscribe((res:any)=>{
-      this.batchData = res;
-    })
-  }
+  
 
   addEditStudent() {
     if (this.addEditStudentForms.valid) {
@@ -145,9 +122,9 @@ export class AddOrEditStudentComponent {
           curriculum: this.addEditStudentForms.controls['curriculum'].value,
           degree: this.addEditStudentForms.controls['degree'].value,
           expectedOrPassedOutYear: this.addEditStudentForms.controls['expectedOrPassedOutYear'].value,
-          cID: this.addEditStudentForms.controls['cID'].value,
-          courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
-          batchID: this.addEditStudentForms.controls['batchID'].value,
+          // cID: this.addEditStudentForms.controls['cID'].value,
+          // courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
+          // batchID: this.addEditStudentForms.controls['batchID'].value,
         };
         this.editStudent(editStudentData);
       } else {
@@ -170,9 +147,9 @@ export class AddOrEditStudentComponent {
           curriculum: this.addEditStudentForms.controls['curriculum'].value,
           degree: this.addEditStudentForms.controls['degree'].value,
           expectedOrPassedOutYear: this.addEditStudentForms.controls['expectedOrPassedOutYear'].value,
-          cID: this.addEditStudentForms.controls['cID'].value,
-          courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
-          batchID: this.addEditStudentForms.controls['batchID'].value,
+          // cID: this.addEditStudentForms.controls['cID'].value,
+          // courseAssign: this.addEditStudentForms.controls['courseAssign'].value,
+          // batchID: this.addEditStudentForms.controls['batchID'].value,
         };
         this.addStudent(addStudentData);
       }
