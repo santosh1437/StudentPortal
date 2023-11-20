@@ -35,10 +35,10 @@ export class AddOrEditCounsellorComponent {
       ]),
       counsellorType: new FormControl('', [Validators.required]),
       address: new FormControl('', Validators.required),
-      empEmail: new FormControl('', []),
-      empId: new FormControl('',[]),
-      joinedOn: new FormControl('',[]),
-      currentCity: new FormControl('')
+      empEmail: new FormControl('', [Validators.required]),
+      empId: new FormControl('',[Validators.required]),
+      joinedOn: new FormControl('',[Validators.required]),
+      currentCity: new FormControl('',[Validators.required]),
     });
   }
 
@@ -72,7 +72,7 @@ export class AddOrEditCounsellorComponent {
             console.log(res);
             this.success = true;
             this.err = false;
-            this.adminService.openSection('counsellors')
+            this.adminService.openSection('counsellors');
             this.successMsgDialog('Counselor Image updated successfully');
           },
           error: (err) => {
@@ -107,7 +107,7 @@ export class AddOrEditCounsellorComponent {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          currentCity: '',
+          currentCity: this.addEditCounsellorForm.controls['currentCity'].value,
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
@@ -123,7 +123,7 @@ export class AddOrEditCounsellorComponent {
           fullName: this.addEditCounsellorForm.controls['fullName'].value,
           phone: this.addEditCounsellorForm.controls['phone'].value,
           email: this.addEditCounsellorForm.controls['email'].value,
-          currentCity: '',
+          currentCity: this.addEditCounsellorForm.controls['currentCity'].value,
           password: this.addEditCounsellorForm.controls['password'].value,
           isActive: true,
           counsellorType: this.addEditCounsellorForm.controls['counsellorType'].value,
