@@ -13,6 +13,7 @@ import { AddCourseToTeacher, Teachers } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, finalize } from 'rxjs';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 
 @Component({
   selector: 'app-teachers',
@@ -23,6 +24,7 @@ export class TeachersComponent {
   public deleteId: string = '';
   public success: boolean = false;
   public err: boolean = false;
+  selectedTeacher: any;
   clicked = false;
   TeachersSearchDateRange = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -35,7 +37,6 @@ export class TeachersComponent {
     'email',
     'phone',
     'password',
-    'status',
     'joinedOn',
     'empEmail',
     'empId',
@@ -56,21 +57,35 @@ export class TeachersComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService: SharedService,
   ) {
-    this.getTeachersDetails();
+    // this.getTeachersDetails();
     this.TeachersDataSource = new MatTableDataSource(
       this.adminService.teachersList
     );
   }
 
   ngOnInit() {
-    // this.getTeachersDetails();
+    this.getTeachersDetails();
   }
 
   ngAfterViewInit() {
     this.TeachersDataSource.paginator = this.paginator;
     this.TeachersDataSource.sort = this.sort;
+   
+  }
+
+  openAddTeacherForm() {
+    this.sharedService.openAddTeacherForm();
+    this.adminService.openSection('addTeachers');
+    sessionStorage.clear();
+    this.adminService.url = null;
+  }
+  openEditTeacherForm(teacherData: any) {
+    this.sharedService.openEditTeacherForm(teacherData);
+    this.adminService.openSection('addTeachers');
+    this.selectedTeacher = sessionStorage.setItem('setTeacher', JSON.stringify(teacherData));
   }
 
   public deleteTeacher() {
@@ -81,6 +96,7 @@ export class TeachersComponent {
         this.err = false;
         this.successMsgDialog('Teacher deleted Successfully');
         this.getTeachersDetails();
+        this.adminService.openSection('teachers')
       },
       error: (err) => {
         this.closeModal();
@@ -113,7 +129,7 @@ export class TeachersComponent {
           this.clicked = false;
         })
       )
-      .subscribe((data) => {});
+      .subscribe((data) => { });
   }
 
   public closeModal() {
@@ -153,20 +169,24 @@ export class TeachersComponent {
 
   //get Teachers form details
   private async getTeachersDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getTeacherDetails();
-      this.TeachersData = this.adminService.teachersList;
-      this.TeachersDataSource = new MatTableDataSource(
-        this.adminService.teachersList
-      );
-      this.TeachersDataSource.paginator = this.paginator;
-      this.TeachersDataSource.sort = this.sort;
+    if (localStorage.getItem('currentUser')) {
+      this.appService.getTeacher().subscribe({
+        next: (res) => {
+          this.TeachersDataSource = new MatTableDataSource(res),
+            this.TeachersDataSource.paginator = this.paginator;
+          this.TeachersDataSource.sort = this.sort;
+        },
+        error: (err) => {
+          console.log(err.message);
+        }
+      })
+
     }
   }
 
   //On clicking Export button, exporting to excel
-  ExportTOExcel(){
-    var options = { 
+  ExportTOExcel() {
+    var options = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalseparator: '.',
@@ -176,10 +196,10 @@ export class TeachersComponent {
     };
     const exportData = this.TeachersDataSource.data.map((data) => {
       return {
-        id : data.tID,
-        fullName : data.fullName,
-        email : data.email,
-        phoneNo : data.phone,
+        id: data.tID,
+        fullName: data.fullName,
+        email: data.email,
+        phoneNo: data.phone,
       }
     });
     // new ngxCsv(exportData, 'TeachersDetailsReport', options);

@@ -1,6 +1,7 @@
 import { Component, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 import { AdminService } from 'src/admin/admin.service';
 import { Counsellor, addCounsellor } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
@@ -17,13 +18,16 @@ export class AddOrEditCounsellorComponent {
   public success: boolean = false;
   public err: boolean = false;
   public url: string = "";
+  getCounsellor: any;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
+  datas: any;
   constructor(
     public appService: AppService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    public adminService: AdminService
+    public adminService: AdminService,
+    public sharedService : SharedService,
   ) {
     this.addEditCounsellorForm = this.fb.group({
       fullName: new FormControl('', [Validators.required]),
@@ -43,12 +47,22 @@ export class AddOrEditCounsellorComponent {
   }
 
   ngOnInit(): void {
-    this.data = this.adminService.editCounselorObj;
-    console.log(this.data);
+    // this.addEditCounsellorForm.patchValue({
+
+    // })
+    // this.getCounsellor = sessionStorage.getItem('setCounsellor')
+   
+    this.getSelectedCounsellor()
     this.addEditCounsellorForm.patchValue(this.data);
     if(this.data){
       this.adminService.getImageByID(this.data.cID);
     }
+  }
+
+  getSelectedCounsellor(){
+    this.datas = sessionStorage.getItem('setCounsellor');
+    this.data = JSON.parse(this.datas)
+    console.log(this.data);
   }
 
   onSelect(event:any){
@@ -65,7 +79,7 @@ export class AddOrEditCounsellorComponent {
   private addOrEditImage(){
     const formData : any = new FormData();
       formData.append('imagefile',  this.adminService.currentImage);
-      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
+      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId);
     if(this.data){
       this.appService.editImage(formData).subscribe( {
           next: (res) => {
@@ -87,7 +101,7 @@ export class AddOrEditCounsellorComponent {
             console.log(res);
             this.success = true;
             this.err = false;
-            this.adminService.openSection('counsellors')
+            this.adminService.openSection('counsellors');
             this.successMsgDialog('Counselor Image added successfully');
           },
           error: (err) => {
@@ -146,7 +160,9 @@ export class AddOrEditCounsellorComponent {
         this.success = true;
         this.err = false;
         this.addOrEditImage();
+        // this.adminService.openSection('counsellors');
         this.successMsgDialog('Counselor added successfully');
+        
       },
       error: (err) => {
         this.err = true;
@@ -162,6 +178,7 @@ export class AddOrEditCounsellorComponent {
         this.success = true;
         this.err = false;
         this.addOrEditImage();
+        // this.adminService.openSection('counsellors');
         this.successMsgDialog('Counselor updated successfully');
       },
       error: (err) => {
@@ -174,7 +191,7 @@ export class AddOrEditCounsellorComponent {
 
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
-    const timeout = 2500;
+    const timeout = 2000;
     const dialogRef = this.dialog.open(this.successDialog, {
       width: 'auto',
     });
@@ -182,6 +199,7 @@ export class AddOrEditCounsellorComponent {
       setTimeout(() => {
         dialogRef.close();
         this.adminService.openSection('counsellors');
+        console.log('counsellors');
       }, timeout);
     });
   }

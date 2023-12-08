@@ -20,10 +20,14 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "@emailjs/browser": "^3.11.0",
     "@popperjs/core": "^2.11.8",
-    "@zoomus/websdk": "^2.14.0",
+    "@zoomus/websdk": "^2.18.0",
+    "angular-oauth2-oidc": "^15.0.1",
+    "axios": "^1.6.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -42,6 +46,10 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~4.8.2"
+    "typescript": "^4.8.2"
+  },
+  "browser": {
+    "crypto": false,
+    "stream": false
   }
 }

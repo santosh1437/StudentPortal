@@ -1,7 +1,7 @@
 <section class="mx-2 p-3 card bg-white rounded-0">
     <div class="ms-3 d-flex align-items-center">
-        <h2 class="ps-3" *ngIf="data">Edit Teacher</h2>
-        <h2 class="ps-3" *ngIf="!data">Add Teacher</h2>
+        <h2 class="ps-3" *ngIf="data">Edit Teacher Course</h2>
+        <h2 class="ps-3" *ngIf="!data">Add Teacher Course</h2>
     </div>
     <form [formGroup]="addEditTeacherCourseForm" (ngSubmit)="addEditTeacherCourse()">
         <div class="ms-2 d-flex justify-content-between align-items-center" >
@@ -9,42 +9,30 @@
             <h2 class="ps-3" *ngIf="!data">Add Course</h2>        </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Segment</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Teacher Id</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Segment</mat-label>
-                    <mat-select formControlName="segment">
-                      <mat-option *ngFor="let element of adminService.segmentsList" value="element.title">{{element?.title}}</mat-option>
+                    <mat-label>Select Teacher</mat-label>
+                    <mat-select formControlName="tID">
+                      <mat-option *ngFor="let teacher of allTeacherList" [value]="teacher.tID">
+                        <ng-container>
+                            {{teacher.tID}}
+                        </ng-container>
+                    </mat-option>
                     </mat-select>
                   </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Course</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Course Id</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
                     <mat-label>Select Course</mat-label>
-                    <mat-select formControlName="course">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.course">
-                        <span *ngIf="(element?.segment == addEditTeacherCourseForm.controls['segment'].value) || (element?.segment == '')">{{element.course}}</span>
+                    <mat-select formControlName="courseID">
+                      <mat-option *ngFor="let subCourse of allSubCourseList" [value]="subCourse.subCourseID">
+                        <ng-container>
+                            {{subCourse.subCourseID}}
+                        </ng-container>
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-            </div>
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Sub Course</mat-label>
-                <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Sub Course</mat-label>
-                    <mat-select formControlName="subCourse">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
-                <mat-form-field appearance="outline" class="col-10">
-                    <mat-label>Select Subject</mat-label>
-                    <mat-select formControlName="subject">
-                      <mat-option *ngFor="let element of adminService.subjectsList" value="element?.subject">{{element?.subject}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
             </div>
         </div>
 

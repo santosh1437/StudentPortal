@@ -54,10 +54,10 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
         </ng-container>
-        <!-- <ng-container matColumnDef="subCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
-        </ng-container> -->
+        <ng-container matColumnDef="curriculum">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Curriculum(AS) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.curriculum}} </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="teachers">
             <mat-header-cell *matHeaderCellDef mat-sort-header> No.of Teachers </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.counsellor}} </mat-cell>
@@ -177,6 +177,9 @@
                 </div>
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Segment :</span> {{selectedCourse?.segment}}</mat-label>
+                </div>
+                <div class="col-lg-6 row">
+                    <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Curriculum(AS) :</span> {{selectedCourse?.curriculum}}</mat-label>
                 </div>
                 <div class="col-lg-6 row">
                     <mat-label class="col-12 pb-2 fs-4"><span class="fw-bold">Course :</span>{{selectedCourse?.course}}</mat-label>

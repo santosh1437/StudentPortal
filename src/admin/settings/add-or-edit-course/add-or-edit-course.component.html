@@ -21,6 +21,21 @@
             </mat-form-field>
         </div>
         <div class="col-lg-6 row">
+            <mat-label class="col-12 pb-2 fs-4">Curriculum(For After School) :</mat-label>
+            <mat-form-field appearance="outline" class="col-8">
+                <mat-label>Select curriculum</mat-label>
+                <mat-select formControlName="curriculum">
+                    <mat-option value="IB / IBDP">IB / IBDP</mat-option>
+                    <mat-option value="IGCSE">IGCSE</mat-option>
+                    <mat-option value="CBSE">CBSE</mat-option>
+                    <mat-option value="STATE">STATE</mat-option>
+                    <!-- <mat-option value="5 Month">5 Month</mat-option>
+                    <mat-option value="6 Month">6 Month</mat-option>
+                    <mat-option value="1 Year">1 Year</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-6 row">
             <mat-label class="col-12 pb-2 fs-4">Course :</mat-label>
             <mat-form-field appearance="outline" class="col-8">
                 <input matInput type="tel" placeholder="Enter course" formControlName="course">
@@ -45,6 +60,7 @@
                     <mat-option value="4 Month">4 Month</mat-option>
                     <mat-option value="5 Month">5 Month</mat-option>
                     <mat-option value="6 Month">6 Month</mat-option>
+                    <mat-option value="1 Year">1 Year</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 import { AdminService } from 'src/admin/admin.service';
 import { AddCourseToTeacher } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
@@ -24,13 +25,11 @@ export class TeacherCoursesComponent {
   public url: string = "";
   public displayedColumns = [
     'id',
-    'segment',
+    'teacher',
     'course',
-    'subCourse',
-    'subject',
     'edit/delete'
   ];
-  public deleteId: string = '';
+  public deleteId: any = '';
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
   public TeacherCoursesData: any;
   @ViewChild('deleteTeacherCourseConfirm') deleteTeacherCourseConfirm = {} as TemplateRef<any>;
@@ -45,7 +44,8 @@ export class TeacherCoursesComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService : SharedService,
   ) {
     this.getTeacherCoursesDetails();
     this.TeacherCourseDataSource = new MatTableDataSource(
@@ -79,9 +79,22 @@ export class TeacherCoursesComponent {
     this.TeacherCourseDataSource.sort = this.sort;
   }
 
+  openAddTeacherCourseForm(){
+    this.sharedService.openAddTeacherCourseForm();
+    this.adminService.openSection('addEditTeacherCourses');
+    sessionStorage.clear();
+  }
+
+  openEditTeacherCourseForm(techerCourse: any){
+    this.sharedService.openEditTeacherCourseForm(techerCourse);
+    this.adminService.openSection('addEditTeacherCourses');
+    sessionStorage.setItem('setTeacherCourse', JSON.stringify(techerCourse));
+  }
+  
   public deleteTeacherCourse() {
-    this.appService.deleteTeacher(this.deleteId).subscribe({
+    this.appService.deleteTeacherCourse(this.deleteId).subscribe({
       next: (res) => {
+        console.log(res);
         this.closeModal();
         this.success = true;
         this.err = false;
@@ -95,6 +108,7 @@ export class TeacherCoursesComponent {
         this.successMsgDialog(
           'Something went wrong, Please try after some time!'
         );
+        this.getTeacherCoursesDetails();
       },
     });
     this.deleteId = '';
@@ -110,9 +124,9 @@ export class TeacherCoursesComponent {
     this.TeacherCourseDataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDeleteTeacherCourseConfirm(ID:any){
+  openDeleteTeacherCourseConfirm(ID: any) {
     this.deleteId = ID;
-    this.dialogRef = this.dialog.open(this.deleteTeacherCourseConfirm , {
+    this.dialogRef = this.dialog.open(this.deleteTeacherCourseConfirm, {
       width: 'auto',
     });
   }
@@ -141,12 +155,12 @@ export class TeacherCoursesComponent {
   //   } 
   // }
 
-  public addTeacherCourses(courses: AddCourseToTeacher){
+  public addTeacherCourses(courses: AddCourseToTeacher) {
     this.appService.addTeacherCourse(courses).subscribe({
-      next:(res) => {
+      next: (res) => {
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Course added to Teacher successfully'); 
+        this.successMsgDialog('Course added to Teacher successfully');
       },
       error: (err) => {
         this.err = true;
@@ -156,32 +170,36 @@ export class TeacherCoursesComponent {
     });
   }
 
-  public editTeacherCourses(courses: AddCourseToTeacher){
-    this.appService.editTeacherCourse(courses).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.success = true;
-        this.err = false;
-        this.successMsgDialog('Course updated to Teacher successfully');
-      },
-      error: (err) => {
-        this.err = true;
-        this.success = false;
-        this.successMsgDialog(err.message);
-      },
-    });
-  }
+  // public editTeacherCourses(courses: AddCourseToTeacher) {
+  //   this.appService.editTeacherCourse(courses).subscribe({
+  //     next: (res) => {
+  //       console.log(res);
+  //       this.success = true;
+  //       this.err = false;
+  //       this.successMsgDialog('Course updated to Teacher successfully');
+  //     },
+  //     error: (err) => {
+  //       this.err = true;
+  //       this.success = false;
+  //       this.successMsgDialog(err.message);
+  //     },
+  //   });
+  // }
 
   //get Teachers form details
   private async getTeacherCoursesDetails() {
-    if(localStorage.getItem('currentUser')){
-      await this.adminService.getTeacherCoursesDetails();
-      this.TeacherCoursesData = this.adminService.teacherCoursesList;
-      this.TeacherCourseDataSource = new MatTableDataSource(
-        this.adminService.teacherCoursesList
-      );
-      this.TeacherCourseDataSource.paginator = this.paginator;
-      this.TeacherCourseDataSource.sort = this.sort;
+    if (localStorage.getItem('currentUser')) {
+      this.appService.getTeacherCourse().subscribe({
+        next: (res) => {
+          this.TeacherCourseDataSource = new MatTableDataSource(res);
+          this.TeacherCourseDataSource.paginator = this.paginator;
+          this.TeacherCourseDataSource.sort = this.sort;
+        },
+        error: (err)=>{
+          console.log(err.message);
+        }
+      })
+
     }
   }
 
@@ -194,7 +212,7 @@ export class TeacherCoursesComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('teachers');
+        this.adminService.openSection('teacherCourses');
       }, timeout);
     });
   }

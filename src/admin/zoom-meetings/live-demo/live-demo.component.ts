@@ -29,18 +29,37 @@ export class LiveDemoComponent {
       'student',
       'studentMailID',
       'hostMailID',
-      'coHostMailID',
+      // 'coHostMailID',
       'date',
       'time',
       'meetingLink'
     ];
-    public InterviewDataSource: MatTableDataSource<Interview>;
+    public displayedColumnsWithObject =[
+       'id',
+      'student',
+      'studentMailID',
+      'hostMailID',
+      // 'coHostMailID',
+      'date',
+      'time',
+      'meetingLink'
+    ]
+    public liveDemoDataSource: any;
+    public pastDemoDataSource: any;
     public InterviewData: any;
-    @ViewChild(MatSort) sort = new MatSort();
-    @ViewChild(MatPaginator) paginator = new MatPaginator(
-      new MatPaginatorIntl(),
-      ChangeDetectorRef.prototype
-    );
+    // @ViewChild(MatSort) sort = new MatSort();
+    // @ViewChild(MatPaginator) paginator = new MatPaginator(
+    //   new MatPaginatorIntl(),
+    //   ChangeDetectorRef.prototype
+    // );
+
+    @ViewChild('empTbSort') empTbSort = new MatSort();
+  @ViewChild('empTbSortWithObject') empTbSortWithObject = new MatSort();
+
+  @ViewChild('paginatorFirst')
+  paginatorFirst!: new () => MatPaginator;
+  @ViewChild('paginatorSecond')
+  paginatorSecond!: MatPaginator;
     @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
     @ViewChild('deleteTeacherConfirm') deleteTeacherConfirmDialog =
       {} as TemplateRef<any>;
@@ -51,19 +70,28 @@ export class LiveDemoComponent {
       public adminService: AdminService,
       public dialog: MatDialog
     ) {
-      this.getInterviewDetails();
-      this.InterviewDataSource = new MatTableDataSource(
-        this.adminService.upcomingInterviewsList
-      );
+      // this.getLiveDemoDetails();
+      // this.liveDemoDataSource = new MatTableDataSource(
+      //   this.adminService.upcomingInterviewsList
+      // );
     }
   
     ngOnInit() {
       // this.getInterviewDetails();
+      this.getPastDemoList();
+      this.getUpComingList()
     }
   
     ngAfterViewInit() {
-      this.InterviewDataSource.paginator = this.paginator;
-      this.InterviewDataSource.sort = this.sort;
+      // this.liveDemoDataSource.paginator = this.paginator;
+      // this.liveDemoDataSource.sort = this.sort;
+      this.empTbSort.disableClear = true;
+      this.liveDemoDataSource.sort = this.empTbSort;
+      this.liveDemoDataSource.paginator = this.paginatorFirst;
+
+      this.empTbSort.disableClear = true;
+      this.pastDemoDataSource.sort = this.empTbSortWithObject;
+      this.pastDemoDataSource.paginator = this.paginatorSecond;
     }
   
     public closeModal() {
@@ -85,26 +113,46 @@ export class LiveDemoComponent {
             selectedItems.push(item);
           }
         });
-        this.InterviewDataSource.data = selectedItems;
+        this.liveDemoDataSource.data = selectedItems;
       }
     }
   
     // On clicking Show All button
     public showAll() {
       this.InterviewSearchDateRange.reset();
-      this.InterviewDataSource.data = this.InterviewData;
+      this.liveDemoDataSource.data = this.InterviewData;
     }
   
     //get Interview form details
-    private async getInterviewDetails() {
+    // private async getLiveDemoDetails() {
+    //   if(localStorage.getItem('currentUser')){
+    //     this.appService.getLiveDemoMeeting().subscribe((res:any)=>{
+    //       this.liveDemoDataSource = new MatTableDataSource(
+    //       res
+    //     );
+    //     this.liveDemoDataSource.paginator = this.paginator;
+    //     this.liveDemoDataSource.sort = this.sort;
+    //     })
+    //   }
+    // }
+
+    getPastDemoList(){
       if(localStorage.getItem('currentUser')){
-        await this.adminService.getTeacherDetails();
-        this.InterviewData = this.adminService.upcomingInterviewsList;
-        this.InterviewDataSource = new MatTableDataSource(
-          this.adminService.upcomingInterviewsList
-        );
-        this.InterviewDataSource.paginator = this.paginator;
-        this.InterviewDataSource.sort = this.sort;
+        this.appService.getPastLiveDemo().subscribe((res:any)=>{
+          this.pastDemoDataSource = new MatTableDataSource(res);
+          this.pastDemoDataSource.paginator = this.paginatorSecond;
+        this.pastDemoDataSource.sort = this.empTbSortWithObject;
+        })
+      }
+    }
+
+    getUpComingList(){
+      if(localStorage.getItem('currentUser')){
+        this.appService.getUpComingLiveDemo().subscribe((res:any)=>{
+          this.liveDemoDataSource = new MatTableDataSource(res);
+          this.liveDemoDataSource.paginator = this.paginatorFirst;
+        this.liveDemoDataSource.sort = this.empTbSort;
+        })
       }
     }
   

@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 import { AdminService } from 'src/admin/admin.service';
-import { AddCourseToTeacher, AddOrEditPaymentToStudent } from 'src/app/app.model';
+import { AddCourseToTeacher, AddOrEditPaymentToStudent, payment } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class StudentPaymentDetailsComponent {
   public url: string = "";
   public displayedColumns = [
     'id',
+    'sid',
     'totalFee',
     'amountPaid',
     'paidOn',
@@ -33,7 +35,7 @@ export class StudentPaymentDetailsComponent {
     'edit/delete'
   ];
   public deleteId: string = '';
-  public StudentPaymentDataSource: MatTableDataSource<AddOrEditPaymentToStudent>;
+  public StudentPaymentDataSource: MatTableDataSource<payment>;
   public StudentPaymentCoursesData: any;
   @ViewChild('deleteStudentPaymentCourseConfirm') deleteStudentPaymentCourseConfirm = {} as TemplateRef<any>;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
@@ -47,7 +49,8 @@ export class StudentPaymentDetailsComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService : SharedService,
   ) {
     this.getStudentPaymentCoursesDetails();
     this.StudentPaymentDataSource = new MatTableDataSource(
@@ -76,13 +79,25 @@ export class StudentPaymentDetailsComponent {
     // this.addEditStudentPaymentCourseForm.patchValue(this.data);
   }
 
+  openAddPaymentForm(){
+    this.sharedService.openAddPaymentForm();
+    this.adminService.openSection('addOrEditStudentPayments');
+    sessionStorage.clear();
+  }
+
+  openEditPaymentForm(payment:any){
+    this.sharedService.openEditPayemtForm(payment);
+    this.adminService.openSection('addOrEditStudentPayments');
+    sessionStorage.setItem('setPayment',JSON.stringify(payment));
+  }
+
   ngAfterViewInit() {
     this.StudentPaymentDataSource.paginator = this.paginator;
     this.StudentPaymentDataSource.sort = this.sort;
   }
 
   public deleteStudentPaymentCourse() {
-    this.appService.deleteTeacherCourse(this.deleteId).subscribe({
+    this.appService.deletePayment(this.deleteId).subscribe({
       next: (res) => {
         this.closeModal();
         this.success = true;
@@ -158,32 +173,38 @@ export class StudentPaymentDetailsComponent {
     });
   }
 
-  public editStudentPaymentCourses(courses: AddCourseToTeacher){
-    this.appService.editTeacherCourse(courses).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.success = true;
-        this.err = false;
-        this.successMsgDialog('Payment updated to Student successfully');
-      },
-      error: (err) => {
-        this.err = true;
-        this.success = false;
-        this.successMsgDialog(err.message);
-      },
-    });
-  }
+  // public editStudentPaymentCourses(courses: AddCourseToTeacher){
+  //   this.appService.editTeacherCourse(courses).subscribe({
+  //     next: (res) => {
+  //       console.log(res);
+  //       this.success = true;
+  //       this.err = false;
+  //       this.successMsgDialog('Payment updated to Student successfully');
+  //     },
+  //     error: (err) => {
+  //       this.err = true;
+  //       this.success = false;
+  //       this.successMsgDialog(err.message);
+  //     },
+  //   });
+  // }
 
   //get StudentPayments form details
   private async getStudentPaymentCoursesDetails() {
     if(localStorage.getItem('currentUser')){
-      await this.adminService.getTeacherCoursesDetails();
+      // await this.adminService.getTeacherCoursesDetails();
       // this.StudentPaymentCoursesData = this.adminService.teacherCoursesList;
       // this.StudentPaymentDataSource = new MatTableDataSource(
       //   this.adminService.teacherCoursesList
       // );
       // this.StudentPaymentDataSource.paginator = this.paginator;
       // this.StudentPaymentDataSource.sort = this.sort;
+      this.appService.getPaymentDetails().subscribe((res)=>{
+        this.StudentPaymentDataSource = new MatTableDataSource(res);
+        this.StudentPaymentDataSource.paginator = this.paginator;
+        this.StudentPaymentDataSource.sort = this.sort;
+      })
+      
     }
   }
 
@@ -196,7 +217,7 @@ export class StudentPaymentDetailsComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('teachers');
+        this.adminService.openSection('studentPaymentDetails');
       }, timeout);
     });
   }

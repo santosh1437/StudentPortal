@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
-import { AddCourseToTeacher } from 'src/app/app.model';
+import { AddCourseToTeacher, EditCourseToTeacher } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -23,6 +23,10 @@ export class AddEditTeacherCoursesComponent {
   public deleteId: number = 0;
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
   public StudentsData: any;
+  public allTeacherList: any;
+  public allSubCourseList: any;
+  public getTeacherCourse: any;
+  datas: any;
   @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   dialogRef: any;
@@ -36,14 +40,16 @@ export class AddEditTeacherCoursesComponent {
     this.TeacherCourseDataSource = new MatTableDataSource();
     //Add Courses to teacher form
     this.addEditTeacherCourseForm = this.fb.group({
-      segment: new FormControl('',[Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      subCourse: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required])
+      tID: new FormControl('',[Validators.required]),
+      courseID: new FormControl('', [Validators.required]),
     })
   }
   ngOnInit(): void {
+    this.getTeacherCourseData();
     this. addEditTeacherCourseForm.patchValue(this.data);
+    this.getTeacherData();
+    this.getSubCourseData();
+    
   }
 
   openDeleteTeacherCourseConfirm(ID:any){
@@ -53,40 +59,54 @@ export class AddEditTeacherCoursesComponent {
     });
   }
 
-  onSelect(event:any){
-    if(event.target.files[0]){
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-      }
-      event.files.push({ data: event.files[0], fileName: this. addEditTeacherCourseForm.controls['fullName'].value });
-
-      this.appService.addImage(event.files[0])
-        .subscribe((result: string) => {
-          this.url = result;
-      });
-    }
+  getTeacherData(){
+    this.appService.getTeacher().subscribe((res:any)=>{
+      this.allTeacherList = res;
+    })
   }
 
+  getSubCourseData(){
+    this.appService.getSubCourse().subscribe((res:any)=>{
+      this.allSubCourseList = res;
+    })
+  }
+
+  getTeacherCourseData(){
+    this.getTeacherCourse = sessionStorage.getItem('setTeacherCourse');
+    this.datas = JSON.parse(this.getTeacherCourse)
+    this.data = this.datas;
+    console.log(this.data);
+  }
+
+  // onSelect(event:any){
+  //   if(event.target.files[0]){
+  //     let reader = new FileReader();
+  //     reader.readAsDataURL(event.target.files[0]);
+  //     reader.onload = (event: any) => {
+  //       this.url = event.target.result;
+  //     }
+  //     event.files.push({ data: event.files[0], fileName: this. addEditTeacherCourseForm.controls['fullName'].value });
+
+  //     this.appService.addImage(event.files[0])
+  //       .subscribe((result: string) => {
+  //         this.url = result;
+  //     });
+  //   }
+  // }
+
   addEditTeacherCourse(){
-    if(this. addEditTeacherCourseForm.valid){
+    if(this.addEditTeacherCourseForm.valid){
       if(this.data){
-        const editTeacherCourseData : AddCourseToTeacher ={
+        const editTeacherCourseData : EditCourseToTeacher ={
+          id: this.data.id,
           tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+          courseID: this. addEditTeacherCourseForm.controls['courseID'].value,
         };
         this.editTeacherCourse(editTeacherCourseData)
       }else{
         const addTeacherCourseData : AddCourseToTeacher ={
           tID: this.addEditTeacherCourseForm.controls['tID'].value,
-          subject: this. addEditTeacherCourseForm.controls['subject'].value,
-          course: this. addEditTeacherCourseForm.controls['course'].value,
-          segment: this. addEditTeacherCourseForm.controls['segment'].value,
-          subCourse: this. addEditTeacherCourseForm.controls['subCourse'].value,
+          courseID: this. addEditTeacherCourseForm.controls['courseID'].value,
         };
         this.addTeacherCourse(addTeacherCourseData);
       }
@@ -103,7 +123,8 @@ export class AddEditTeacherCoursesComponent {
       next:(res) => {
         this.success = true;
         this.err = false;
-      this.successMsgDialog('Teacher added successfully'); 
+      this.successMsgDialog('Teacher course added successfully'); 
+      this.adminService.openSection('teacherCourses');
       },
       error: (err) => {
         this.err = true;
@@ -113,13 +134,15 @@ export class AddEditTeacherCoursesComponent {
     })
   }
 
-  public editTeacherCourse(teacher: AddCourseToTeacher){
+  public editTeacherCourse(teacher: EditCourseToTeacher){
+    debugger
     this.appService.editTeacherCourse(teacher).subscribe({
       next: (res) => {
         console.log(res);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Teacher updated successfully');
+        this.successMsgDialog('Teacher course updated successfully');
+        this.adminService.openSection('teacherCourses');
       },
       error: (err) => {
         this.err = true;
@@ -138,7 +161,7 @@ export class AddEditTeacherCoursesComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('teachers');
+        this.adminService.openSection('teacherCourses');
       }, timeout);
     });
   }

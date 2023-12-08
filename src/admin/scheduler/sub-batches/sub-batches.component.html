@@ -35,7 +35,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditSubBatches');"> Create Sub Batch </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddSubBatchForm()"> Create Sub Batch </button>
     </div> 
 
     <mat-table [dataSource]="subBatchesDataSource" matSort>
@@ -44,32 +44,28 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
             <mat-cell *matCellDef="let i=index"> {{i+1}} </mat-cell>
         </ng-container>
+         <ng-container matColumnDef="bId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Batch ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subBatchID}} </mat-cell>
+        </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="sbId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Batch ID </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.sbId}} </mat-cell>
+        <ng-container matColumnDef="subcourseID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subCourseID}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
-        <ng-container matColumnDef="segment">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
+        <ng-container matColumnDef="btype">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Batch Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.batchType}} </mat-cell>
         </ng-container>
         <!-- Phone no. Column -->
-        <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
+        <ng-container matColumnDef="tId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Teacher ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tID}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="subCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="teacher">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Teacher </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.teacher}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="startDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.startDate | date:'dd/MM/yyyy'}} </mat-cell>
+        <ng-container matColumnDef="cId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Counsellor ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cID}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="days">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Days </mat-header-cell>
@@ -79,13 +75,13 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Timings </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.timings}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="noOfStudents">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> No.of Students </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.noOfStudents}} </mat-cell>
+        <ng-container matColumnDef="durationOfCourse">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Duration</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="counsellor">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Counsellor </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.counsellor}} </mat-cell>
+        <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.startDate | date:'dd/MM/yyyy'}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="edit/delete" >
@@ -94,7 +90,7 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addBatches');" style="cursor: pointer;">
+                        (click)="openEditSubBatchForm(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
@@ -137,7 +133,7 @@
             {{appService.httpClientMsg}}</p>
     </div>
 </ng-template>
-<ng-template #deleteBatchConfirm>
+<ng-template #deleteSubBatchConfirm>
     <div mat-dialog-title>
         <span>Delete Batch?</span>
     </div>

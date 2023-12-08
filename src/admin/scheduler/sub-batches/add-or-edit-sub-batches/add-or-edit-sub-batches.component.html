@@ -7,67 +7,146 @@
 
     <form [formGroup]="addEditSubBatchForm" (ngSubmit)="onFormSubmit()">
         <!-- (ngSubmit)="onFormSubmit()" -->
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Batch ID :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <mat-label>Select Batch ID</mat-label>
-                <mat-select formControlName = "batchID">
-                  <mat-option value="1:1">1:1</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>            
-    
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Subject :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <input matInput type="text" placeholder="Enter subject" formControlName="subject">
-            </mat-form-field>
-        </div>
 
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Teacher :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <input matInput type="text" placeholder="Enter teacher" formControlName="teacher">
-            </mat-form-field>
-        </div>
 
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Days :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <input matInput type="tel" placeholder="Enter days" formControlName="days">
-            </mat-form-field>
-        </div>
+        <div class="row justify-content-center my-5">
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Batch Type :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Select Batch Type</mat-label>
+                    <mat-select formControlName="batchType">
+                        <mat-option value="1:1">1:1</mat-option>
+                        <mat-option value="1:5">1:5</mat-option>
+                        <mat-option value="1:5">1:10</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Start date :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <input matInput [matDatepicker]="picker" placeholder="Enter start Date" formControlName="startDate">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">SubCourse ID :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-select formControlName="subCourseID" placeholder="Select SubCourse ID">
+                        <mat-option *ngFor="let item of subCourseData" [value]="item.subCourseID">
+                            <ng-container>
+                                {{item.subCourseID}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-        <div class="col-lg-6 row">
-            <mat-label class="col-12 pb-2 fs-4">Notes :</mat-label>
-            <mat-form-field appearance="outline" class="col-8">
-                <input type="text" matInput placeholder="Enter Notes" formControlName="notes">
-            </mat-form-field>
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Teacher ID :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-select formControlName="tID" placeholder="Select Teacher ID">
+                        <mat-option *ngFor="let item of teacherData" [value]="item.tID">
+                            <ng-container>
+                                {{item.tID}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Counsellor ID :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-select formControlName="cID" placeholder="Select Counsellor ID">
+                        <mat-option *ngFor="let item of counsellorData" [value]="item.cID">
+                            <ng-container>
+                                {{item.cID}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Duration Of Course :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Select Duration Of Course</mat-label>
+                    <mat-select formControlName="duration">
+                        <mat-option value="1 Month">1 Month</mat-option>
+                        <mat-option value="2 Month">2 Month</mat-option>
+                        <mat-option value="3 Month">3 Month</mat-option>
+                        <mat-option value="4 Month">4 Month</mat-option>
+                        <mat-option value="5 Month">5 Month</mat-option>
+                        <mat-option value="6 Month">6 Month</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Days :</mat-label>
+                <!-- <mat-form-field appearance="outline" class="col-8">
+                    <mat-select formControlName="selectedOptionsControl" placeholder="Select Days" multiple>
+                        <mat-option *ngFor="let item of options" [value]="item">
+                            <ng-container>
+                                {{item}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-select formControlName="daysList" placeholder="Select Days" multiple>
+                        <mat-option value="Monday">Monday</mat-option>
+                        <mat-option value="Tuesday">Tuesday</mat-option>
+                        <mat-option value="Wednesday">Wednesday</mat-option>
+                        <mat-option value="Thursday">Thursday</mat-option>
+                        <mat-option value="Friday">Friday</mat-option>
+                        <mat-option value="Saturday">Saturday</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Start date :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput [matDatepicker]="picker" placeholder="Enter start Date" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Timings :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <!-- <input matInput placeholder="Enter Timings" formControlName="timings"> -->
+                    <mat-select placeholder="Enter Timings" formControlName="timings">
+                        <mat-option value="1hr">1hr</mat-option>
+                        <mat-option value="1hr : 30min">1hr : 30min</mat-option>
+                        <mat-option value="2hr">2hr</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Notes(Optional) :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input type="text" matInput placeholder="Enter Notes" formControlName="notes">
+                </mat-form-field>
+            </div>
+
         </div>
 
         <div mat-dialog-actions class="my-5">
             <div class="col-lg-5 col-md-12">
-                <button mat-raised-button type="button" class="" (click)="adminService.openSection('counsellors')">Cancel</button>
+                <button mat-raised-button type="button" class=""
+                    (click)="adminService.openSection('subBatches')">Cancel</button>
             </div>
             <div class="col-lg-5 col-md-12">
                 <button mat-raised-button color="primary" type="submit" class="float-lg-end">
-                    {{data ? 'Update Sub Batch':'Create Sub Batch'}} </button>    
+                    {{data ? 'Update Sub Batch':'Create Sub Batch'}} </button>
             </div>
         </div>
     </form>
-    
     <ng-template #successMsg>
         <div mat-dialog-title>
-            <p *ngIf="success" style="opacity: 0.85; color: green;" class="align-items-center justify-content-center fs-3">
+            <p *ngIf="success" style="opacity: 0.85; color: green;"
+                class="align-items-center justify-content-center fs-3">
                 {{appService.httpClientMsg}}</p>
             <p *ngIf="err" style="opacity: 0.85; color: red;" class="align-items-center justify-content-center fs-3">
                 {{appService.httpClientMsg}}</p>

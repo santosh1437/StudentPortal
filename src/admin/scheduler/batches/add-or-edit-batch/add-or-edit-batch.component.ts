@@ -18,6 +18,15 @@ export class AddOrEditBatchComponent {
   public err: boolean = false;
   public personalDetails: boolean = true;
   public courseDetails: boolean = false;
+  selectedBatch: any;
+  datas: any;
+
+  // options: string[] = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+  // selectedOptionsControl = new FormControl<string[]>([]);
+
+  // isOptionSelected(option: string): boolean {
+  //   return this.selectedOptionsControl.value?.includes(option) || false;
+  // }
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   constructor(
@@ -34,8 +43,8 @@ export class AddOrEditBatchComponent {
       timings: new FormControl('', Validators.required),
       duration: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
-      days: new FormControl('', Validators.required),
-      notes: new FormControl('', Validators.required)
+      daysList: new FormControl('', Validators.required),
+      notes: '',
     });
   }
 
@@ -43,10 +52,17 @@ export class AddOrEditBatchComponent {
     // this.data  = {
     //   id:1, bId: "1", course: "SAT", subCourse: "SAT", timings:"10 to 11", startDate: "22/07/2023", currentCity: "Hyderabad", address: "test"
     // }
+    this.getBachData();
     this.getSubCourseData();
     this.getTeacherData();
     this.getCounsellorData();
     this.addEditBatchForm.patchValue(this.data);
+  }
+
+  getBachData(){
+    this.selectedBatch = sessionStorage.getItem('setBatchData');
+    this.datas = JSON.parse(this.selectedBatch);
+    this.data = this.datas;
   }
 
   subCourseData: any;
@@ -80,6 +96,7 @@ export class AddOrEditBatchComponent {
     if (this.addEditBatchForm.valid) {
       if (this.data) {
         const editBatchData: Batch = {
+          id: this.data.id,
           bId: this.data.id,
           batchType: this.addEditBatchForm.controls['batchType'].value,
           subCourseID: this.addEditBatchForm.controls['subCourseID'].value,
@@ -88,7 +105,7 @@ export class AddOrEditBatchComponent {
           timings: this.addEditBatchForm.controls['timings'].value,
           duration: this.addEditBatchForm.controls['duration'].value,
           startDate: this.addEditBatchForm.controls['startDate'].value,
-          days: this.addEditBatchForm.controls['days'].value,
+          daysList: this.addEditBatchForm.controls['daysList'].value,
           notes: this.addEditBatchForm.controls['notes'].value
         };
         this.editBatch(editBatchData);
@@ -101,7 +118,7 @@ export class AddOrEditBatchComponent {
           timings: this.addEditBatchForm.controls['timings'].value,
           duration: this.addEditBatchForm.controls['duration'].value,
           startDate: this.addEditBatchForm.controls['startDate'].value,
-          days: this.addEditBatchForm.controls['days'].value,
+          daysList: this.addEditBatchForm.controls['daysList'].value,
           notes: this.addEditBatchForm.controls['notes'].value
         };
         this.addBatch(addBatchData);
@@ -131,6 +148,7 @@ export class AddOrEditBatchComponent {
       next: (res) => {
         this.success = true;
         this.err = false;
+        this.adminService.openSection('batches');
         this.successMsgDialog('Batch updated successfully');
       },
       error: (err) => {

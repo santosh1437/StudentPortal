@@ -33,33 +33,23 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addEditTeacherCourses');"> Add Course </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddTeacherCourseForm()"> Add Course </button>
     </div> 
     <mat-table [dataSource]="TeacherCourseDataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
-        <ng-container matColumnDef="segment">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Segment </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.segment}} </mat-cell>
+        <ng-container matColumnDef="teacher">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Teacher Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tID}} </mat-cell>
         </ng-container>
         <!-- Email Column -->
         <ng-container matColumnDef="course">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.course}} </mat-cell>
-        </ng-container>
-        <!-- Phone no. Column -->
-        <ng-container matColumnDef="subCourse">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Sub course </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subCourse}} </mat-cell>
-        </ng-container>
-        <!-- Student Type Column -->
-        <ng-container matColumnDef="subject">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Subject </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Course Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.courseID}} </mat-cell>
         </ng-container>
         <!-- edit/delete -->
         <ng-container matColumnDef="edit/delete" >
@@ -68,12 +58,12 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.editCounselorObj = element;adminService.openSection('addEditTeacherCourses');" style="cursor: pointer;">
+                        (click)="openEditTeacherCourseForm(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteTeacherCourseConfirm(element?.tID)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteTeacherCourseConfirm(element?.id)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
@@ -114,12 +104,12 @@
 </ng-template>
 <ng-template #deleteTeacherCourseConfirm>
     <div mat-dialog-title>
-        <span>Delete Teacher?</span>
+        <span>Delete Teacher Course?</span>
     </div>
     <hr/>
     <div mat-dialog-content>
         <p>
-            Do you really want to delete the teacher?</p>
+            Do you really want to delete the Teacher Course?</p>
     </div>
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">

@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="pb-3" *ngIf="subMenuStudent && adminService.userManagement">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('paymentDetails');" [ngClass]="{'bg-dark': adminService.paymentDetails}"
+                        <a href="javascript: void(0)" (click)="adminService.openSection('studentPaymentDetails');" [ngClass]="{'bg-dark': adminService.studentPaymentDetails}"
                             class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
                             aria-selected="false">
                             <span class="py-2">Payment Details</span>
@@ -56,13 +56,24 @@
                     </li>
         
                     <li class="pb-3" *ngIf="adminService.userManagement">
-                        <a href="javascript: void(0)" (click)="adminService.openSection('teachers');" 
+                        <a href="javascript: void(0)" (click)="subMenuTeacher = !subMenuTeacher ; adminService.openSection('teachers');" 
                         [ngClass]="{'bg-dark': (adminService.teachers || adminService.addTeachers || adminService.teacherCourses || adminService.addEditTeacherCourses)}"
                         class="text-white d-flex align-items-center text-decoration-none" type="button" role="tab"
                         aria-selected="false">
                         <mat-icon class="fs-5 ps-5 py-2">radio_button_unchecked</mat-icon>
                         <span class="ps-2 p1-1">Teachers</span>
+                        <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="!subMenuTeacher"> chevron_right </mat-icon>
+                            <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="subMenuTeacher">expand_more</mat-icon>
                         <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.teachers"> chevron_right </mat-icon> -->
+                        </a>
+                    </li>
+
+                    <li class="pb-3" *ngIf="subMenuTeacher && adminService.userManagement">
+                        <a href="javascript: void(0)" (click)="adminService.openSection('teacherCourses');" [ngClass]="{'bg-dark': adminService.teacherCourses}"
+                            class="text-white d-flex pl-60p text-decoration-none" type="button" role="tab"
+                            aria-selected="false">
+                            <span class="py-2">Teacher Course</span>
+                            <!-- <mat-icon class="fs-2 pt-1 ml-30p" *ngIf="adminService.students"> chevron_right </mat-icon> -->
                         </a>
                     </li>
         

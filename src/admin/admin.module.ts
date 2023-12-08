@@ -62,7 +62,21 @@ import { EditSegmentComponent } from './settings/edit-segment/edit-segment.compo
 import { CourseComponent } from './settings/course/course.component';
 import { SubcourseComponent } from './settings/subcourse/subcourse.component';
 import { AddOrEditSubcourseComponent } from './settings/subcourse/add-or-edit-subcourse/add-or-edit-subcourse.component';
+import { ZoomMeeting1Component } from './zoom-meetings/zoom-settings/zoom-meeting1/zoom-meeting1.component';
+import { AuthConfig, OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { ZoomService } from './Service/zoom.service';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
+
+
+const authConfig: AuthConfig = {
+  issuer: 'https://your-okta-domain.okta.com/oauth2/default',
+  clientId: 'yB7PHziVTkmjaNaUTt1J5Q',
+  silentRefreshTimeout: 60000,
+  redirectUri: window.location.origin + '/callback',
+  showDebugInformation: true,
+};
+
 @NgModule({
   declarations: [
     AdminPageComponent,
@@ -108,6 +122,7 @@ import { AddOrEditSubcourseComponent } from './settings/subcourse/add-or-edit-su
     CourseComponent,
     SubcourseComponent,
     AddOrEditSubcourseComponent,
+    ZoomMeeting1Component,
     // ScheduleSessionComponent
   ],
   imports: [
@@ -135,10 +150,37 @@ import { AddOrEditSubcourseComponent } from './settings/subcourse/add-or-edit-su
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    ClipboardModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        sendAccessToken: true,
+      },
+      ...authConfig,
+    }),
   ],
   exports: [AdminPageComponent,
     DashboardComponent,
     UserManagementComponent],
+    providers: [ZoomService]
 })
-export class AdminModule { }
+export class AdminModule { 
+  // constructor(private oauthService: OAuthService) {
+  //   this.configureWithZoomOAuth();
+  // }
+
+  // private configureWithZoomOAuth() {
+  //   this.oauthService.configure({
+  //     clientId: '4gIXPcA5Sri7LG8qKHj3SQ',
+  //     dummyClientSecret: 'QM2obq8nHEWe7QTlTgegUfvgoT0V1o8K',
+  //     loginUrl: 'https://zoom.us/oauth/authorize',
+  //     redirectUri: window.location.origin + '/',
+  //     responseType: 'code',
+  //     scope: 'openid',
+  //     strictDiscoveryDocumentValidation: false,
+  //     showDebugInformation: true,
+  //   });
+
+  //   this.oauthService.setStorage(localStorage);
+  // }
+}

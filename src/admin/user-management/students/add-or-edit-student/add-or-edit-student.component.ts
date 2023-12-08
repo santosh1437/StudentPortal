@@ -22,6 +22,8 @@ export class AddOrEditStudentComponent {
   public educationDetails: boolean = false;
   public paymentDetails: boolean = false;
   public url: any = '';
+  selectStudent: any;
+  datas: any;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
 
@@ -29,7 +31,7 @@ export class AddOrEditStudentComponent {
     public appService: AppService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    public adminService: AdminService
+    public adminService: AdminService,
   ) {
     this.addEditStudentForms = this.fb.group({
       name: new FormControl('', [Validators.required]),
@@ -62,7 +64,7 @@ export class AddOrEditStudentComponent {
     //   id:1, fullName:"Niha", email:"te@n.com", phoneNo:"90303682", password: "", studentType: "External Student", 
     //   batch: "1", course: "SAT", subject: "maths", timings:"10 to 11", parentPhoneNo: "6566154", currentCity: "Hyderabad", address: "test"
     // }
-   
+   this.getSelectedStudent();
     this.addEditStudentForms.patchValue(this.data);
   }
 
@@ -85,7 +87,8 @@ export class AddOrEditStudentComponent {
       this.personalDetails = false;
       this.educationDetails = false;
       this.addEditStudent();
-      this.adminService.openSection('studentPaymentDetails');
+      // this.adminService.openSection('studentPaymentDetails');
+      this.adminService.openSection('students');
       this.paymentDetails = true;
     }
     //  else if(this.courseDetails) {
@@ -95,6 +98,12 @@ export class AddOrEditStudentComponent {
     //   this.adminService.openSection('studentPaymentDetails');
     //   this.paymentDetails = true;
     // }
+  }
+
+  getSelectedStudent(){
+    this.selectStudent = sessionStorage.getItem('setStudentData');
+    this.datas = JSON.parse(this.selectStudent);
+    this.data = this.datas;
   }
 
   

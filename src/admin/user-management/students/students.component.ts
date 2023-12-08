@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 import { AdminService } from 'src/admin/admin.service';
 import { Student } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
@@ -48,7 +49,8 @@ export class StudentsComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService : SharedService,
   ) {
     this.getStudentsDetails();
     this.StudentsDataSource = new MatTableDataSource(this.StudentsData);
@@ -61,6 +63,18 @@ export class StudentsComponent {
   ngAfterViewInit() {
     this.StudentsDataSource.paginator = this.paginator;
     this.StudentsDataSource.sort = this.sort;
+  }
+
+  openAddStudentForm(){
+    this.sharedService.openAddStudentForm();
+    this.adminService.openSection('addStudents');
+    sessionStorage.clear();
+  }
+
+  openEditStudentForm(studentData:any){
+    this.sharedService.openEditStudentForm(studentData);
+    this.adminService.openSection('addStudents');
+    sessionStorage.setItem('setStudentData',JSON.stringify(studentData));
   }
 
   // On filtering with dates

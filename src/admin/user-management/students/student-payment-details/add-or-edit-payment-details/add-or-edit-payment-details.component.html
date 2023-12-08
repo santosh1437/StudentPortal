@@ -11,6 +11,19 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Student ID</mat-label>
+                <mat-form-field appearance="outline" class="col-10">
+                    <!-- <input type="text" matInput formControlName="sID" placeholder=""> -->
+                    <mat-select formControlName="sID" placeholder="Select Student">
+                        <mat-option *ngFor="let data of studentList" [value]="data.sID">
+                            <ng-container>
+                                {{data.sID}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Total Fee</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput formControlName="totalFee" placeholder="Total Fee">
@@ -68,7 +81,7 @@
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Comments</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Comments(Optional)</mat-label>
                 <mat-form-field appearance="outline" class="col-10">
                     <input type="text" matInput formControlName="comment" placeholder="comments">
                   </mat-form-field>

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment, addPayment, payment, addCourseStudent, courseStudent } from './app.model';
+import { Admin, Student, Counsellor, Teachers, addAdmin, addStudent, addTeachers, Batch, addBatch, AddCourseToTeacher, SubBatch, addSubBatch, AddSegment, addPayment, payment, addCourseStudent, courseStudent, EditCourseToTeacher, addLiveDemoMeetimg } from './app.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   public signOut: boolean = false;
-  private baseUrlAPI = "https://www.edutechex.com/profile/api/api";
+  private baseUrlAPI = "https://studentportal.edutechex.com/api";
+  // private baseUrlAPI = "https://www.edutechex.com/profile/api/api";
   // https://www.edutechex.com/profile/api
   //while deploying in baseUrlAPI https://www.edutechex.com/profile/api/api
   private edutechApi = "https://api.edutechex.com/api/Segment/GetSegmentList";
@@ -60,19 +61,19 @@ export class AppService {
 
   // Add Courses to teacher
   addTeacherCourse(course: AddCourseToTeacher): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrlAPI}/Teacher`,course);
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/TeacherCourse`,course);
   }
 
   getTeacherCourse(){
-    return this.httpClient.get<any>(`${this.baseUrlAPI}/Teacher`);
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/TeacherCourse`);
   }
 
-  editTeacherCourse(course: AddCourseToTeacher): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Teacher/${course.tID}`, course);
+  editTeacherCourse(course: EditCourseToTeacher): Observable<any>{
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/TeacherCourse/${course.id}`, course);
   }
 
   deleteTeacherCourse(tID: string): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrlAPI}/Teacher/${tID}`);
+    return this.httpClient.delete(`${this.baseUrlAPI}/TeacherCourse/${tID}`);
   }
   
 
@@ -101,7 +102,10 @@ export class AppService {
     return this.httpClient.get<any>(`${this.baseUrlAPI}/studentCourse`);
   }
   editStudentCourse(editCourse: courseStudent): Observable<any>{
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/studentCourse`,editCourse);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/studentCourse/${editCourse.id}`,editCourse);
+  }
+  deleteStudentCourse(id:any){
+    return this.httpClient.delete(`${this.baseUrlAPI}/studentCourse/${id}`);
   }
 
   // Counsellor APIs
@@ -131,7 +135,7 @@ export class AppService {
   }
 
   editBatch(batch: Batch){
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/Batch/${batch.bId}`, batch);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/Batch/${batch.id}`, batch);
   }
 
   deleteBatch(bId: string){
@@ -148,7 +152,7 @@ export class AppService {
   }
 
   editSubBatch(subBatch: SubBatch){
-    return this.httpClient.put<any>(`${this.baseUrlAPI}/SubBatch/${subBatch.sbId}`, subBatch);
+    return this.httpClient.put<any>(`${this.baseUrlAPI}/SubBatch/${subBatch.id}`, subBatch);
   }
 
   deleteSubBatch(bId: string){
@@ -246,7 +250,10 @@ export class AppService {
     return this.httpClient.post(`${this.baseUrlAPI}/payment`,payment);
   }
   editPayment(payments: payment){
-    return this.httpClient.put(`${this.baseUrlAPI}/payment`,payments);
+    return this.httpClient.put(`${this.baseUrlAPI}/payment/${payments.id}`,payments);
+  }
+  deletePayment(id:any){
+    return this.httpClient.delete(`${this.baseUrlAPI}/payment/${id}`);
   }
 
   // Segment Details
@@ -268,4 +275,27 @@ export class AppService {
   // getSegments(){
   //   return this.httpClient.get<any>(`${this.edutechApi}`);
   // }
+
+
+  //Live demo jitsi meeting
+  addLiveDemoMeeting(demo:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/demo`,demo);
+  }
+  getLiveDemoMeeting(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/demo`);
+  }
+  getUpComingLiveDemo(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/demo/upcomingDate`);
+  }
+  getPastLiveDemo(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/demo/Date`);
+  }
+
+  //Test meeting for own dashboard
+  addInterviewMeeting(interview:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/meeting`,interview);
+  }
+  getInterviewMeeting(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/meeting`);
+  }
 }

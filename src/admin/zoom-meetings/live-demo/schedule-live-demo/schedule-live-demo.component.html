@@ -5,25 +5,40 @@
     <form [formGroup]="scheduleLiveDemoForm" (ngSubmit)="scheduleLiveDemo()">
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Topic</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter Topic" formControlName="topic">
+                </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4"> Date :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput [matDatepicker]="picker" placeholder="Enter Date" formControlName="date">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
+            </div> -->
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Start date :</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput [matDatepicker]="picker" placeholder="Enter Date" formControlName="todayDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
             </div>
+
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Time</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <mat-label>Select Time</mat-label>
-                    <mat-select formControlName="time">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.course">
-                        <span *ngIf="(element?.segment == scheduleLiveDemoForm.controls['segment'].value) || (element?.segment == '')">{{element.course}}</span>
-                      </mat-option>
-                    </mat-select>
+                    <!-- <mat-label>Select Time</mat-label> -->
+                    <!-- <mat-select formControlName="duration" placeholder="Enter Time Duration">
+                      <mat-option value="10AM - 11AM">10AM - 11AM</mat-option>
+                      <mat-option value="11AM - 12PM">11AM - 12PM</mat-option>
+                    </mat-select> -->
+                    <input matInput placeholder="10AM - 10:45AM" formControlName="duration">
                   </mat-form-field>
             </div>
-            <div class="col-lg-6 row">
+            <!-- <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Zoom Account</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <mat-label>Select Zoom Account</mat-label>
@@ -31,25 +46,38 @@
                       <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
                     </mat-select>
                   </mat-form-field>
+            </div> -->
+            <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Candidate Name:</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter Candidate Name" formControlName="name">
+                </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Student Email:</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Candidate Email:</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput placeholder="Enter Candidate Email" formControlName="candidate">
                 </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Teacher Email :</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Teacher ID :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter host Email" formControlName="host">
+                    <!-- <input matInput placeholder="Enter Teacher " formControlName="demotID" > -->
+                    <mat-select formControlName="tID" placeholder="Enter Teacher ">
+                        <mat-option *ngFor="let data of teacherList" [value]="data.tID">
+                            <ng-container>
+                                {{data.tID}}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-lg-6 row">
+            <!-- <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Co-Host Email:</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput placeholder="Enter co-host Email" formControlName="coHost">
                 </mat-form-field>
-            </div>
+            </div> -->
         </div>
 
         <div mat-dialog-actions class="my-5">

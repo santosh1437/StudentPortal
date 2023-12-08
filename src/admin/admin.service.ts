@@ -369,6 +369,9 @@ export class AdminService {
         next: (res: any) => {
           this.url = res.imagePath;
           this.currentImage = res.imagePath;
+          this.currentEditId = res.uniqueId;
+          this.currentAddId = res.uniqueId;
+          console.log(res);
         },
         error: (err) => {
           console.log(err.message);

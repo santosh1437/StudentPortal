@@ -88,6 +88,7 @@ export interface addStudent{
 }
 
 export interface courseStudent{
+  id : number
   sID: string
   courseID: string
   cID : string
@@ -143,6 +144,7 @@ export interface Course{
   currentPrice : string
   discountPrice : string
   discountPercentage : string
+  curriculum : string
  
 }
 export interface AddCourse{
@@ -156,6 +158,7 @@ export interface AddCourse{
   currentPrice : string
   discountPrice : string
   discountPercentage : string
+  curriculum : string
 }
 export interface subCourse{
   id : string
@@ -191,13 +194,17 @@ export interface Subject{
 
 export interface AddCourseToTeacher{
   tID: string
-  segment: string
-  course: string
-  subCourse: string
-  subject: string
+  courseID : string
+}
+
+export interface EditCourseToTeacher{
+  id : number
+  tID: string
+  courseID : string
 }
 
 export interface Batch{
+  id: number
   bId : string
   batchType : string
   subCourseID: string
@@ -206,7 +213,7 @@ export interface Batch{
   timings: string
   duration: string
   startDate: string
-  days: number
+  daysList: number
   notes: string
 }
 
@@ -218,32 +225,33 @@ export interface addBatch{
   timings: string
   duration: string
   startDate: string
-  days: number
+  daysList: number
   notes: string
 }
 
 export interface SubBatch{
-  sbId : string
-  segment : string
-  course: string
-  subCourse: string
-  teacher : string
-  counsellor: string
+  id: number
+  bId : string
+  batchType : string
+  subCourseID: string
+  tID: string
+  cID : string
   timings: string
-  days: number
-  startDate: Date
+  duration: string
+  startDate: string
+  daysList: number
   notes: string
 }
 
 export interface addSubBatch{
-  segment : string
-  course: string
-  subCourse: string
-  teacher : string
-  counsellor: string
+  batchType : string
+  subCourseID: string
+  tID: string
+  cID : string
   timings: string
-  days: number
-  startDate: Date
+  duration: string
+  startDate: string
+  daysList: number
   notes: string
 }
 
@@ -269,6 +277,17 @@ export interface SessionSchedule{
 }
 
 export interface Interview{
+  hostMail: string
+  coHostMail: string
+  date: Date
+  time: string
+  zoomAccount: string
+  candidateName: string
+  candidateMail: string
+  meetingLink: string
+  meetingID: string
+}
+export interface LiveDemo{
   hostMail: string
   coHostMail: string
   date: Date
@@ -323,7 +342,7 @@ export interface AddSegment{
 }
 
 export interface payment{
-  pID: string
+  id : number
   sID: string
   totalFee: string
   amountPaid: string
@@ -344,4 +363,12 @@ export interface addPayment{
   dueDate: Date
   dueAmount: string
   comment: string
+}
+
+export interface addLiveDemoMeetimg {
+  demotopic: string
+  demotID: string
+  democandidate: string
+  demoduration: string
+  startTime: Date
 }

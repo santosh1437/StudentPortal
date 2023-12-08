@@ -22,6 +22,8 @@ export class AddOrEditTeacherComponent {
   public url: string = "";
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
   public currentTId: string = "";
+  selectedTeacher: any;
+  datas:any;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   dialogRef: any;
 
@@ -47,12 +49,20 @@ export class AddOrEditTeacherComponent {
     });
   }
   ngOnInit(): void {
-    this.data = this.adminService.editCounselorObj;
+    this.getTeacherData();
+    // this.data = this.adminService.editCounselorObj;
     this.addEditTeacherForm.patchValue(this.data);
     if(this.data){
       this.adminService.getImageByID(this.data.tID);
     }
     this.getSubCourse();
+  }
+
+  getTeacherData(){
+    this.selectedTeacher = sessionStorage.getItem('setTeacher');
+    this.datas = JSON.parse(this.selectedTeacher);
+    this.data = this.datas;
+    console.log(this.data);
   }
 
   onSelect(event:any){
@@ -63,6 +73,42 @@ export class AddOrEditTeacherComponent {
         this.adminService.url = event.target.result;
       }
       this.adminService.currentImage = event.target.files[0];
+    }
+  }
+
+  public addOrEditImage(){
+    const formData : any = new FormData();
+    formData.append('imagefile',  this.adminService.currentImage);
+    formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId);
+    if(this.adminService.currentEditId){
+      this.appService.editImage(formData).subscribe( {
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image updated successfully');
+          },
+          error: (err) => {
+            console.log(err);
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          }
+      });
+    } else{
+      this.appService.addImage(formData).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.success = true;
+            this.err = false;
+            this.successMsgDialog('Teacher Image added successfully');
+          },
+          error: (err) => {
+            this.err = true;
+            this.success = false;
+            this.successMsgDialog(err.message);
+          },
+      });
     }
   }
 
@@ -125,9 +171,11 @@ export class AddOrEditTeacherComponent {
     this.appService.addTeacher(teacher).subscribe({
       next:(res) => {
         console.log(res);
-        this.currentTId = res.tID;
+        // this.currentTId = res.tID;
+        this.adminService.currentAddId = res.tID;
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Teacher added successfully'); 
         this.adminService.openSection('teachers')
       },
@@ -145,7 +193,9 @@ export class AddOrEditTeacherComponent {
         console.log(res);
         this.success = true;
         this.err = false;
+        this.addOrEditImage();
         this.successMsgDialog('Teacher Details Saved');
+        
       },
       error: (err) => {
         this.err = true;
@@ -155,40 +205,7 @@ export class AddOrEditTeacherComponent {
     });
   }
 
-  public addOrEditImage(){
-    const formData : any = new FormData();
-      formData.append('imagefile',  this.adminService.currentImage);
-      formData.append('uniqueId',this.data ? this.adminService.currentEditId : this.adminService.currentAddId)
-    if(this.data){
-      this.appService.editImage(formData).subscribe( {
-          next: (res) => {
-            console.log(res);
-            this.success = true;
-            this.err = false;
-            this.successMsgDialog('Teacher Image updated successfully');
-          },
-          error: (err) => {
-            this.err = true;
-            this.success = false;
-            this.successMsgDialog(err.message);
-          }
-      });
-    } else{
-      this.appService.addImage(formData).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.success = true;
-            this.err = false;
-            this.successMsgDialog('Teacher Image added successfully');
-          },
-          error: (err) => {
-            this.err = true;
-            this.success = false;
-            this.successMsgDialog(err.message);
-          },
-      });
-    }
-  }
+  
 
   public successMsgDialog(msg: string) {
     this.appService.httpClientMsg = msg;
@@ -199,7 +216,7 @@ export class AddOrEditTeacherComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        // this.adminService.openSection('teachers');
+        this.adminService.openSection('teachers');
       }, timeout);
     });
   }

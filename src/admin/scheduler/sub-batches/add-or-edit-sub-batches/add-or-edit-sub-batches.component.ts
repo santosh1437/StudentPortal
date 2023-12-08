@@ -18,8 +18,11 @@ export class AddOrEditSubBatchesComponent {
   public err: boolean = false;
   public personalDetails: boolean = true;
   public courseDetails: boolean = false;
+  selectedSubBatch: any;
+  datas: any;
 
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
+  allBatchData: any;
   constructor(
     public appService: AppService,
     private fb: FormBuilder,
@@ -27,12 +30,15 @@ export class AddOrEditSubBatchesComponent {
     public adminService: AdminService
   ) {
     this.addEditSubBatchForm = this.fb.group({
-      batchID: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required]),
-      teacher: new FormControl('', Validators.required),
-      days: new FormControl('', [Validators.required]),
+      batchType: new FormControl('', [Validators.required]),
+      subCourseID: new FormControl('', [Validators.required]),
+      tID: new FormControl('', Validators.required),
+      cID: new FormControl('', [Validators.required]),
+      timings: new FormControl('', Validators.required),
+      duration: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
-      notes: new FormControl('')
+      daysList: new FormControl('', Validators.required),
+      notes: '',
     });
   }
 
@@ -40,7 +46,39 @@ export class AddOrEditSubBatchesComponent {
     // this.data  = {
     //   id:1, bId: "1", course: "SAT", subCourse: "SAT", timings:"10 to 11", startDate: "22/07/2023", currentCity: "Hyderabad", address: "test"
     // }
+    this.getSubBatchData();
+    this.getSubCourseData();
+    this.getTeacherData();
+    this.getCounsellorData();
     this.addEditSubBatchForm.patchValue(this.data);
+    this.getBatchData();
+  }
+
+  getSubBatchData(){
+    this.selectedSubBatch = sessionStorage.getItem('setSubBatch');
+    this.datas = JSON.parse(this.selectedSubBatch);
+    this.data = this.datas;
+  }
+
+  subCourseData: any;
+  getSubCourseData(){
+    this.appService.getSubCourse().subscribe((res:any)=>{
+      this.subCourseData = res;
+    })
+  }
+
+  teacherData: any;
+  getTeacherData(){
+    this.appService.getTeacher().subscribe((res:any)=>{
+      this.teacherData = res;
+    })
+  }
+
+  counsellorData: any;
+  getCounsellorData(){
+    this.appService.getCounselor().subscribe((res:any)=>{
+      this.counsellorData = res;
+    })
   }
 
   public fillNext(){
@@ -48,33 +86,40 @@ export class AddOrEditSubBatchesComponent {
     this.courseDetails = true;
   }
 
+  getBatchData(){
+    this.appService.getBatches().subscribe((res:any)=>{
+      this.allBatchData = res;
+    })
+  }
+
   onFormSubmit() {
     if (this.addEditSubBatchForm.valid) {
       if (this.data) {
         const editSubBatchData: SubBatch = {
-          sbId: this.data.id,
-          segment: this.addEditSubBatchForm.controls['segment'].value,
-          course: this.addEditSubBatchForm.controls['course'].value,
-          subCourse: this.addEditSubBatchForm.controls['subCourse'].value,
-          counsellor: this.addEditSubBatchForm.controls['counsellor'].value,
-          startDate: this.addEditSubBatchForm.controls['startDate'].value,
-          days: this.addEditSubBatchForm.controls['days'].value,
+          id: this.data.id,
+          bId: this.data.id,
+          batchType: this.addEditSubBatchForm.controls['batchType'].value,
+          subCourseID: this.addEditSubBatchForm.controls['subCourseID'].value,
+          tID: this.addEditSubBatchForm.controls['tID'].value,
+          cID: this.addEditSubBatchForm.controls['cID'].value,
           timings: this.addEditSubBatchForm.controls['timings'].value,
-          notes: this.addEditSubBatchForm.controls['notes'].value,
-          teacher: this.addEditSubBatchForm.controls['teacher'].value
+          duration: this.addEditSubBatchForm.controls['duration'].value,
+          startDate: this.addEditSubBatchForm.controls['startDate'].value,
+          daysList: this.addEditSubBatchForm.controls['daysList'].value,
+          notes: this.addEditSubBatchForm.controls['notes'].value
         };
         this.editSubBatch(editSubBatchData);
       } else {
         const addSubBatchData: addSubBatch = {
-          segment: this.addEditSubBatchForm.controls['segment'].value,
-          course: this.addEditSubBatchForm.controls['course'].value,
-          subCourse: this.addEditSubBatchForm.controls['subCourse'].value,
-          counsellor: this.addEditSubBatchForm.controls['counsellor'].value,
-          startDate: this.addEditSubBatchForm.controls['startDate'].value,
-          days: this.addEditSubBatchForm.controls['days'].value,
+          batchType: this.addEditSubBatchForm.controls['batchType'].value,
+          subCourseID: this.addEditSubBatchForm.controls['subCourseID'].value,
+          tID: this.addEditSubBatchForm.controls['tID'].value,
+          cID: this.addEditSubBatchForm.controls['cID'].value,
           timings: this.addEditSubBatchForm.controls['timings'].value,
-          notes: this.addEditSubBatchForm.controls['notes'].value,
-          teacher: this.addEditSubBatchForm.controls['teacher'].value
+          duration: this.addEditSubBatchForm.controls['duration'].value,
+          startDate: this.addEditSubBatchForm.controls['startDate'].value,
+          daysList: this.addEditSubBatchForm.controls['daysList'].value,
+          notes: this.addEditSubBatchForm.controls['notes'].value
         };
         this.addSubBatch(addSubBatchData);
       }
@@ -120,6 +165,7 @@ export class AddOrEditSubBatchesComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
+        this.adminService.openSection('subBatches');
       }, timeout);
     });
   }

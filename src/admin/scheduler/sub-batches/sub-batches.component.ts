@@ -5,6 +5,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, finalize } from 'rxjs';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 import { AdminService } from 'src/admin/admin.service';
 import { SubBatch } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
@@ -25,16 +26,16 @@ export class SubBatchesComponent {
   });
   public tempData: any;
   public displayedColumns = [
-    'sbId',
-    'segment',
-    'course',
-    'subCourse',
-    'teacher',
+    'id',
+    'bId',
+    'subcourseID',
+    'btype',
+    'tId',
+    'cId',
     'days',
     'timings',
     'startDate',
-    'noOfStudents',
-    'counsellor',
+    'durationOfCourse',
     'edit/delete',
   ];
   public subBatchesDataSource: MatTableDataSource<SubBatch>;
@@ -51,7 +52,8 @@ export class SubBatchesComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService : SharedService,
     ) {
     this.getSubBatchesDetails();
     this.subBatchesDataSource = new MatTableDataSource(this.subBatchesData);
@@ -64,6 +66,18 @@ export class SubBatchesComponent {
   ngAfterViewInit() {
     this.subBatchesDataSource.paginator = this.paginator;
     this.subBatchesDataSource.sort = this.sort;
+  }
+
+  openAddSubBatchForm(){
+    this.sharedService.openAddSubBatchForm();
+    this.adminService.openSection('addOrEditSubBatches');
+    sessionStorage.clear();
+  }
+
+  openEditSubBatchForm(subBatchData: any){
+    this.sharedService.openEditSubBatchForm(subBatchData);
+    this.adminService.openSection('addOrEditSubBatches');
+    sessionStorage.setItem('setSubBatch', JSON.stringify(subBatchData));
   }
 
   public deleteSubBatch() {
@@ -143,13 +157,11 @@ export class SubBatchesComponent {
   //get SubBatches form details
   private async getSubBatchesDetails() {
     if(localStorage.getItem('currentUser')){
-      await this.adminService.getSubBatchDetails();
-      this.subBatchesData = this.adminService.subBatchesList;
-      this.subBatchesDataSource = new MatTableDataSource(
-        this.subBatchesData
-      );
+      this.appService.getSubBatches().subscribe((res:any)=>{
+      this.subBatchesDataSource = new MatTableDataSource(res);
       this.subBatchesDataSource.paginator = this.paginator;
       this.subBatchesDataSource.sort = this.sort;
+      })
     }
   }
 

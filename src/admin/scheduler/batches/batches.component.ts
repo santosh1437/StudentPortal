@@ -8,6 +8,7 @@ import { Batch } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, finalize } from 'rxjs';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 
 @Component({
   selector: 'app-batches',
@@ -39,6 +40,7 @@ export class BatchesComponent {
   ];
   public BatchesDataSource: MatTableDataSource<Batch>;
   public BatchesData: any;
+  getSelectedBatch: any;
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator = new MatPaginator(
     new MatPaginatorIntl(),
@@ -51,7 +53,8 @@ export class BatchesComponent {
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public sharedService : SharedService,
     ) {
     this.getBatchesDetails();
     this.BatchesDataSource = new MatTableDataSource(this.BatchesData);
@@ -64,6 +67,18 @@ export class BatchesComponent {
   ngAfterViewInit() {
     this.BatchesDataSource.paginator = this.paginator;
     this.BatchesDataSource.sort = this.sort;
+  }
+
+  public openAddBatchForm(){
+    this.sharedService.openAddBatchForm();
+    this.adminService.openSection('addOrEditBatches');
+    sessionStorage.clear();
+  }
+
+  public openEditBatchForm(batch : any){
+    this.sharedService.openEditBatchForm(batch);
+    this.adminService.openSection('addOrEditBatches');
+    this.getSelectedBatch = sessionStorage.setItem('setBatchData',JSON.stringify(batch));
   }
 
   public deleteBatch() {
@@ -152,6 +167,7 @@ export class BatchesComponent {
     //   this.BatchesDataSource.sort = this.sort;
     // }
     this.appService.getBatches().subscribe((res:any)=>{
+      console.log(res);
          this.BatchesDataSource = new MatTableDataSource(res);
       this.BatchesDataSource.paginator = this.paginator;
       this.BatchesDataSource.sort = this.sort;

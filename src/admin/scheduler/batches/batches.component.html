@@ -35,7 +35,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditBatches');"> Create Batch </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddBatchForm()"> Create Batch </button>
     </div> 
 
     <mat-table [dataSource]="BatchesDataSource" matSort>
@@ -90,7 +90,7 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.openSection('addOrEditBatches');" style="cursor: pointer;">
+                        (click)="openEditBatchForm(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>

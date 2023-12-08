@@ -33,7 +33,7 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditStudentCourses');"> Add Course </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddStudentCourseForm()"> Add Course </button>
     </div> 
     <mat-table [dataSource]="TeacherCourseDataSource" matSort>
         <!-- ID Column -->
@@ -68,12 +68,12 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.editCounselorObj = element;adminService.openSection('addEditTeacherCourses');" style="cursor: pointer;">
+                        (click)="openEditStudentCourseForm(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteTeacherCourseConfirm(element?.tID)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteStudentCourseConfirm(element?.id)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
@@ -122,7 +122,7 @@
             {{appService.httpClientMsg}}</p>
     </div>
 </ng-template>
-<ng-template #deleteTeacherCourseConfirm>
+<ng-template #deleteStudentCourseConfirm>
     <div mat-dialog-title>
         <span>Delete Teacher?</span>
     </div>
@@ -134,6 +134,6 @@
     <hr/>
     <div mat-dialog-actions class="justify-content-between m-2">
         <button mat-button (click)="closeModal()">Cancel</button>
-        <button style="color: black;" mat-button (click)="deleteTeacherCourse()" cdkFocusInitial>Ok</button>
+        <button style="color: black;" mat-button (click)="deleteStudentCourse()" cdkFocusInitial>Ok</button>
     </div>
 </ng-template>

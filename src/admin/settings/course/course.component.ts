@@ -20,6 +20,7 @@ export class CourseComponent {
     'id',
     'segment',
     'course',
+    'curriculum',
     'teachers',
     'batch',
     'action',

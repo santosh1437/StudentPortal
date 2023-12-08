@@ -23,6 +23,7 @@ export class AddOrEditStudentCoursesComponent {
   public deleteId: number = 0;
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
   public StudentsData: any;
+  datas: any;
   @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   dialogRef: any;
@@ -43,6 +44,7 @@ export class AddOrEditStudentCoursesComponent {
     })
   }
   ngOnInit(): void {
+    this.getStudentCourse();
     this.getStudent();
     this.getSubCourse();
     this.getCounsellor();
@@ -77,6 +79,11 @@ export class AddOrEditStudentCoursesComponent {
     })
   }
 
+  getStudentCourse(){
+    this.datas = sessionStorage.getItem('setStudentCourse');
+    this.data = JSON.parse(this.datas);
+  }
+
   openDeleteTeacherCourseConfirm(ID:any){
     this.deleteId = ID;
     this.dialogRef = this.dialog.open(this.deleteAminConfirmDialog , {
@@ -104,6 +111,7 @@ export class AddOrEditStudentCoursesComponent {
     if(this. addEditCourseCourseForm.valid){
       if(this.data){
         const editStudentCourseData : courseStudent ={
+          id: this.data.id,
           sID: this.addEditCourseCourseForm.controls['sID'].value,
           cID: this. addEditCourseCourseForm.controls['cID'].value,
           courseID: this. addEditCourseCourseForm.controls['courseID'].value,
@@ -128,7 +136,6 @@ export class AddOrEditStudentCoursesComponent {
   // }
 
   public addStudentCourse(addCourse: addCourseStudent){
-    alert("add");
     this.appService.addStudentCourse(addCourse).subscribe({
       next:(res) => {
         this.success = true;
@@ -170,7 +177,7 @@ export class AddOrEditStudentCoursesComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('students');
+        this.adminService.openSection('studentCourseDetails');
       }, timeout);
     });
   }

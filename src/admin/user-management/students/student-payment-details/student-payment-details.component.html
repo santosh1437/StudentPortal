@@ -33,13 +33,17 @@
     </div>
 
     <div class="mx-2 mb-4">
-        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="adminService.openSection('addOrEditStudentPayments');"> Add Payment </button>
+        <button class="customBtn btn btn-primary p-2 px-5 fs-4" (click)="openAddPaymentForm()"> Add Payment </button>
     </div> 
     <mat-table [dataSource]="StudentPaymentDataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> S.No </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="sid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> SID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sID}} </mat-cell>
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="totalFee">
@@ -54,7 +58,7 @@
         <!-- Phone no. Column -->
         <ng-container matColumnDef="paidOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Paid On </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.paidOn}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.paidOn | date:'medium'}} </mat-cell>
         </ng-container>
         <!-- Student Type Column -->
         <ng-container matColumnDef="paymentMethod">
@@ -74,7 +78,7 @@
         <!-- Student Type Column -->
         <ng-container matColumnDef="dueDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.dueDate}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.dueDate | date:'medium'}} </mat-cell>
         </ng-container>
         <!-- edit/delete -->
         <ng-container matColumnDef="edit/delete" >
@@ -83,12 +87,12 @@
                 <ul class="list-unstyled p-2 px-3 mb-0">
                     <li>
                         <a class="d-flex text-decoration-none custom-icon"
-                        (click)="adminService.editCounselorObj = element;adminService.openSection('addEditStudentPaymentCourses');" style="cursor: pointer;">
+                        (click)="openEditPaymentForm(element)" style="cursor: pointer;">
                             <mat-icon class="fs-2 px-1 ">edit</mat-icon> Edit
                         </a>
                     </li>
                     <li *ngIf="element.email != this.adminService.currentUser.email">
-                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteStudentPaymentCourseConfirm(element?.tID)" style="cursor:pointer;">
+                        <a class="d-flex text-decoration-none custom-icon" (click)="openDeleteStudentPaymentCourseConfirm(element?.id)" style="cursor:pointer;">
                             <mat-icon class="fs-2 px-1 ">delete_outline</mat-icon> Delete
                         </a>
                     </li>
@@ -118,7 +122,7 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
         aria-label="Students details page"></mat-paginator>
 
-    <div mat-dialog-actions class="my-5">
+    <!-- <div mat-dialog-actions class="my-5">
         <div class="col-lg-5 col-md-12">
             <button mat-raised-button type="button" class="" (click)="adminService.openSection('studentCourseDetails')">Cancel</button>
         </div>
@@ -126,7 +130,7 @@
             <button mat-raised-button color="primary" class="float-lg-end" (click)="adminService.openSection('students')">
                 Finish </button>
         </div>
-    </div>
+    </div> -->
 </section>
 
 <ng-template #successMsg>

@@ -23,6 +23,9 @@ export class AddOrEditPaymentDetailsComponent {
   public deleteId: number = 0;
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
   public StudentsData: any;
+  public studentList: any;
+  paymentData: any;
+  datas : any;
   @ViewChild('deleteTeacherConfirm') deleteAminConfirmDialog = {} as TemplateRef<any>;
   @ViewChild('successMsg') successDialog = {} as TemplateRef<any>;
   dialogRef: any;
@@ -44,15 +47,29 @@ export class AddOrEditPaymentDetailsComponent {
       paymentType: new FormControl('', [Validators.required]),
       dueDate: new FormControl('', [Validators.required]),
       dueAmount: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.required]),
+      comment: '',
       sID: this.selectedSID,
     })
   }
   selectedSID: any;
   ngOnInit(): void {
+    this.getSelectedPayment();
     this. addEditTeacherCourseForm.patchValue(this.data);
     this.selectedSID = localStorage.getItem('StudentID');
     console.log(this.selectedSID);
+    this.getStudentData();
+  }
+
+  getSelectedPayment(){
+    this.paymentData = sessionStorage.getItem('setPayment');
+    this.datas = JSON.parse(this.paymentData);
+    this.data = this.datas;
+  }
+
+  getStudentData(){
+    this.appService.getStudents().subscribe((res:any)=>{
+      this.studentList = res;
+    })
   }
 
   openDeleteTeacherCourseConfirm(ID:any){
@@ -82,7 +99,7 @@ export class AddOrEditPaymentDetailsComponent {
     if(this. addEditTeacherCourseForm.valid){
       if(this.data){
         const editPayemtData : payment ={
-          pID: this.addEditTeacherCourseForm.controls['pID'].value,
+          id: this.data.id,
           sID: this. addEditTeacherCourseForm.controls['sID'].value,
           totalFee: this. addEditTeacherCourseForm.controls['totalFee'].value,
           amountPaid: this. addEditTeacherCourseForm.controls['amountPaid'].value,
@@ -138,7 +155,7 @@ export class AddOrEditPaymentDetailsComponent {
         console.log(res);
         this.success = true;
         this.err = false;
-        this.successMsgDialog('Teacher updated successfully');
+        this.successMsgDialog('payment updated successfully');
       },
       error: (err) => {
         this.err = true;
@@ -157,7 +174,7 @@ export class AddOrEditPaymentDetailsComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
-        this.adminService.openSection('students');
+        this.adminService.openSection('studentPaymentDetails');
       }, timeout);
     });
   }

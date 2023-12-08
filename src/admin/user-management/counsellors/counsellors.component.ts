@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  OnInit,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -13,13 +14,14 @@ import { Counsellor } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 import { AddOrEditCounsellorComponent } from './add-or-edit-counsellor/add-or-edit-counsellor.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedService } from 'src/admin/Service/sharedService/shared.service';
 
 @Component({
   selector: 'app-counsellors',
   templateUrl: './counsellors.component.html',
   styleUrls: ['./counsellors.component.css'],
 })
-export class CounsellorsComponent {
+export class CounsellorsComponent implements OnInit{
   public deleteId: string = '';
   public success: boolean = false;
   public err: boolean = false;
@@ -54,23 +56,40 @@ export class CounsellorsComponent {
   @ViewChild('deleteTeacherConfirm') deleteCounsellorConfirmDialog =
     {} as TemplateRef<any>;
   dialogRef: any;
+  getSelectedCounsellor: any;
 
   constructor(
     public appService: AppService,
     public adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sharedService : SharedService,
   ) {
     // this.getCounsellorsDetails();
     this.CounsellorsDataSource = new MatTableDataSource(this.adminService.counselorsList);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getCounsellorsDetails();
   }
+
 
   ngAfterViewInit() {
     this.CounsellorsDataSource.paginator = this.paginator;
     this.CounsellorsDataSource.sort = this.sort;
+  }
+
+  public openAddCounsellorForm(){
+    this.sharedService.openAddCounsellorForm();
+    this.adminService.openSection('addEditCounsellors');
+    sessionStorage.clear();
+    this.adminService.url = null;
+  }
+
+  public openEditCounsellorForm(counsellor : any){
+    this.sharedService.openEditCounsellorForm(counsellor);
+    console.log(counsellor);
+    this.adminService.openSection('addEditCounsellors');
+    this.getSelectedCounsellor = sessionStorage.setItem('setCounsellor',JSON.stringify(counsellor));
   }
 
   public openDeleteCounsellorConfirm(ID: any) {
@@ -80,6 +99,8 @@ export class CounsellorsComponent {
     });
   }
 
+  
+
   public deleteCounsellor() {
     this.appService.deleteCounselor(this.deleteId).subscribe({
       next: (res) => {
@@ -88,6 +109,7 @@ export class CounsellorsComponent {
         this.err = false;
         this.successMsgDialog('Counseller deleted Successfully');
         this.getCounsellorsDetails();
+        this.adminService.openSection('counsellors');
       },
       error: (err) => {
         this.closeModal();
@@ -138,12 +160,17 @@ export class CounsellorsComponent {
   //get Teachers form details
   private async getCounsellorsDetails() {
     if (localStorage.getItem('currentUser')) {
-      await this.adminService.getCounsellorDetails();
-      this.CounsellorsDataSource = new MatTableDataSource(
-        this.adminService.counselorsList
-      );
-      this.CounsellorsDataSource.paginator = this.paginator;
-      this.CounsellorsDataSource.sort = this.sort;
+      this.appService.getCounselor().subscribe({
+        next: (res) => {
+          this.CounsellorsDataSource = new MatTableDataSource(res),
+            this.CounsellorsDataSource.paginator = this.paginator;
+          this.CounsellorsDataSource.sort = this.sort;
+        },
+        error: (err) => {
+          console.log(err.message);
+        }
+      })
+
     }
   }
 
@@ -179,6 +206,7 @@ export class CounsellorsComponent {
     dialogRef.afterOpened().subscribe((_) => {
       setTimeout(() => {
         dialogRef.close();
+        // this.adminService.openSection('counsellors');
       }, timeout);
     });
   }
