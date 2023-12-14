@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/admin/admin.service';
 import { AddCourseToTeacher } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
-import emailjs from '@emailjs/browser';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
   selector: 'app-schedule-live-demo',
@@ -14,7 +14,7 @@ import emailjs from '@emailjs/browser';
 })
 export class ScheduleLiveDemoComponent {
   public data: any;
-  public scheduleLiveDemoForm: FormGroup;
+  public scheduleLiveDemoForm:any = FormGroup;
   public success: boolean = false;
   public err: boolean = false;
   public TeacherCourseDataSource: MatTableDataSource<AddCourseToTeacher>;
@@ -26,6 +26,10 @@ export class ScheduleLiveDemoComponent {
   dialogRef: any;
   getJitsiUrl: any;
   selectedJitsiUrl: any;
+  getSelectedMeetingUrl: any;
+  selectedDemoId: any;
+  getJitsiLiveUrl: any;
+  selectedliveDemoID: any;
 
   constructor(
     public appService: AppService,
@@ -53,12 +57,25 @@ export class ScheduleLiveDemoComponent {
       name:'',
       tID:'',
       course:'',
-    })
+    });
+
+    emailjs.init('gEHM9lKBM_59tGXls');
   }
   ngOnInit(): void {
-    this. scheduleLiveDemoForm.patchValue(this.data);
+    this.scheduleLiveDemoForm.patchValue(this.data);
     this.getTeacherList();
-    this.getLiveDemoList();
+    this.LiveDemoList();
+  }
+  
+  postData() {
+    const selectedDate = this.scheduleLiveDemoForm.get('todayDate').value;
+
+    // Add one day to the selected date
+    const additionalDate = new Date(selectedDate);
+    additionalDate.setDate(selectedDate.getDate() + 1);
+
+    // Update the form control value with the additional date
+    this.scheduleLiveDemoForm.get('todayDate').setValue(additionalDate);
   }
 
   getTeacherList(){
@@ -67,14 +84,17 @@ export class ScheduleLiveDemoComponent {
     })
   }
 
-  getLiveDemoList(){
+  LiveDemoList(){
     this.appService.getLiveDemoMeeting().subscribe((res:any)=>{
-      this.liveDemoData = res;
-      for(let data of this.liveDemoData){
-        this.getJitsiUrl = data.jitsiUrl;
-        console.log(this.getJitsiUrl);
-        this.selectedJitsiUrl = this.getJitsiUrl;
+      console.log(res);
+      for(let data of res){
+        this.getJitsiLiveUrl = data.jitsiUrl;
+        this.selectedDemoId = data.demoId;
+        console.log(this.selectedDemoId);
+        if(this.getSelectedMeetingUrl === this.selectedDemoId){
+          this.selectedJitsiUrl = this.getJitsiLiveUrl;
         console.log(this.selectedJitsiUrl);
+        }
       }
     })
   }
@@ -82,34 +102,22 @@ export class ScheduleLiveDemoComponent {
   
 
   public scheduleLiveDemo(){
-    // if(this.scheduleInterviewForm.valid){
-    //   if(this.data){
-    //     const editTeacherCourseData : AddCourseToTeacher ={
-    //       tID: this.scheduleInterviewForm.controls['tID'].value,
-    //       subject: this. scheduleInterviewForm.controls['subject'].value,
-    //       course: this. scheduleInterviewForm.controls['course'].value,
-    //       segment: this. scheduleInterviewForm.controls['segment'].value,
-    //       subCourse: this. scheduleInterviewForm.controls['subCourse'].value,
-    //     };
-    //     this.editTeacherCourse(editTeacherCourseData)
-    //   }else{
-    //     const addTeacherCourseData : AddCourseToTeacher ={
-    //       tID: this.scheduleInterviewForm.controls['tID'].value,
-    //       subject: this. scheduleInterviewForm.controls['subject'].value,
-    //       course: this. scheduleInterviewForm.controls['course'].value,
-    //       segment: this. scheduleInterviewForm.controls['segment'].value,
-    //       subCourse: this. scheduleInterviewForm.controls['subCourse'].value,
-    //     };
-    //     this.addTeacherCourse(addTeacherCourseData);
-    //   }
-    // }
+    // this.getSelectedMeetingUrl = [];
+    console.log(this.scheduleLiveDemoForm.value);
+    this.postData();
     this.appService.addLiveDemoMeeting(this.scheduleLiveDemoForm.value).subscribe({
       next:(res)=>{
         console.log(res);
+        this.LiveDemoList();
+        this.getSelectedMeetingUrl = res.id;
+        console.log(this.getSelectedMeetingUrl);
         this.success = true;
         this.err = false;
         this.successMsgDialog('Live Demo Added successfully');
-        this.sendEmail();
+        setTimeout(()=>{
+          this.sendEmail();
+        },5000)
+        
       },
       error:(err)=>{
         this.success = false;
@@ -120,14 +128,15 @@ export class ScheduleLiveDemoComponent {
   }
 
  async sendEmail(){
-    emailjs.init('gEHM9lKBM_59tGXls');
-    let response  = await emailjs.send("service_8sbjv1c","template_7o9i6tf",{
+    emailjs.send("service_8sbjv1c","template_vb8cwdf",{
       from_name: "EdutechEx",
       name: this.scheduleLiveDemoForm.value.name,
-      topic : this.scheduleLiveDemoForm.value.topic,
+      topic: this.scheduleLiveDemoForm.value.topic,
+      todayDate: this.scheduleLiveDemoForm.value.todayDate,
       duration: this.scheduleLiveDemoForm.value.duration,
-      jitsiLink: this.selectedJitsiUrl,
-      reply_to: "office@edutechex.com",
+      jitsiUrl: this.selectedJitsiUrl,
+      senderName: 'www.edutechex.com',
+      candidate: this.scheduleLiveDemoForm.value.candidate,
       });
   }
 

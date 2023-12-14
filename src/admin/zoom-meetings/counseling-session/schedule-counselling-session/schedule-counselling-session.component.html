@@ -5,6 +5,12 @@
     <form [formGroup]="scheduleCounsellingForm" (ngSubmit)="scheduleCounselling()">
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Topic</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <input matInput placeholder="Enter Topic" formControlName="topic">
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4"> Date :</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <input matInput [matDatepicker]="picker" placeholder="Enter Date" formControlName="date">
@@ -13,41 +19,16 @@
                 </mat-form-field>
             </div>
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Time</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Duration</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <mat-label>Select Time</mat-label>
-                    <mat-select formControlName="time">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.course">
-                        <span *ngIf="(element?.segment == scheduleCounsellingForm.controls['segment'].value) || (element?.segment == '')">{{element.course}}</span>
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                    <input matInput placeholder="10:00AM - 11:00AM" formControlName="duration">
+                </mat-form-field>
             </div>
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Zoom Account</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <mat-label>Select Zoom Account</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            </div>
+            
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Student Email:</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Student Email" formControlName="studentMailID">
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Host Email :</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter host Email" formControlName="hostMailID">
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Co-Host Email:</mat-label>
-                <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter co-host Email" formControlName="coHostMailID">
+                    <input matInput placeholder="Enter Student Email" formControlName="studentMail">
                 </mat-form-field>
             </div>
         </div>
@@ -59,16 +40,22 @@
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Student Name:</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter co-host Email" formControlName="name">
+                    <input matInput placeholder="Enter co-host Email" formControlName="studentName">
                 </mat-form-field>
             </div>
 
             <div class="col-lg-6 row">
-                <mat-label class="col-12 pb-2 fs-4">Counsellor</mat-label>
+                <mat-label class="col-12 pb-2 fs-4">Counsellor (Optional)</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <mat-label>Select Counsellor</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    <mat-select formControlName="cID">
+                        <ng-container *ngFor="let data of counsellorList">
+                            <mat-option *ngIf="data.counsellorType === 'Counselor'"  [value]="data.cID">
+                                <ng-container >
+                                    {{data.cID}}
+                                </ng-container>
+                             </mat-option>
+                        </ng-container>
                     </mat-select>
                   </mat-form-field>
             </div>
@@ -77,8 +64,14 @@
                 <mat-label class="col-12 pb-2 fs-4">Sr.Counsellor</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <mat-label>Select Sr.Counsellor</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    <mat-select formControlName="sRcID">
+                        <ng-container *ngFor="let data of counsellorList">
+                            <mat-option *ngIf="data.counsellorType === 'Senior Counselor'"  [value]="data.cID">
+                                <ng-container >
+                                    {{data.cID}}
+                                </ng-container>
+                             </mat-option>
+                        </ng-container>
                     </mat-select>
                   </mat-form-field>
             </div>
@@ -87,8 +80,10 @@
                 <mat-label class="col-12 pb-2 fs-4">Segment</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <mat-label>Select Segment</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    <mat-select formControlName="segment"  >
+                        <mat-option *ngFor="let data of segmentList" [value]="data.segmentName">
+                            <ng-container>{{data.segmentName}}</ng-container>
+                        </mat-option>
                     </mat-select>
                   </mat-form-field>
             </div>
@@ -96,10 +91,7 @@
             <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Grade</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <mat-label>Select Grade</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
-                    </mat-select>
+                    <input matInput placeholder="Enter Grade " formControlName="grade">
                   </mat-form-field>
             </div>
 
@@ -107,8 +99,11 @@
                 <mat-label class="col-12 pb-2 fs-4">Curriculum</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
                     <mat-label>Select Curriculum</mat-label>
-                    <mat-select formControlName="zoomAccount">
-                      <mat-option *ngFor="let element of adminService.coursesList" value="element.subCourse">{{element.subCourse}}</mat-option>
+                    <mat-select formControlName="curriculum">
+                      <mat-option value="IB/IBDP">IB/IBDP</mat-option>
+                      <mat-option value="IGCSE">IGCSE</mat-option>
+                      <mat-option value="CBSE">CBSE</mat-option>
+                      <mat-option value="STATE">STATE</mat-option>
                     </mat-select>
                   </mat-form-field>
             </div>

@@ -53,7 +53,7 @@ export class LiveDemoComponent {
     //   ChangeDetectorRef.prototype
     // );
 
-    @ViewChild('empTbSort') empTbSort = new MatSort();
+  @ViewChild('empTbSort') empTbSort = new MatSort();
   @ViewChild('empTbSortWithObject') empTbSortWithObject = new MatSort();
 
   @ViewChild('paginatorFirst')

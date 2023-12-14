@@ -298,4 +298,16 @@ export class AppService {
   getInterviewMeeting(): Observable<any>{
     return this.httpClient.get<any>(`${this.baseUrlAPI}/meeting`);
   }
+
+
+  //Counselling Session Jitsi meeting
+  addCounsellingSessionMeeting(counselling:any): Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrlAPI}/CounsellingSession`,counselling);
+  }
+  getCounsellingSessionUpcomingmeeting(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/CounsellingSession/upcomingDate`);
+  }
+  getCounsellingSessionPastMetting(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/CounsellingSession/pastDate`);
+  }
 }
