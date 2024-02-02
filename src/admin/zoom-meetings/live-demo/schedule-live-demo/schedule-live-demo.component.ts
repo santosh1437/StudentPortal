@@ -30,6 +30,11 @@ export class ScheduleLiveDemoComponent {
   selectedDemoId: any;
   getJitsiLiveUrl: any;
   selectedliveDemoID: any;
+  allSegmentData: any;
+  allSubCourseData: any;
+  selectedCourse: any;
+  diplayedCourse: any;
+
 
   constructor(
     public appService: AppService,
@@ -49,7 +54,7 @@ export class ScheduleLiveDemoComponent {
       // tID: new FormControl('', [Validators.required]),
       // course:'',
       // coHost: new FormControl('', [Validators.required])
-
+      segment : '',
       topic : '',
       todayDate:'',
       duration:'',
@@ -65,6 +70,8 @@ export class ScheduleLiveDemoComponent {
     this.scheduleLiveDemoForm.patchValue(this.data);
     this.getTeacherList();
     this.LiveDemoList();
+    this.getAllSegmentList();
+    this.getAllSubCourseList();
   }
   
   postData() {
@@ -96,6 +103,47 @@ export class ScheduleLiveDemoComponent {
         console.log(this.selectedJitsiUrl);
         }
       }
+    })
+  }
+
+  onSelect(val: any, init?: any){
+    // alert("clicked");
+    // debugger
+    console.log(val);
+    if(val){
+      this.diplayedCourse = [];
+      this.allSegmentData.map((res:any)=>{
+        if(res.segmentName == val){
+          this.allSubCourseData.map((resp:any)=>{
+            if(res.segmentName == resp.segment){
+              this.selectedCourse = this.allSubCourseData;
+              this.diplayedCourse.push(resp);
+              if (init){
+                this.onSelectSub(this.selectedCourse);
+                this.diplayedCourse = this.selectedCourse;
+              }
+            }
+          })
+        }
+      })
+    }
+  }
+  onSelectSub(val2: any){
+
+  }
+
+  
+  getAllSegmentList(){
+    this.appService.getSegments().subscribe((res:any)=>{
+      this.allSegmentData = res;
+    })
+  }
+
+ 
+  getAllSubCourseList(){
+    this.appService.getSubCourse().subscribe((res:any)=>{
+      this.allSubCourseData = res;
+      console.log(this.allSubCourseData);
     })
   }
 

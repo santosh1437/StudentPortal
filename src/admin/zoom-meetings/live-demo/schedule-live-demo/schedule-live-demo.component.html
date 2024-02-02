@@ -5,9 +5,30 @@
     <form [formGroup]="scheduleLiveDemoForm" (ngSubmit)="scheduleLiveDemo()">
         <div class="row justify-content-center">
             <div class="col-lg-6 row">
+                <mat-label class="col-12 pb-2 fs-4">Select Segment</mat-label>
+                <mat-form-field appearance="outline" class="col-8">
+                    <mat-label>Select Segment</mat-label>
+                    <mat-select formControlName="segment" >
+                        <mat-option *ngFor="let item of allSegmentData; let i=index" [value]="item?.segmentName" (click)="onSelect(val.value)" #val>
+                            <ng-container>
+                                {{ item?.segmentName }}
+                            </ng-container>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 row">
                 <mat-label class="col-12 pb-2 fs-4">Topic</mat-label>
                 <mat-form-field appearance="outline" class="col-8">
-                    <input matInput placeholder="Enter Topic" formControlName="topic">
+                    <!-- <input matInput placeholder="Enter Topic" formControlName="topic"> -->
+                    <mat-label>Select Course</mat-label>
+                <mat-select formControlName="topic" (click)='onSelectSub(val2.value)' #val2>
+                    <mat-option *ngFor="let item of diplayedCourse; let i=index" [value]="item?.subCourseID">
+                        <ng-container>
+                            {{ item?.subCourseID }}
+                        </ng-container>
+                    </mat-option>
+                </mat-select>
                 </mat-form-field>
             </div>
             <!-- <div class="col-lg-6 row">

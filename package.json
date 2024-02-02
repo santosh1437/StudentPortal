@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "@dytesdk/angular-ui-kit": "^1.60.1",
+    "@dytesdk/web-core": "^1.21.1",
     "@emailjs/browser": "^3.11.0",
     "@popperjs/core": "^2.11.8",
     "@zoomus/websdk": "^2.18.0",

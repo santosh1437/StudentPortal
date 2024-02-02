@@ -304,6 +304,9 @@ export class AppService {
   addCounsellingSessionMeeting(counselling:any): Observable<any>{
     return this.httpClient.post<any>(`${this.baseUrlAPI}/CounsellingSession`,counselling);
   }
+  getCounsellingSessionMeeting(): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrlAPI}/CounsellingSession`);
+  }
   getCounsellingSessionUpcomingmeeting(): Observable<any>{
     return this.httpClient.get<any>(`${this.baseUrlAPI}/CounsellingSession/upcomingDate`);
   }
