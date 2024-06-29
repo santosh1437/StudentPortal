@@ -1,12 +1,21 @@
-<div id="jitsi-iframe"></div>
-
-<!--For Custom Controls-->
-<div class="item-center">
-    <span>Custom Controls</span>
-</div>
-<div class="item-center"> 
-    <i (click)="executeCommand('toggleAudio')" class="fas fa-2x grey-color" [ngClass]="isAudioMuted ? 'fa-microphone-slash' : 'fa-microphone'" aria-hidden="true" title="Mute / Unmute"></i>
-    <i (click)="executeCommand('hangup')" class="fas fa-phone-slash fa-2x red-color" aria-hidden="true" title="Leave"></i>
-    <i (click)="executeCommand('toggleVideo')" class="fas fa-2x grey-color" [ngClass]="isVideoMuted ? 'fa-video-slash' : 'fa-video'" aria-hidden="true" title="Start / Stop camera"></i>
-    <i (click)="executeCommand('toggleShareScreen')" class="fas fa-film fa-2x grey-color" aria-hidden="true" title="Share your screen"></i>
-</div>
+<div class="container">
+    <div>Screen record</div>
+    <div>
+      <button *ngIf="state === 'NONE'" (click)="startRecording()">
+        Start record
+      </button>
+      <button *ngIf="state === 'RECORDING'" (click)="stopRecording()">
+        Stop record
+      </button>
+      <button *ngIf="state === 'RECORDED'" (click)="downloadRecording()">
+        Download video
+      </button>
+      <button *ngIf="state === 'RECORDED'" (click)="clearRecording()">
+        Clear record
+      </button>
+    </div>
+    <video #videoElement class="video-container" controls autoplay playsInline>
+      <source [src]="videoBlobUrl" />
+    </video>
+  </div>
+  

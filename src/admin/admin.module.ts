@@ -66,6 +66,7 @@ import { ZoomMeeting1Component } from './zoom-meetings/zoom-settings/zoom-meetin
 import { AuthConfig, OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { ZoomService } from './Service/zoom.service';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { VideoRecordingService } from './zoom-meetings/video-recording.service';
 // import { ScheduleSessionComponent } from './schedule-session/schedule-session.component';
 
 
@@ -162,7 +163,7 @@ const authConfig: AuthConfig = {
   exports: [AdminPageComponent,
     DashboardComponent,
     UserManagementComponent],
-    providers: [ZoomService]
+    providers: [ZoomService, VideoRecordingService]
 })
 export class AdminModule { 
   // constructor(private oauthService: OAuthService) {

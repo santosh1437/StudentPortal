@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ZoomService } from '../Service/zoom.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { Router } from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { VideoRecordingService } from './video-recording.service';
+
+type RecordingState = 'NONE' | 'RECORDING' | 'RECORDED';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -13,115 +13,56 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class ZoomMeetingsComponent implements OnInit, AfterViewInit {
 
-  scheduleMeetingForm:any = FormGroup;
-
-
-    domain: string = "meet.jit.si"; // For self hosted use your domain
-    room: any;
-    options: any;
-    api: any;
-    user: any;
-
-    // For Custom Controls
-    isAudioMuted = false;
-    isVideoMuted = false;
-
+    @ViewChild('videoElement') videoElement: any;
+    title = 'record-rtc-screen-demo';
+    videoBlobUrl: any = null;
+    video: any;
+    state: RecordingState = 'NONE';
+  
     constructor(
-        private router: Router
-    ) { }
-
+      private videoRecordingService: VideoRecordingService,
+      private ref: ChangeDetectorRef,
+      private sanitizer: DomSanitizer
+    ) {
+      this.videoRecordingService.getMediaStream().subscribe((data) => {
+        this.video.srcObject = data;
+        this.ref.detectChanges();
+      });
+      this.videoRecordingService.getBlob().subscribe((data) => {
+        this.videoBlobUrl = this.sanitizer.bypassSecurityTrustUrl(data);
+        this.video.srcObject = null;
+        this.ref.detectChanges();
+      });
+    }
     ngOnInit(): void {
-        this.room = 'jitsiMeetingAPIExample'; // Set your room name
-        this.user = {
-            name: 'Edutechex Global' // Set your username
-        }
+        
     }
-
+  
     ngAfterViewInit(): void {
-        this.options = {
-            roomName: this.room,
-            width: 900,
-            height: 500,
-            configOverwrite: { prejoinPageEnabled: false },
-            interfaceConfigOverwrite: {
-                // overwrite interface properties
-                TILE_VIEW_MAX_COLUMNS: 8
-            },
-            parentNode: document.querySelector('#jitsi-iframe'),
-            userInfo: {
-                displayName: this.user.name
-            }
-        }
-
-        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-
-         // Event handlers
-        this.api.addEventListeners({
-            readyToClose: this.handleClose,
-            participantLeft: this.handleParticipantLeft,
-            participantJoined: this.handleParticipantJoined,
-            videoConferenceJoined: this.handleVideoConferenceJoined,
-            videoConferenceLeft: this.handleVideoConferenceLeft,
-            audioMuteStatusChanged: this.handleMuteStatus,
-            videoMuteStatusChanged: this.handleVideoStatus
-        });
-      }
-
-      handleClose = () => {
-        console.log("handleClose");
+      //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+      //Add 'implements AfterViewInit' to the class.
+      this.video = this.videoElement.nativeElement;
     }
-
-    handleParticipantLeft = async (participant: any) => {
-        console.log("handleParticipantLeft", participant); // { id: "2baa184e" }
-        const data = await this.getParticipants();
+  
+    startRecording() {
+      this.videoRecordingService.startRecording();
+      this.state = 'RECORDING';
     }
-
-    handleParticipantJoined = async (participant: any) => {
-        console.log("handleParticipantJoined", participant); // { id: "2baa184e", displayName: "Shanu Verma", formattedDisplayName: "Shanu Verma" }
-        const data = await this.getParticipants();
+  
+    stopRecording() {
+      this.videoRecordingService.stopRecording();
+      this.state = 'RECORDED';
     }
-
-    handleVideoConferenceJoined = async (participant: any) => {
-        console.log("handleVideoConferenceJoined", participant); // { roomName: "bwb-bfqi-vmh", id: "8c35a951", displayName: "Akash Verma", formattedDisplayName: "Akash Verma (me)"}
-        const data = await this.getParticipants();
+  
+    downloadRecording() {
+      this.videoRecordingService.downloadRecording();
     }
-
-    handleVideoConferenceLeft = () => {
-        console.log("handleVideoConferenceLeft");
-        this.router.navigate(['/']);
+  
+    clearRecording() {
+      this.videoRecordingService.clearRecording();
+      this.video.srcObject = null;
+      this.videoBlobUrl = null;
+      this.state = 'NONE';
     }
-
-    handleMuteStatus = (audio: any) => {
-        console.log("handleMuteStatus", audio); // { muted: true }
-    }
-
-    handleVideoStatus = (video: any) => {
-        console.log("handleVideoStatus", video); // { muted: true }
-    }
-
-    getParticipants() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(this.api.getParticipantsInfo()); // get all participants
-            }, 500)
-        });
-    }
-
-
-    executeCommand(command: string) {
-      this.api.executeCommand(command);;
-      if(command == 'hangup') {
-          this.router.navigate(['/']);
-          return;
-      }
-
-      if(command == 'toggleAudio') {
-          this.isAudioMuted = !this.isAudioMuted;
-      }
-
-      if(command == 'toggleVideo') {
-          this.isVideoMuted = !this.isVideoMuted;
-      }
-  }
   
 }
