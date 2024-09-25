@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminPageComponent,
-    canActivate: [MyGuardGuard],
+    // canActivate: [MyGuardGuard],
   },
   {
     path:'zoom1',
